@@ -10,7 +10,7 @@
                     <div class="d-flex align-items-center"><span class="nav-link-text">Add product</span></div>
                   </a><!-- more inner pages-->
                 </li>
-                <li class="nav-item"><a class="nav-link" href="/products.html">
+                <li class="nav-item"><a class="nav-link" href="{{ route("admin.product.list") }}">
                     <div class="d-flex align-items-center"><span class="nav-link-text">Products</span></div>
                   </a><!-- more inner pages-->
                 </li>
@@ -379,3 +379,5 @@
         navbarVertical.setAttribute('data-navbar-appearance', 'darker');
       }
     </script>
+
+

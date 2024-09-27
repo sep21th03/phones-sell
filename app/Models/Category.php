@@ -12,7 +12,11 @@ class Category extends Model
         'name',
     ];
     protected $table = 'categories';
-
+    protected $primaryKey = 'id';
+    public $timestamps = false;
+    public function phones() {
+        return $this->hasMany(Product::class, 'category_id');
+    }
     public static function search($query)
     {
         return self::where('name', 'LIKE', "%{$query}%")->get();

@@ -19,9 +19,11 @@
   <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
   <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+  <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
-
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/basic.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.2/dropzone.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
   <link rel="apple-touch-icon" sizes="180x180" href="{{ url('assets/img/favicons/apple-touch-icon.png') }}">
   <link rel="icon" type="image/png" sizes="32x32" href="{{ url('assets/img/favicons/favicon-32x32.png') }}">
   <link rel="icon" type="image/png" sizes="16x16" href="{{ url('assets/img/favicons/favicon-16x16.png') }}">
@@ -31,11 +33,7 @@
   <meta name="theme-color" content="#ffffff">
   <script src="{{ url('vendors/simplebar/simplebar.min.js') }}"></script>
   <script src="{{ url('assets/js/config.js') }}"></script>
-  <!-- <link rel="preconnect" href="../../../fonts.googleapis.com/index.html">
-  <link rel="preconnect" href="../../../fonts.gstatic.com/index.html" crossorigin="">
-  <link href="../../../fonts.googleapis.com/css275fb.css?family=Nunito+Sans:wght@300;400;600;700;800;900&amp;display=swap" rel="stylesheet"> -->
   <link href="{{ url('vendors/simplebar/simplebar.min.css') }}" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="../../../unicons.iconscout.com/release/v4.0.8/css/line.css"> -->
   <link href="{{ url('assets/css/theme-rtl.css') }}" type="text/css" rel="stylesheet" id="style-rtl">
   <link href="{{ url('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
   <link href="{{ url('assets/css/user-rtl.min.css') }}" type="text/css" rel="stylesheet" id="user-style-rtl">

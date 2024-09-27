@@ -38,7 +38,7 @@ $(document).ready(function () {
             ],
             rowId: "id",
             language: {
-                lengthMenu: "Hiện thị _MENU_ người dùng mỗi trang",
+                lengthMenu: "Hiện thị _MENU_ loại sản phẩm mỗi trang",
                 zeroRecords: "Không tìm thấy dữ liệu phù hợp",
                 info: "Hiển thị _START_ đến _END_ trong tổng số _TOTAL_ nguồn dữ liệu",
                 infoEmpty: "Không hiển thị dữ liệu",

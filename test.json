@@ -1,0 +1,163 @@
+{
+    "data": {
+        "products": [
+            {
+                "filterable": {
+                    "parent_id": 16520,
+                    "name": "iPhone 11 Chính hãng Trắng",
+                    "prices": {
+                            "price": 8990000,
+                            "total_discount_percent": 25
+                        
+                    },
+                    "product_condition": "Mới",
+                    "stock": 156,
+                    "thumbnail": "/i/p/iphone11-white-select-2019_3.png",
+                    "product_id": 18359
+                },
+                "general": {
+                    "attributes": {
+                        "additional_information": "VN/A",
+                        "ads_base_image": "/i/p/iphone11-white-select-2019_3.png",
+                        "basic": [],
+                        "bluetooth": "Có",
+                        "camera_primary": "3 Camera",
+                        "change_layout_preorder": "Chỉ có quà hãng",
+                        "color": "Trắng",
+                        "discount_price": "0.0000",
+                        "display_size": "5.8 inches",
+                        "display_type": "Retina LCD",
+                        "fe_minimum_down_payment": "0.1",
+                        "flash_sale_from": "2019-01-01 00:00:00",
+                        "flash_sale_price": "0.0000",
+                        "full_by_group": [],
+                        "gps": "Có",
+                        "hc_maximum_down_payment": "0.7",
+                        "hc_minimum_down_payment": "0.3",
+                        "id": 18359,
+                        "image": "/i/p/iphone11-white-select-2019_3.png",
+                        "image_label": "iPhone 11 Chính hãng I CellphoneS.com.vn ",
+                        "included_accessories": "Máy, sạc, cáp, tai nghe, que lấy SIM, sách hướng dẫn",
+                        "manufacturer": "Apple",
+                        "memory_card_slot": "Không",
+                        "memory_internal": "4 GB",
+                        "meta_image": "/i/p/iphone11-white-select-2019_3.png",
+                        "msrp_display_actual_price_type": "4",
+                        "msrp_enabled": "2",
+                        "options_container": "container2",
+                        "os_version": "iOS",
+                        "product_condition": "Mới",
+                        "product_feed_type": "Normal",
+                        "product_id": 18359,
+                        "product_state": "Máy mới 100% , chính hãng Apple Việt Nam.\u003cbr\u003eCellphoneS hiện là đại lý bán lẻ uỷ quyền iPhone chính hãng VN/A của Apple Việt Nam",
+                        "promotion_actual_price_id": "2590",
+                        "promotion_information": "\u003cdiv class=\"promotion\"\u003e\u003cp class=\"gift-cont\"\u003e[HOT] Thu cũ lên đời giá cao - Thủ tục nhanh - Trợ giá lên tới 1.000.000đ\u003c/p\u003e\u003c/div\u003e",
+                        "promotion_percent": "25.0000",
+                        "related_new_product_id": "16521",
+                        "short_description": "\u003cdiv class=\"cps-additional-note\"\u003eĐặt h\u0026agrave;ng từ \u003cspan style=\"color: #ff0000;\"\u003e1\u003c/span\u003e\u003cspan style=\"color: #ff0000;\"\u003e1/9 - 17/10\u003c/span\u003e. Tặng Phiếu mua h\u0026agrave;ng \u003cspan style=\"color: #ff0000;\"\u003e1.5 triệu\u003c/span\u003e\u003c/div\u003e",
+                        "small_image": "/i/p/iphone11-white-select-2019_3.png",
+                        "small_image_label": "iPhone 11 Chính hãng I CellphoneS.com.vn ",
+                        "special_from_date": "2020-09-12 00:00:00",
+                        "special_price": "14990000.0000",
+                        "status": true,
+                        "storage": "64 GB",
+                        "tag_sforum": "iphone-xi",
+                        "tax_vat": true,
+                        "visibility": true
+                    },
+                    "url_path": "iphone-11.html",
+                    "doc_quyen": "",
+                    "url_key": "iphone-11-chinh-h-ng-tr-ng",
+                    "manufacturer": "Apple",
+                    "name": "iPhone 11 Chính hãng Trắng",
+                    "product_id": 18359,
+                    "sku": "APP-IP11-VN-64GB-TR-CH",
+                    "categories": [
+                        {
+                            "categoryId": 132,
+                            "name": "Apple",
+                            "path": "1/2/3/132",
+                            "uri": "apple"
+                        }
+                    ]
+                }
+            },
+            {
+                "filterable": {
+                    "parent_id": 16520,
+                    "name": "Apple iPhone 11 Đen Chính hãng",
+                    "prices": {
+                            "price": 8945000,
+                            "total_discount_percent": 25
+                    },
+                    "product_condition": "Mới",
+                    "stock": 125,
+                    "thumbnail": "/1/1/11._d_nn.jpg"
+                },
+                "general": {
+                    "attributes": {
+                        "ads_base_image": "/1/1/11._d_nn.jpg",
+                        "basic": [],
+                        "best_discount_price": "0.0000",
+                        "bluetooth": "Có",
+                        "camera_primary": "Camera kép",
+                        "change_layout_preorder": "Chỉ có quà hãng",
+                        "color": "Đen",
+                        "discount_price": "0.0000",
+                        "display_size": "6.1 inches",
+                        "display_type": "Retina LCD",
+                        "fe_minimum_down_payment": "0.1",
+                        "flash_sale_from": "2019-01-01 00:00:00",
+                        "flash_sale_price": "0.0000",
+                        "full_by_group": [],
+                        "gps": "Có",
+                        "hc_maximum_down_payment": "0.7",
+                        "hc_minimum_down_payment": "0.3",
+                        "id": 16521,
+                        "image": "/1/1/11._d_nn.jpg",
+                        "image_label": "Apple iPhone 11 Chính hãng I CellphoneS.com.vn",
+                        "manufacturer": "Apple",
+                        "memory_card_slot": "Không",
+                        "memory_internal": "2 GB",
+                        "meta_image": "/1/1/11._d_nn.jpg",
+                        "msrp_display_actual_price_type": "4",
+                        "msrp_enabled": "2",
+                        "options_container": "container2",
+                        "os_version": "iOS",
+                        "product_condition": "Mới",
+                        "product_feed_type": "Normal",
+                        "product_id": 16521,
+                        "promotion_actual_price_id": "2590",
+                        "promotion_information": "\u003cdiv class=\"promotion\"\u003e\u003cp class=\"gift-cont\"\u003e[HOT] Thu cũ lên đời giá cao - Thủ tục nhanh - Trợ giá lên tới 1.000.000đ\u003c/p\u003e\u003c/div\u003e",
+                        "promotion_percent": "26.0000",
+                        "related_new_product_id": "16521",
+                        "small_image": "/1/1/11._d_nn.jpg",
+                        "small_image_label": "Apple iPhone 11 Chính hãng I CellphoneS.com.vn",
+                        "special_from_date": "2020-09-12 00:00:00",
+                        "special_price": "14990000.0000",
+                        "status": true,
+                        "storage": "64 GB",
+                        "tax_vat": true,
+                        "visibility": true,
+                        "warranty_information": "1 ĐỔI 1 trong 30 ngày nếu có lỗi phần cứng nhà sản xuất. Bảo hành 12 tháng tại trung tâm bảo hành chính hãng Apple: CareS.vn"
+                    },
+                    "url_path": "iphone-11.html",
+                    "doc_quyen": "",
+                    "url_key": "iphone-11-den",
+                    "manufacturer": "Apple",
+                    "name": "Apple iPhone 11 Đen Chính hãng",
+                    "product_id": 16521,
+                    "sku": "APP-IP11-VN-64GB-DN-CH",
+                    "categories": [
+                        {
+                            "categoryId": 132,
+                            "name": "Apple",
+                            "path": "1/2/3/132",
+                            "uri": "apple"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

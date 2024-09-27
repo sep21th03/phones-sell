@@ -18,7 +18,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'username',
         'email',
         'password',
     ];
@@ -71,5 +70,13 @@ class User extends Authenticatable
         }
 
         return null;
+    }
+
+    public static function getUser(){
+        return self::all();
+    }
+
+    public static function getUserById($id){
+        return self::where('id', $id)->first();
     }
 }
