@@ -1,32 +1,3 @@
-<script>
-  document.getElementById('logoutButton').addEventListener('click', function(event) {
-    event.preventDefault(); 
-
-    fetch('/api/logout', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content') 
-      },
-      credentials: 'same-origin' 
-    })
-    .then(response => {
-      if (response.ok) {
-       
-        window.location.href = 'admin/login'; 
-        localStorage.removeItem('token');
-      } else {
-        alert('Logout failed, please try again.');
-      }
-    })
-    .catch(error => {
-      console.error('Error:', error);
-      alert('An error occurred, please try again later.');
-    });
-  });
-</script>
-
-
 <script src="{{ url('vendors/popper/popper.min.js') }}"></script>
 <script src="{{ url('vendors/bootstrap/bootstrap.min.js') }}"></script>
 <script src="{{ url('vendors/anchorjs/anchor.min.js') }}"></script>
