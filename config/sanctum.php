@@ -1,7 +1,7 @@
 <?php
 
 use Laravel\Sanctum\Sanctum;
-
+use Laravel\Sanctum\PersonalAccessToken;
 return [
 
     /*
@@ -80,4 +80,11 @@ return [
         'verify_csrf_token' => App\Http\Middleware\VerifyCsrfToken::class,
     ],
 
+    'storage' => [
+        'database' => [
+            'connection' => null,
+            'table' => 'personal_access_tokens',
+        ],
+    ],
+    'personal_access_token_model' => PersonalAccessToken::class,
 ];

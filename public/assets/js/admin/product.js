@@ -112,7 +112,7 @@ $(document).ready(function () {
     $("#submitColor").click(function () {
         let color = $("#colorName").val();
         let color_code = $("#colorPickerInput").val();
-        let price = $("#pricePhone").val();
+        let price = parseInt($("#pricePhone").val().replace(/\./g, '').replace(' ₫', ''));
         let stock = $("#stockPhone").val();
         let image_url = $("#imageUpload")[0].files[0];
         let product_id = $("#addproductID").val();
@@ -151,7 +151,11 @@ $(document).ready(function () {
                     timer: 1500,
                     showConfirmButton: false,
                 });
-                $("#addColorModal").modal("hiden");
+                $("#colorName").val("");
+                $("#colorPickerInput").val("#000000");  
+                $("#pricePhone").val("");
+                $("#stockPhone").val("");
+                $("#imageUpload").val(null);
             },
             error: function (xhr, status, error) {
                 Swal.fire({
@@ -221,7 +225,7 @@ $(document).ready(function () {
                 Swal.fire({
                     icon: "success",
                     title: "Thành công!",
-                    text: "Thêm danh mục thành công!",
+                    text: "Sửa sản phẩm thành công!",
                     timer: 1500,
                     showConfirmButton: false,
                 });
@@ -239,68 +243,81 @@ $(document).ready(function () {
 });
 
 
-// $(document).ready(function () {
-//     $("#editBtnProduct").click(function () {
-//         let edit_id = $("input[name='edit_id']").val();
-//         let edit_title = $("input[name='edit_title']").val();
-//         let edit_info = $("textarea[name='edit_info']").val();
-//         let edit_description = $("textarea[name='edit_description']").val();
-//         let edit_category = $("select[name='edit_category']").val();
-//         let edit_discount = $("input[name='edit_discount']").val();
-//         let edit_screen_size = $("input[name='edit_screen_size']").val();
-//         let edit_screen_resolution = $("input[name='edit_screen_resolution']").val();
-//         let edit_screen_type = $("input[name='edit_screen_type']").val();
-//         let edit_ram = $("input[name='edit_ram']").val();
-//         let edit_memory_card_slot = $("input[name='edit_memory_card_slot']").val();
-//         let edit_camera_front = $("input[name='edit_camera_front']").val();
-//         let edit_camera_rear = $("input[name='edit_camera_rear']").val();
-//         let edit_sim = $("input[name='edit_sim']").val();
-//         let edit_operating_system = $("input[name='edit_operating_system']").val();
-//         let edit_connectivity = $("input[name='edit_connectivity']").val();
-//         let edit_bluetooth = $("input[name='edit_bluetooth']").val();
-//         let edit_battery = $("input[name='edit_battery']").val();
-//         let edit_pin = $("input[name='edit_pin']").val();
-//         let edit_chip = $("input[name='edit_chip']").val();
-//         let edit_dimensions = $("input[name='edit_dimensions']").val();
-//         let edit_weight = $("input[name='edit_weight']").val(); 
-//         let edit_rom = $("select[name='edit_pin']").val();
-//         let edit_color = $("select[name='edit_color']").val();
-//         let edit_stock = $("input[name='edit_stock']").val();
-//         let edit_price = $("input[name='edit_price']").val();
-//         let edit_availability = edit_stock > 0 ? 1 : 0;
-//         let files = $("#file-input")[0].files[0];
 
-//         var formData = new FormData();
-//         if (files.length > 0) {
-//             for (let i = 0; i < files.length; i++) {
-//                 formData.append('images[]', files[i]);
-//             }
-//         }
-//         formData.append('id', edit_id);
-//         formData.append('title', edit_title);
-//         formData.append('info', edit_info);
-//         formData.append('description', edit_description);
-//         formData.append('category_id', edit_category);
-//         formData.append('discount', edit_discount);
-//         formData.append('screen_size', edit_screen_size);
-//         formData.append('screen_resolution', edit_screen_resolution);
-//         formData.append('screen_type', edit_screen_type);
-//         formData.append('ram', edit_ram);
-//         formData.append('memory_card_slot', edit_memory_card_slot);
-//         formData.append('camera_front', edit_camera_front);
-//         formData.append('camera_rear', edit_camera_rear);
-//         formData.append('sim', edit_sim);
-//         formData.append('operating_system', edit_operating_system);
-//         formData.append('connectivity', edit_connectivity);
-//         formData.append('bluetooth', edit_bluetooth);
-//         formData.append('pin', edit_pin);
-//         formData.append('chip', edit_chip);
-//         formData.append('dimensions', edit_dimensions);
-//         formData.append('weight', edit_weight);
-//         formData.append('rom', edit_rom);
-//         formData.append('color', edit_color);
-//         formData.append('price', edit_price);
-//         formData.append('availability', edit_availability);
-        
-//     })
-// })
+$(document).ready(function () {
+    $("#addBtnProduct").click(function () {
+        window.location.href = window.location.origin + '/admin/add/product';
+    });
+});
+
+
+$(document).ready(function () {
+    $("#addProduct").click(function () {
+        let formValues = {
+            id: $("input[name='add_id']").val(),
+            title: $("input[name='add_title']").val(),
+            info: CKEDITOR.instances.editor4.getData(),
+            description: CKEDITOR.instances.editor3.getData(),
+            category_id: $("select[name='add_category']").val(),
+            discount: $("input[name='add_discount']").val(),
+            specifications_id: $("input[name='add_specifications_id']").val(),
+            screen_size: $("input[name='add_screen_size']").val(),
+            screen_resolution: $("input[name='add_screen_resolution']").val(),
+            screen_type: $("input[name='add_screen_type']").val(),
+            ram: $("input[name='add_ram']").val(),
+            memory_card_slot: $("input[name='add_memory_card_slot']").val(),
+            camera_front: $("input[name='add_camera_front']").val(),
+            camera_rear: $("input[name='add_camera_rear']").val(),
+            sim: $("input[name='add_sim']").val(),
+            operating_system: $("input[name='add_operating_system']").val(),
+            connectivity: $("input[name='add_connectivity']").val(),
+            bluetooth: $("input[name='add_bluetooth']").val(),
+            pin: $("input[name='add_pin']").val(),
+            chip: $("input[name='add_chip']").val(),
+            dimensions: $("input[name='add_dimensions']").val(),
+            weight: $("input[name='add_weight']").val(),
+            rom_id: parseInt($("select[name='add_rom_id']").val()),
+            color: $("input[name='add_color_name']").val(),
+            color_code: $("input[name='add_color_code']").val(),
+            stock: $("input[name='add_stock']").val(),
+            price: parseInt($("input[name='add_price']").val().replace(/\./g, '').replace(' ₫', '')),
+            variant_id: $("select[name='add_color']").find("option:selected").data("variant_id"),
+            availability: $("input[name='add_stock']").val() > 0 ? 1 : 0,
+            image: $("#file-add-product")[0].files[0]
+
+        };
+        var formData = new FormData();
+
+        for (const key in formValues) {
+            formData.append(key, formValues[key]);
+        }
+        $.ajax({
+            url: '/api/product/add/product',
+            type: 'POST',
+            data: formData,
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log(response);
+                Swal.fire({
+                    icon: "success",
+                    title: "Thành công!",
+                    text: "Thêm sản phẩm thành công!",
+                    timer: 1500,
+                    showConfirmButton: false,
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error(error);
+                Swal.fire({
+                    icon: "error",
+                    title: "Lỗi!",
+                    text: error.message || "Có lỗi xảy ra, vui lòng thử lại!",
+                });
+            }
+        });
+    });
+});

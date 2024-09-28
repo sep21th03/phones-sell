@@ -67,7 +67,6 @@
               .then(data => {
                   if (data.status === 'success') {
                       localStorage.setItem('token', data.access_token);
-                      console.log(data.access_toke);
                       Swal.fire({
                           icon: "success",
                           title: "Thành công!",
@@ -75,7 +74,7 @@
                           timer: 3000,
                           showConfirmButton: false,
                       });
-                      window.location.href = "{{ route('admin.dashboard') }}";
+                      window.location.href = '/admin';
                   } else {
                     Swal.fire({
                           icon: "error",

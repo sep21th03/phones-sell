@@ -18,18 +18,12 @@ class AdminController extends Controller
 
     public function postlogin(Request $request)
     {
-        if (Auth::check()) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Da dang nhap',
-                'redirect_url' => route('admin.dashboard')
-            ]);
-        }
         try {
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:8',
             ]);
+    
             $credentials = $request->only('email', 'password');
             if (!Auth::attempt($credentials)) {
                 return response()->json([
@@ -37,41 +31,43 @@ class AdminController extends Controller
                     'message' => 'Thông tin đăng nhập không chính xác',
                 ]);
             }
+    
             $user = User::getByUsername($request->email);
-            if (!Hash::check($request->password, $user->password, [])) {
+            if (!Hash::check($request->password, $user->password)) {
                 return response()->json([
                     'status' => 'error',
-                    'message' => 'Password khong hop le',
+                    'message' => 'Mật khẩu không hợp lệ',
                 ]);
             }
-            
+    
             if ($user->role != 1) {
                 return response()->json([
                     'status' => 'error',
                     'message' => 'Bạn không có quyền truy cập.',
                 ], 403); 
             }
-            $tokenResult = $user->createToken('Auth Token')->plainTextToken;
+            $tokenResult = $user->createToken('Token')->plainTextToken;
             return response()->json([
                 'status' => 'success',
-                'message' => 'Dang nhap thanh cong',
+                'message' => 'Đăng nhập thành công',
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
-                'redirect_url' => route('admin.dashboard') 
+                'redirect_url' => route('admin.dashboard')
             ]);
         } catch (ValidationException $validationException) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Xac thuc that bai',
+                'message' => 'Xác thực thất bại',
                 'errors' => $validationException->errors()
             ], 422);
         } catch (\Exception $error) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Da co loi xay ra',
+                'message' => 'Đã có lỗi xảy ra',
                 'errors' => ['message' => $error->getMessage()]
             ], 500);
         }
     }
+    
     
 }

@@ -33,7 +33,7 @@
         background: #ddd;
     }
 
-    #file-input {
+    #file-add-product {
         display: none;
     }
 </style>
@@ -46,7 +46,7 @@
         </ol>
     </nav>
     <form class="mb-9">
-        <input class="form-control mb-5" type="text" value="{{ $product->id }}" name="edit_id" hidden />
+        <input class="form-control mb-5" type="text" name="add_id" hidden />
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
                 <h2 class="mb-2">Chi tiết sản phẩm</h2>
@@ -54,15 +54,15 @@
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button">Discard</button>
                 <button class="btn btn-phoenix-primary me-2 mb-2 mb-sm-0" type="button">Save draft</button>
-                <button id="editBtnProduct" class="btn btn-primary mb-2 mb-sm-0" type="button">Lưu</button>
+                <button id="addProduct" class="btn btn-primary mb-2 mb-sm-0" type="button">Thêm</button>
             </div>
         </div>
         <div class="row g-5">
             <div class="col-12 col-xl-8">
-                <h4 class="mb-3">Tên sản phẩm</h4><input class="form-control mb-5" type="text" value="{{ $product->title }}" name="edit_title" />
+                <h4 class="mb-3">Tên sản phẩm</h4><input class="form-control mb-5" type="text" name="add_title" />
                 <div class="mb-6">
                     <h4 class="mb-3">Giới thiệu sản phẩm</h4>
-                    <textarea id="editor2" class="tinymce" name="edit_info">{{ $product->info }}</textarea>
+                    <textarea id="editor4" class="tinymce" name="add_info"></textarea>
                 </div>
                 <h4 class="mb-3">Thông số</h4>
                 <div class="row g-0 border-top border-bottom mb-5">
@@ -100,18 +100,18 @@
                     </div>
                     <div class="col-sm-8">
                         <div class="tab-content py-3 ps-sm-4 h-100">
-                            <input class="form-control mb-5" type="text" value="{{ $product->specifications->id }}" name="edit_specifications_id" hidden />
+                            <input class="form-control mb-5" type="text" name="add_specifications_id" hidden />
                             <div class="tab-pane fade show active" id="screenTabContent" role="tabpanel" aria-labelledby="screenTab">
                                 <h4 class="mb-3 d-sm-none">Kích thước màn hình</h4>
                                 <div class="col g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Kích thước màn hình</h5><input class="form-control" name="edit_screen_size" type="text" value="{{ $product->specifications->screen_size }}" />
+                                        <h5 class="mb-2 text-body-highlight">Kích thước màn hình</h5><input class="form-control" name="add_screen_size" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Công nghệ màn hình</h5><input class="form-control" name="edit_screen_type" type="text" value="{{ $product->specifications->screen_type }}" />
+                                        <h5 class="mb-2 text-body-highlight">Công nghệ màn hình</h5><input class="form-control" name="add_screen_type" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-body-highlight">Độ phân giải màn hình</h5><input class="form-control" name="edit_screen_resolution" type="text" value="{{ $product->specifications->screen_resolution }}" />
+                                        <h5 class="mb-2 text-body-highlight">Độ phân giải màn hình</h5><input class="form-control" name="add_screen_resolution" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -119,10 +119,10 @@
                                 <h4 class="mb-3 d-sm-none">RAM & lưu trữ</h4>
                                 <div class="col g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Dung lượng RAM</h5><input class="form-control" name="edit_ram" type="text" value="{{ $product->specifications->ram }}" />
+                                        <h5 class="mb-2 text-body-highlight">Dung lượng RAM</h5><input class="form-control" name="add_ram" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Khe cắm thẻ nhớ</h5><input class="form-control" name="edit_memory_card_slot" type="text" value="{{ $product->specifications->memory_card_slot }}" />
+                                        <h5 class="mb-2 text-body-highlight">Khe cắm thẻ nhớ</h5><input class="form-control" name="add_memory_card_slot" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -130,10 +130,10 @@
                                 <h4 class="mb-3 d-sm-none">Thông số camera</h4>
                                 <div class="row g-3">
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-body-highlight">Camera trước</em></h5><input class="form-control" name="edit_camera_front" type="text" value="{{ $product->specifications->camera_front }}" />
+                                        <h5 class="mb-2 text-body-highlight">Camera trước</em></h5><input class="form-control" name="add_camera_front" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-body-highlight">Camera sau</h5><input class="form-control" name="edit_camera_rear" type="text" value="{{ $product->specifications->camera_rear }}" />
+                                        <h5 class="mb-2 text-body-highlight">Camera sau</h5><input class="form-control" name="add_camera_rear" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -141,16 +141,16 @@
                                 <h4 class="mb-3 d-sm-none">Giao tiếp & kết nối</h4>
                                 <div class="row g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Thẻ SIM</em></h5><input class="form-control" name="edit_sim" type="text" value="{{ $product->specifications->sim }}" />
+                                        <h5 class="mb-2 text-body-highlight">Thẻ SIM</em></h5><input class="form-control" name="add_sim" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Hệ điều hành</h5><input class="form-control" name="edit_operating_system" type="text" value="{{ $product->specifications->operating_system }}" />
+                                        <h5 class="mb-2 text-body-highlight">Hệ điều hành</h5><input class="form-control" name="add_operating_system" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Wi-Fi</em></h5><input class="form-control" name="edit_connectivity" type="text" value="{{ $product->specifications->connectivity }}" />
+                                        <h5 class="mb-2 text-body-highlight">Wi-Fi</em></h5><input class="form-control" name="add_connectivity" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6">
-                                        <h5 class="mb-2 text-body-highlight">Bluetooth</h5><input class="form-control" name="edit_bluetooth" type="text" value="{{ $product->specifications->bluetooth }}" />
+                                        <h5 class="mb-2 text-body-highlight">Bluetooth</h5><input class="form-control" name="add_bluetooth" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -158,10 +158,10 @@
                                 <h4 class="mb-3 d-sm-none">Pin & công nghệ sạc</h4>
                                 <div class="col g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Pin</h5><input class="form-control" name="edit_battery" type="text" value="{{ $product->specifications->battery }}" />
+                                        <h5 class="mb-2 text-body-highlight">Pin</h5><input class="form-control" name="add_battery" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Công nghệ sạc</h5><input class="form-control" name="edit_pin" type="text" value="{{ $product->specifications->pin }}" />
+                                        <h5 class="mb-2 text-body-highlight">Công nghệ sạc</h5><input class="form-control" name="add_pin" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                 <h4 class="mb-3 d-sm-none">Vi xử lý & đồ họa</h4>
                                 <div class="col g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Chipset</h5><input class="form-control" name="edit_chip" type="text" value="{{ $product->specifications->chip }}" />
+                                        <h5 class="mb-2 text-body-highlight">Chipset</h5><input class="form-control" name="add_chip" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -177,10 +177,10 @@
                                 <h4 class="mb-3 d-sm-none">Thiết kế & Trọng lượng</h4>
                                 <div class="col g-3">
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Kích thước</h5><input class="form-control" name="edit_dimensions" type="text" value="{{ $product->specifications->dimensions }}" />
+                                        <h5 class="mb-2 text-body-highlight">Kích thước</h5><input class="form-control" name="add_dimensions" type="text" />
                                     </div>
                                     <div class="col-12 col-lg-6 mb-3">
-                                        <h5 class="mb-2 text-body-highlight">Trọng lượng</h5><input class="form-control" name="edit_weight" type="text" value="{{ $product->specifications->weight }}" />
+                                        <h5 class="mb-2 text-body-highlight">Trọng lượng</h5><input class="form-control" name="add_weight" type="text" />
                                     </div>
                                 </div>
                             </div>
@@ -189,7 +189,7 @@
                 </div>
                 <h4 class="mb-3">Mô tả sản phẩm</h4>
                 <div class="row g-0 border-top border-bottom">
-                    <textarea id="editor1" name="edit_description">{{ $product->description }}</textarea>
+                    <textarea id="editor3" name="add_description"></textarea>
                 </div>
             </div>
             <div class="col-12 col-xl-4">
@@ -204,10 +204,9 @@
                                             <div class="d-flex flex-wrap mb-2">
                                                 <h5 class="mb-0 text-body-highlight me-2">Hãng</h5><a class="fw-bold fs-9" href="{{ route('admin.category.list') }}">Thêm hãng mới</a>
                                             </div>
-                                            <select class="form-select mb-3" aria-label="category" name="edit_category">
+                                            <select class="form-select mb-3" aria-label="category" name="add_category">
                                                 @foreach ($categories as $category)
-                                                <option value="{{ $category->id }}"
-                                                    {{ $product->category->id == $category->id ? 'selected' : '' }}>
+                                                <option value="{{ $category->id }}">
                                                     {{ $category->name }}
                                                 </option>
                                                 @endforeach
@@ -216,7 +215,7 @@
                                     </div>
                                     <div class="col-12 col-sm-6 col-xl-12">
                                         <div class="mb-4">
-                                            <h5 class="mb-2 text-body-highlight">Giảm giá %</h5><input class="form-control mb-xl-3" name="edit_discount" type="text" value="{{ $product->discount }}" />
+                                            <h5 class="mb-2 text-body-highlight">Giảm giá %</h5><input class="form-control mb-xl-3" name="add_discount" type="text" />
                                         </div>
                                     </div>
                                 </div>
@@ -227,33 +226,34 @@
                         <div class="card">
                             <div class="card-body">
                                 <label for="rom" class="mb-2 text-body-highlight">Chọn ROM:</label>
-                                <select id="rom" name="edit_rom" class="form-select mb-3">
+                                <select id="rom" name="add_rom_id" class="form-select mb-3">
                                     @foreach ($roms as $rom)
-                                    <option value="{{ $rom->id }}"
-                                        data-capacity="{{ $rom->capacity }}"
-                                        @if ($product->variants->contains('rom.id', $rom->id)) selected @endif>
-                                        {{ $rom->capacity }}
-                                    </option>
+                                    <option value="{{ $rom->id }}">{{ $rom->capacity }}</option>
                                     @endforeach
                                 </select>
 
 
-                                <label for="color" class="mb-2 text-body-highlight">Chọn Màu:</label><a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#addColorModal"> Thêm Màu Mới</a>
-                                <select id="color" name="edit_color" class="form-select mb-3">
-                                    <!-- Color -->
-                                </select>
+                                <div class="mb-3">
+                                    <label for="colorName" class="form-label">Tên Màu</label>
+                                    <input type="text" class="form-control" id="colorName" name="add_color_name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="colorPickerInput" class="form-label">Chọn Màu</label>
+                                    <input type="text" id="colorPickerInput" class="form-control mb-3" name="add_color_code" value="#000000" readonly>
+                                    <div id="colorPicker"></div>
+                                </div>
                                 <div class="mt-3 mb-3">
                                     <label for="stock" class="mb-2 text-body-highlight">Số lượng:</label>
-                                    <input id="stock" class="form-control mb-xl-3" name="edit_stock" type="text" />
+                                    <input id="stock" class="form-control mb-xl-3" name="add_stock" type="text" />
                                 </div>
                                 <div class="mt-3 mb-3">
                                     <label for="price" class="mb-2 text-body-highlight">Giá:</label>
-                                    <input id="price" class="form-control mb-xl-3" name="edit_price" type="text" />
+                                    <input id="price" class="form-control mb-xl-3" name="add_price" type="text" />
                                     <h4 class="mb-3">Ảnh sản phẩm</h4>
-                                    <img id="product-image" src="" alt="{{ $product->title }}" class="img-fluid mt-3" />
+                                    <img id="product-image" src="" alt="" class="img-fluid mt-3" />
                                     <div id="drop-zone">
                                         <p>Kéo và thả nhiều ảnh vào đây hoặc click để chọn files</p>
-                                        <input type="file" id="file-input" accept="image/*" multiple>
+                                        <input type="file" id="file-add-product" accept="image/*" multiple>
                                     </div>
                                 </div>
                             </div><button class="btn btn-phoenix-primary w-100" type="button">Add another option</button>
@@ -264,59 +264,17 @@
         </div>
     </form>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="addColorModal" tabindex="-1" aria-labelledby="addColorModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="addColorModalLabel">Thêm Màu Mới</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form id="addColorForm">
-                    <input type="text" class="form-control" id="addproductID" value="{{ $product->id }}" hidden>
-                    <input type="text" class="form-control" id="addromID" value="{{ $product->variants[0]->rom_id }}" hidden>
-                    <div class="mb-3">
-                        <label for="colorName" class="form-label">Tên Màu</label>
-                        <input type="text" class="form-control" id="colorName" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="colorPickerInput" class="form-label">Chọn Màu</label>
-                        <input type="text" id="colorPickerInput" class="form-control mb-3" value="#000000" >
-                        <div id="colorPicker"></div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="pricePhone" class="form-label">Giá tiền</label>
-                        <input type="text" class="form-control" id="pricePhone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="stockPhone" class="form-label">Số lượng</label>
-                        <input type="text" class="form-control" id="stockPhone" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="imageUpload" class="form-label">Chọn Ảnh</label>
-                        <input type="file" class="form-control" id="imageUpload" accept="image/*">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary" id="submitColor">Lưu</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <script>
-    CKEDITOR.replace('editor1', {
+    CKEDITOR.replace('editor3', {
         extraPlugins: 'uploadimage',
         filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
         filebrowserUploadMethod: 'form',
         width: '100%',
         height: 400
     });
-    CKEDITOR.replace('editor2', {
+    CKEDITOR.replace('editor4', {
         extraPlugins: 'uploadimage',
         filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
         filebrowserUploadMethod: 'form',
@@ -357,6 +315,7 @@
             document.getElementById('colorPickerInput').value = hexColor;
         });
 
+        // Tính năng chọn màu từ màn hình
         const eyeDropper = new EyeDropper();
 
         const pickFromScreenButton = document.createElement('button');
@@ -374,54 +333,9 @@
         };
         document.getElementById('colorPicker').appendChild(pickFromScreenButton);
     });
-</script>
-
-<script>
-    const baseURL = "{{ asset('') }}";
-    const selectedRomId = parseInt(document.getElementById('rom').value);
-    const variants = @json($product -> variants);
-
-    const filteredVariants = variants.filter(variant => variant.rom.id == selectedRomId);
-
-    const colorSelect = document.getElementById('color');
-    colorSelect.innerHTML = '';
-
-    filteredVariants.forEach(variant => {
-        const option = document.createElement('option');
-        option.value = variant.color;
-        option.textContent = variant.color;
-        option.dataset.price = variant.price;
-        option.dataset.image = variant.images[0].image_url;
-        option.dataset.stock = variant.stock;
-        option.dataset.variant_id = variant.id;
-        option.dataset.rom_id = variant.rom_id;
-        colorSelect.appendChild(option);
-    });
-    document.getElementById('price').value = filteredVariants[0].price;
-    document.getElementById('stock').value = filteredVariants[0].stock;
-    if (filteredVariants.length > 0) {
-        const firstVariant = filteredVariants[0];
-        document.getElementById('price').value = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(firstVariant.price);
-        document.getElementById('stock').value = firstVariant.stock;
-        document.getElementById('product-image').src = baseURL + firstVariant.images[0].image_url;
-    }
-
-    document.getElementById('color').addEventListener('change', function() {
-        const selectedColor = this.options[this.selectedIndex];
-        const selectedImage = selectedColor.dataset.image;
-        document.getElementById('price').value = new Intl.NumberFormat('vi-VN', {
-            style: 'currency',
-            currency: 'VND'
-        }).format(selectedColor.dataset.price);
-        document.getElementById('stock').value = selectedColor.dataset.stock;
-        document.getElementById('product-image').src = baseURL + selectedImage;
-    });
 
     let dropZone = document.getElementById('drop-zone');
-    let fileInput = document.getElementById('file-input');
+    let fileInput = document.getElementById('file-add-product');
     let productImage = document.getElementById('product-image');
 
     // Ngăn chặn hành vi mặc định khi kéo file vào
@@ -487,6 +401,7 @@
         }
     }
 </script>
+
 
 <script src="{{ url("assets/js/admin/product.js")}}"></script>
 <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>

@@ -39,5 +39,12 @@ class DashboardController extends Controller
     
         return redirect()->route('admin.login');
     }
-    
+    public function add_product(){
+        if(Auth::user()){
+            $categories = Category::all();
+            $roms = Rom::all();
+            return view('admin.product.add', compact(['categories', 'roms']));
+        }
+        return redirect()->route('admin.login');
+    }
 }

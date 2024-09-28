@@ -13,10 +13,18 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout(Request $request)
+    public function admin_logout(Request $request)
     {
-        $request->user()->currentAccessToken()->delete();
-
+        $user = $request->user();
+        $user->tokens()->delete();
         return response()->json(['message' => 'Logged out successfully'], 200);
+    }
+    public function logout(Request $request){
+        try{
+           request()->user()->currentAccessToken()->delete();
+           return response()->json(['message' => 'Đã đăng xuất']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 500);
+        }
     }
 }

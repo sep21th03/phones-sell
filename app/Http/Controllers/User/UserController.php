@@ -21,8 +21,8 @@ class UserController extends Controller
             //     'message' => 'Da dang nhap',
             //     'redirect_url' => '/',
             // ]);
-            // return redirect()->route('dashboard');
-            return redirect()->away('http://127.0.0.1:53293/index.html');
+            return redirect()->route('dashboard');
+            // return redirect()->away('http://127.0.0.1:53293/index.html');
         }
         try {
             $request->validate([
@@ -35,13 +35,13 @@ class UserController extends Controller
                     'username' => ['Username khong hop le'],
                 ]);
             }
-            $user = User::getByUsername($request->email);
-            if (!Hash::check($request->password, $user->password, [])) {
+            $user = User::where('email', $request->email)->first();
+            if (!$user || !Hash::check($request->password , $user->password)) {
                 throw ValidationException::withMessages([
                     'password' => ['Password khong hop le'],
                 ]);
             }
-            $tokenResult = $user->createToken('Auth Token')->plainTextToken;
+            $tokenResult = $user->createToken($user->id)->plainTextToken;
             return response()->json([
                 'status' => 'success',
                 'message' => 'Dang nhap thanh cong',
@@ -91,7 +91,7 @@ class UserController extends Controller
                 ]);
             }
             Auth::login($user);
-            $tokenResult = $user->createToken('Auth Token')->plainTextToken;
+            $tokenResult = $user->createToken($user->id)->plainTextToken;
             return response()->json([
                 'status' => 'success',
                 'message' => 'Dang ky thanh cong',

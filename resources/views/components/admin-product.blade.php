@@ -63,33 +63,7 @@
               <span class="fas fa-search search-box-icon"></span>
             </form>
           </div>
-          <div class="scrollbar overflow-hidden-y">
-            <div class="btn-group position-static" role="group">
-              <div class="btn-group position-static text-nowrap"><button class="btn btn-phoenix-secondary px-7 flex-shrink-0" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"> Category<span class="fas fa-angle-down ms-2"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-                </ul>
-              </div>
-              <div class="btn-group position-static text-nowrap"><button class="btn btn-sm btn-phoenix-secondary px-7 flex-shrink-0" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"> Vendor<span class="fas fa-angle-down ms-2"></span></button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Action</a></li>
-                  <li><a class="dropdown-item" href="#">Another action</a></li>
-                  <li><a class="dropdown-item" href="#">Something else here</a></li>
-                  <li>
-                    <hr class="dropdown-divider" />
-                  </li>
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
-                </ul>
-              </div><button class="btn btn-sm btn-phoenix-secondary px-7 flex-shrink-0">More filters</button>
-            </div>
-          </div>
-          <div class="ms-xxl-auto"><button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add product</button></div>
+          <div class="ms-xxl-auto"><button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button><button class="btn btn-primary" id="addBtnProduct"><span class="fas fa-plus me-2"></span>Thêm sản phẩm</button></div>
         </div>
       </div>
       <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
