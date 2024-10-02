@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function login()
     {
-        return view('admin.login');
+        return view('auth.login');
     }
 
     public function postlogin(Request $request)
@@ -46,13 +46,25 @@ class AdminController extends Controller
                     'message' => 'Bạn không có quyền truy cập.',
                 ], 403); 
             }
-            $tokenResult = $user->createToken('Token')->plainTextToken;
+
+            $existingToken = $user->tokens->first();
+            $check_token = User::getByUsername($request->email);
+            if ($existingToken && $check_token->remember_token != null) {
+                $get_user = User::getByUsername($request->email);
+                $tokenResult = $get_user->remember_token;
+            } else {
+                $tokenResult = $user->createToken('authToken')->plainTextToken;
+                $save_token = User::updateToken($request->email, $tokenResult);
+                if (!$save_token) {
+                    throw new \Exception('Lỗi truy vấn cơ sở dữ liệu');
+                }
+            }
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Đăng nhập thành công',
                 'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-                'redirect_url' => route('admin.dashboard')
+                'token_type' => 'Bearer'
             ]);
         } catch (ValidationException $validationException) {
             return response()->json([

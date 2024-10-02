@@ -29,35 +29,53 @@ class UserController extends Controller
                 'email' => 'required|email',
                 'password' => 'required|min:8',
             ]);
+
             $credentials = $request->only('email', 'password');
             if (!Auth::attempt($credentials)) {
-                throw ValidationException::withMessages([
-                    'username' => ['Username khong hop le'],
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Thông tin đăng nhập không chính xác',
                 ]);
             }
-            $user = User::where('email', $request->email)->first();
-            if (!$user || !Hash::check($request->password , $user->password)) {
-                throw ValidationException::withMessages([
-                    'password' => ['Password khong hop le'],
+
+            $user = User::getByUsername($request->email);
+            if (!Hash::check($request->password, $user->password)) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Mật khẩu không hợp lệ',
                 ]);
             }
-            $tokenResult = $user->createToken($user->id)->plainTextToken;
+
+            $existingToken = $user->tokens->first();
+            $check_token = User::getByUsername($request->email);
+            if ($existingToken && $check_token->remember_token != null) {
+                $get_user = User::getByUsername($request->email);
+                $tokenResult = $get_user->remember_token;
+            } else {
+                $tokenResult = $user->createToken('authToken')->plainTextToken;
+                $save_token = User::updateToken($request->email, $tokenResult);
+                if (!$save_token) {
+                    throw new \Exception('Lỗi truy vấn cơ sở dữ liệu');
+                }
+            }
+
             return response()->json([
                 'status' => 'success',
-                'message' => 'Dang nhap thanh cong',
+                'message' => 'Đăng nhập thành công',
                 'access_token' => $tokenResult,
                 'token_type' => 'Bearer',
+                'redirect_url' => route('dashboard')
             ]);
         } catch (ValidationException $validationException) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Xac thuc that bai',
+                'message' => 'Xác thực thất bại',
                 'errors' => $validationException->errors()
             ], 422);
         } catch (\Exception $error) {
             return response()->json([
                 'status' => 'error',
-                'message' => 'Da co loi xay ra',
+                'message' => 'Đã có lỗi xảy ra',
                 'errors' => ['message' => $error->getMessage()]
             ], 500);
         }
@@ -104,6 +122,19 @@ class UserController extends Controller
                 'message' => 'Co loi xay ra',
                 'errors' => ['message' => $e->getMessage()]
             ], 401);
+        }
+    }
+
+    public function logout(Request $request)
+    {
+        try {
+            $user = $request->user();
+            $user->remember_token = null;
+            $user->save();
+
+            return response()->json(['message' => 'Đã đăng xuất thành công']);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Có lỗi xảy ra khi đăng xuất', 'message' => $e->getMessage()], 500);
         }
     }
 }

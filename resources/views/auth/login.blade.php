@@ -1,4 +1,9 @@
-  <main class="main" id="top">
+@extends('layouts.auth')
+@section('title')
+Đăng nhập
+@endsection
+@section('content')
+<main class="main" id="top">
       <div class="container-fluid bg-body-tertiary dark__bg-gray-1200">
           <div class="bg-holder bg-auth-card-overlay" style="background-image:url(../../../assets/img/bg/37.png);"></div>
           <!--/.bg-holder-->
@@ -23,7 +28,7 @@
                               </div>
                               <div class="col mx-auto">
                                   <div class="auth-form-box">
-                                      <div class="text-center mb-7"><a class="d-flex flex-center text-decoration-none mb-4" href="{{ route('admin.login') }}">
+                                      <div class="text-center mb-7"><a class="d-flex flex-center text-decoration-none mb-4" href="{{ route('auth.login') }}">
                                               <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="{{ url('assets/img/icons/logo.png') }}" alt="phoenix" width="58" /></div>
                                           </a>
                                           <h3 class="text-body-highlight">Đăng nhập</h3>
@@ -90,3 +95,4 @@
               .catch(error => console.error('Error:', error));
       });
   </script>
+@endsection

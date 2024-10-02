@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laravel\Sanctum\NewAccessToken;
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -48,10 +49,7 @@ class User extends Authenticatable
     {
         return self::where('email', $email)->first();
     }
-    public static function updateToken($email, $token)
-    {
-        return self::where('email', $email)->update(['remember_token' => $token]);
-    }
+
     public static function checkUsername($email)
     {
         return self::where('email', $email)->exists();
@@ -66,7 +64,7 @@ class User extends Authenticatable
         $create->address = $address;
         $create->phone = $phone;
         $create->role = 0;
-        
+
         if ($create->save()) {
             return $create;
         }
@@ -74,22 +72,18 @@ class User extends Authenticatable
         return null;
     }
 
-    public static function getUser(){
+    public static function getUser()
+    {
         return self::all();
     }
 
-    public static function getUserById($id){
+    public static function getUserById($id)
+    {
         return self::where('id', $id)->first();
     }
-    public function createToken(string $name, array $abilities = ['*'], ?DateTimeInterface $expiresAt = null)
-    {   
-        $plainTextToken = $this->generateTokenString();
-        $token = $this->tokens()->create(
-            ['name' => $name, 
-            'token' => hash('sha256', $plainTextToken), 
-            'abilities' => $abilities,
-            'expiresAt' => $expiresAt]
-        );
-        return new NewAccessToken($token, $token->getKey().'|'.$plainTextToken);
+
+    public static function updateToken($username, $token)
+    {
+        return self::where('email', $username)->update(['remember_token' => $token]);
     }
 }

@@ -13,13 +13,8 @@ class Category extends Model
     ];
     protected $table = 'categories';
     protected $primaryKey = 'id';
-    public $timestamps = false;
     public function phones() {
         return $this->hasMany(Product::class, 'category_id');
-    }
-    public static function search($query)
-    {
-        return self::where('name', 'LIKE', "%{$query}%")->get();
     }
     public static function delete_category($id)
     {
@@ -28,4 +23,19 @@ class Category extends Model
     public static function getCategory(){
         return self::all();
     }
+    public static function newCategory() {
+        $dateThreshold = now()->subDays(10);
+    
+        $categories = Category::where('created_at', '>=', $dateThreshold)
+            ->orWhere('updated_at', '>=', $dateThreshold)
+            ->get(); 
+    
+        $count = $categories->count();
+    
+        return [
+            'count' => $count,
+            'categories' => $categories,
+        ];
+    }
+    
 }

@@ -54,7 +54,7 @@ Thêm sản phẩm
         <input class="form-control mb-5" type="text" name="add_id" hidden />
         <div class="row g-3 flex-between-end mb-5">
             <div class="col-auto">
-                <h2 class="mb-2">Chi tiết sản phẩm</h2>
+                <h2 class="mb-2">Thêm sản phẩm</h2>
             </div>
             <div class="col-auto">
                 <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button">Discard</button>
@@ -207,7 +207,7 @@ Thêm sản phẩm
                                     <div class="col-12 col-sm-6 col-xl-12">
                                         <div class="mb-4">
                                             <div class="d-flex flex-wrap mb-2">
-                                                <h5 class="mb-0 text-body-highlight me-2">Hãng</h5><a class="fw-bold fs-9" href="{{ route('admin.category.list') }}">Thêm hãng mới</a>
+                                                <h5 class="mb-0 text-body-highlight me-2">Hãng</h5><a class="fw-bold fs-9" href="{{ route('category.list') }}">Thêm hãng mới</a>
                                             </div>
                                             <select class="form-select mb-3" aria-label="category" name="add_category">
                                                 @foreach ($categories as $category)
@@ -269,145 +269,8 @@ Thêm sản phẩm
         </div>
     </form>
 </div>
-
-
-<script>
-    CKEDITOR.replace('editor3', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 400
-    });
-    CKEDITOR.replace('editor4', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 200
-    });
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const pickr = Pickr.create({
-            el: '#colorPicker',
-            theme: 'classic',
-            swatches: [
-                '#FF0000',
-                '#00FF00',
-                '#0000FF',
-                // Bạn có thể thêm nhiều màu ở đây
-            ],
-            components: {
-                preview: true,
-                opacity: true,
-                hue: true,
-                interaction: {
-                    hex: true,
-                    rgba: true,
-                    input: true,
-                    clear: true,
-                    save: true,
-                    close: true,
-                }
-            }
-        });
-
-        // Cập nhật giá trị input khi chọn màu
-        pickr.on('change', (color, instance) => {
-            const rgbaColor = color.toRGBA().toString();
-            const hexColor = color.toHEXA().toString();
-            document.getElementById('colorPickerInput').value = hexColor;
-        });
-
-        // Tính năng chọn màu từ màn hình
-        const eyeDropper = new EyeDropper();
-
-        const pickFromScreenButton = document.createElement('button');
-        pickFromScreenButton.innerText = 'Pick Color From Screen';
-        pickFromScreenButton.onclick = () => {
-            eyeDropper.open().then(result => {
-                const rgbaColor = `rgba(${result.sRGB[0]}, ${result.sRGB[1]}, ${result.sRGB[2]}, ${result.sRGB[3]})`;
-                const hexColor = `#${result.sRGB[0].toString(16).padStart(2, '0')}${result.sRGB[1].toString(16).padStart(2, '0')}${result.sRGB[2].toString(16).padStart(2, '0')}`;
-                pickr.setColor(hexColor);
-                document.getElementById('colorPickerInput').value = hexColor;
-                console.log('Màu đã chọn từ màn hình:', rgbaColor);
-            }).catch(err => {
-                console.error('Lỗi khi chọn màu:', err);
-            });
-        };
-        document.getElementById('colorPicker').appendChild(pickFromScreenButton);
-    });
-
-    let dropZone = document.getElementById('drop-zone');
-    let fileInput = document.getElementById('file-add-product');
-    let productImage = document.getElementById('product-image');
-
-    // Ngăn chặn hành vi mặc định khi kéo file vào
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, preventDefaults, false);
-        document.body.addEventListener(eventName, preventDefaults, false);
-    });
-
-    // Highlight drop zone khi kéo file vào
-    ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, highlight, false);
-    });
-
-    ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, unhighlight, false);
-    });
-
-    // Xử lý sự kiện thả file
-    dropZone.addEventListener('drop', handleDrop, false);
-
-    // Xử lý sự kiện click vào drop zone
-    dropZone.addEventListener('click', () => fileInput.click());
-
-    // Xử lý sự kiện chọn file từ input
-    fileInput.addEventListener('change', handleFiles);
-
-    function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
-    }
-
-    function highlight(e) {
-        dropZone.classList.add('highlight');
-    }
-
-    function unhighlight(e) {
-        dropZone.classList.remove('highlight');
-    }
-
-    function handleDrop(e) {
-        let dt = e.dataTransfer;
-        let files = dt.files;
-        handleFiles(files);
-    }
-
-    function handleFiles(files) {
-        if (files instanceof FileList) {
-            ([...files]).forEach(uploadFile);
-        } else if (files.target && files.target.files) {
-            ([...files.target.files]).forEach(uploadFile);
-        }
-    }
-
-    function uploadFile(file) {
-        if (file.type.startsWith('image/')) {
-            let reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onloadend = function() {
-                productImage.src = reader.result;
-            }
-        } else {
-            console.log('Vui lòng chọn file ảnh');
-        }
-    }
-</script>
-
-
-<script src="{{ url("assets/js/admin/product.js")}}"></script>
-<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+@endsection
+@section('script')
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+    @include('product.create.js')
 @endsection

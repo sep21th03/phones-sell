@@ -20,26 +20,28 @@ use App\Http\Controllers\User\UserGetController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/login', [WebController::class, 'login_page'])->name('login_page');
 Route::get('/register', [WebController::class, 'register'])->name('register');
-Route::get('/admin/login', [AdminController::class, 'login'])->name('admin.login');
-Route::middleware(['auth:sanctum'])->group(function (){
-    Route::get('/', [WebController::class, 'dashboard'])->name('dashboard');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login');
+// Route::middleware(['auth:sanctum'])->group(function () {
+//     Route::get('/', [WebController::class, 'dashboard'])->name('dashboard');
+// });
+Route::get('/', function () {
+    return redirect('/admin');
+});
+Route::prefix('/admin')->middleware('admin')->group(function () {
+    //Dashboard
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+    //Categpry
+    Route::get('/category', [DashboardController::class, 'manager_category'])->name('category.list');
+    //Product
+    Route::get('/product', [DashboardController::class, 'manager_product'])->name('product.list');
+    Route::get('/product/{id}', [DashboardController::class, 'detai_product'])->name('product.detail');;
+    Route::get('/add/product/', [DashboardController::class, 'add_product'])->name('product.add');;
+
 });
 
-Route::prefix('/admin')->middleware('admin')->group(function(){
-    Route::get('/', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/category', [DashboardController::class, 'manager_category'])->name('admin.category.list');
-    Route::get('/product', [DashboardController::class, 'manager_product'])->name('admin.product.list');
-    Route::get('/product/{id}', [DashboardController::class, 'detai_product'])->name('admin.product.detail');;
-    Route::get('/add/product/', [DashboardController::class, 'add_product'])->name('admin.product.add');;
+Route::middleware('auth:sanctum')->get('/check-session', [Controller::class, 'checkSession']);
 
-    //API 
-    Route::get('/get/category', [CategoryController::class, 'index']);
-});
-
-
-Route::post('ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
-Route::get('/get/category', [CategoryController::class, 'index']);
-Route::get('/user/get/user', [UserGetController::class, 'get_user_list']);
-Route::get('/some-endpoint', [Controller::class, 'someFunction']);
+Route::get('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');

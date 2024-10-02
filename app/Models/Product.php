@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-
+use Illuminate\Support\Facades\DB;
 class Product extends Model
 {
     use HasFactory;
@@ -41,4 +41,9 @@ class Product extends Model
             $query->where('name', $categoryName);
         })->get();
     }
+
+    public static function deleteProducts(array $ids){
+        return DB::table('products')->whereIn('id', $ids)->delete();
+    }
+    
 }

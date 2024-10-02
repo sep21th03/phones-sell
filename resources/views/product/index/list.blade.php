@@ -12,33 +12,42 @@ Danh sách sản phẩm
     vertical-align: middle !important;
   }
 
-/* Thiết lập kiểu cho bảng */
-.table {
+  /* Thiết lập kiểu cho bảng */
+  .table {
     width: 100%;
-    border-collapse: collapse; /* Gộp các đường biên */
-    margin: 20px 0; /* Khoảng cách phía trên và dưới */
-}
+    border-collapse: collapse;
+    /* Gộp các đường biên */
+    margin: 20px 0;
+    /* Khoảng cách phía trên và dưới */
+  }
 
-/* Định dạng hàng của bảng */
-.table tr {
-    background-color: #f9f9f9; /* Màu nền cho hàng */
-    transition: background-color 0.3s; /* Hiệu ứng chuyển tiếp khi di chuột */
-}
+  /* Định dạng hàng của bảng */
+  .table tr {
+    background-color: #f9f9f9;
+    /* Màu nền cho hàng */
+    transition: background-color 0.3s;
+    /* Hiệu ứng chuyển tiếp khi di chuột */
+  }
 
-/* Định dạng ô của bảng */
-.table td {
-    padding: 12px; /* Khoảng cách bên trong ô */
-    border: 1px solid #ddd; /* Đường biên cho ô */
-    text-align: center; /* Căn giữa nội dung */
-}
+  /* Định dạng ô của bảng */
+  .table td {
+    padding: 12px;
+    /* Khoảng cách bên trong ô */
+    border: 1px solid #ddd;
+    /* Đường biên cho ô */
+    text-align: center;
+    /* Căn giữa nội dung */
+  }
 
-/* Đổi màu hàng khi di chuột qua */
-.table tr:hover {
-    background-color: #f1f1f1; /* Màu nền khi di chuột */
-}
+  /* Đổi màu hàng khi di chuột qua */
+  .table tr:hover {
+    background-color: #f1f1f1;
+    /* Màu nền khi di chuột */
+  }
 
-
-
+  .form-check {
+    padding-left: 2.5em !important;
+  }
 </style>
 <div class="content">
   <nav class="mb-3" aria-label="breadcrumb">
@@ -68,6 +77,12 @@ Danh sách sản phẩm
               <span class="fas fa-search search-box-icon"></span>
             </form>
           </div>
+          <select id="category-filter">
+              <option value="">Tất cả danh mục</option>
+              @foreach($categories as $category)
+              <option value="{{ $category->id }}">{{ $category->name }}</option>
+              @endforeach
+          </select>
           <div class="ms-xxl-auto"><button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button><button class="btn btn-primary" id="addBtnProduct"><span class="fas fa-plus me-2"></span>Thêm sản phẩm</button></div>
         </div>
       </div>
@@ -76,14 +91,16 @@ Danh sách sản phẩm
           <table id="list_product" class="table fs-9 mb-0">
             <thead>
               <tr>
-                <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
+                <th class="white-space-nowrap fs-9 align-middle ps-0" data-orderable="false" style="width: 5%;">
                   <div class="form-check mb-0 fs-8"><input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' /></div>
                 </th>
                 <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width: 20%;">ẢNH</th>
                 <th class="sort white-space-nowrap align-middle text-center ps-4" scope="col" style="width:350px;" data-sort="product">TÊN SẢN PHẨM</th>
                 <th class="sort align-middle  text-center ps-4" scope="col" data-sort="category" style="width:150px;">HÃNG</th>
                 <th class="sort align-middle  text-center ps-4" scope="col" data-sort="category" style="width:150px;">DUNG LƯỢNG</th>
-                <th class="sort  text-center align-middle pe-0 ps-4" scope="col" style="width: 5%;"></th>
+                <th class="sort  text-center align-middle pe-0 ps-4" scope="col" style="width: 7%;">
+                  <button class="btn btn-danger btn-sm" onclick="deleteSelectedProducts()">Xóa</button>
+                </th>
               </tr>
             </thead>
             <tbody class="list text-center fs-8" id="products-table-body">
@@ -96,6 +113,10 @@ Danh sách sản phẩm
   </div>
 </div>
 </main>
-
-<script src="{{ url("assets/js/admin/product.js")}}"></script>
+@endsection
+@section('modal')
+@include('product.modal.main')
+@endsection
+@section('script')
+@include('product.index.js')
 @endsection

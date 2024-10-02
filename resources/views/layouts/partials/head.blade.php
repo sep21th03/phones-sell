@@ -6,15 +6,15 @@
         <ul class="navbar-nav flex-column" id="navbarVerticalNav">
           <div class="parent-wrapper">
             <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-admin">
-              <li class="nav-item"><a class="nav-link" href="/add-product.html">
+              <li class="nav-item"><a class="nav-link" href="{{ route("product.add") }}">
                   <div class="d-flex align-items-center"><span class="nav-link-text">Add product</span></div>
                 </a><!-- more inner pages-->
               </li>
-              <li class="nav-item"><a class="nav-link" href="{{ route("admin.product.list") }}">
+              <li class="nav-item"><a class="nav-link" href="{{ route("product.list") }}">
                   <div class="d-flex align-items-center"><span class="nav-link-text">Products</span></div>
                 </a><!-- more inner pages-->
               </li>
-              <li class="nav-item"><a class="nav-link" href="{{ route("admin.category.list") }}">
+              <li class="nav-item"><a class="nav-link" href="{{ route("category.list") }}">
                   <div class="d-flex align-items-center"><span class="nav-link-text">Category</span></div>
                 </a><!-- more inner pages-->
               </li>
@@ -49,7 +49,7 @@
     <div class="collapse navbar-collapse justify-content-between">
       <div class="navbar-logo">
         <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-        <a class="navbar-brand me-1 me-sm-3" href="{{ route('admin.dashboard') }}">
+        <a class="navbar-brand me-1 me-sm-3" href="{{ route('dashboard') }}">
           <div class="d-flex align-items-center">
             <div class="d-flex align-items-center"><img src=" {{ url("assets/img/icons/logo.png") }}" alt="phoenix" width="27" />
               <h5 class="logo-text ms-2 d-none d-sm-block">phoenix</h5>
@@ -400,4 +400,12 @@
         dropdown.classList.remove('show');
       }
     });
+
+    document.getElementById('logoutButton').addEventListener('click', function() {
+      logout();
+    })
+    async function logout() {
+      await localStorage.removeItem('token');
+      window.location.href = "/admin/login";
+    }
   </script>

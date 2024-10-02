@@ -2,8 +2,8 @@ $(document).ready(function () {
     if ($("#list_category").length) {
         $("#list_category").DataTable({
             ajax: {
-                url: "/api/category/get/category",
-                type: "POST",
+                url: "{{ route('category.index') }}",
+                type: "get",
                 dataSrc: "data",
                 headers: {
                     "Content-Type": "application/json",
@@ -121,15 +121,7 @@ document
             });
     });
 
-function open_modal_edit_category(id) {
-    var table = $("#list_category").DataTable();
-    var rowData = table.row(`[id="${id}"]`).data();
-    document.getElementById("editInputCategory").value = rowData.name;
-    document.getElementById("editCategory").setAttribute("data-id", id); 
 
-    const modal = new bootstrap.Modal(document.getElementById("editCategory"));
-    modal.show();
-}
 
 document.querySelector('button[name="submit_edit_category"]').addEventListener("click", function () {
     let updateName = document.querySelector('input[name="name_edit"]').value;

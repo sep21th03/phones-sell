@@ -7,10 +7,10 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use App\Models\ProductVariant;
 use App\Models\ProductSpecification;
+use Illuminate\Validation\ValidationException;
 
 class ProductController extends Controller
 {
@@ -174,10 +174,12 @@ class ProductController extends Controller
             $variant->stock = $request->stock;
             $variant->save();
 
-
             if ($request->hasFile('image')) {
                 $image = $request->file('image');
-                $imageName = time() . '_' . $image->getClientOriginalName();
+
+                $randomName = Str::random(10);
+                $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
+
                 $image->move(public_path('assets/img/products'), $imageName);
 
                 $imageAdd = new ProductImage();
@@ -254,7 +256,9 @@ class ProductController extends Controller
                         'id' => $variant->rom->id,
                         'capacity' => $variant->rom->capacity,
                     ],
-                    'images' => $variant->images[0]->image_url,
+                    'images' => isset($variant->images[0]) && $variant->images[0]->image_url
+                        ? $variant->images[0]->image_url
+                        : 'assets/img/products/template_img.jpg',
                 ];
             }),
         ];
@@ -405,9 +409,28 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $product = Product::findOrFail($request->id);
+            if (!$product) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Sản phẩm không tồn tại!'
+                ], 404);
+            }
+
+
+            $product->delete();
+
+            return response()->json(['status' => 'success', 'message' => 'Xóa sản phẩm thành công!'], 200);
+        } catch (ValidationException $e) {
+
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Dữ liệu không hợp lệ: ' . $e->getMessage()
+            ], 422);
+        }
     }
 
     public function addColor(Request $request)
@@ -470,35 +493,83 @@ class ProductController extends Controller
         }
     }
 
-    // public function getProductByCategory($query)
-    // {
-    //     $products = Product::getProductByCategory($query);
-
-    //     if ($products->isEmpty()) {
-    //         return response()->json([
-    //             'message' => 'Không tìm thấy sản phẩm nào trong danh mục: ' . $query,
-    //         ], 404);
-    //     }
-
-    //     return response()->json(['products' => $products], 200);
-    // }
     public function getProductByCategory()
-{
-    $categoryName = request()->query('category');
+    {
+        $categoryName = request()->query('category');
 
-    if (!$categoryName) {
-        return response()->json(['message' => 'Vui lòng cung cấp tên danh mục'], 400);
+        if (!$categoryName) {
+            return response()->json(['message' => 'Vui lòng cung cấp tên danh mục'], 400);
+        }
+
+        $products = Product::getProductByCategory($categoryName);
+
+        if ($products->isEmpty()) {
+            return response()->json([
+                'message' => 'Không tìm thấy sản phẩm nào trong danh mục: ' . $categoryName,
+            ], 404);
+        }
+
+        return response()->json(['products' => $products], 200);
     }
 
-    $products = Product::getProductByCategory($categoryName);
 
-    if ($products->isEmpty()) {
+    // Xóa nhiều sản phẩm
+    public function deleteProducts(Request $request)
+    {
+        $idToDelete = $request->input('ids');
+        $products = Product::deleteProducts($idToDelete);
+        if ($products) {
+            return response()->json(['message' => 'Xóa thành công'], 200);
+        } else {
+            return response()->json(['message' => 'Xóa không thành công'], 400);
+        }
+    }
+
+    // Xóa màu sản phẩm 
+    public function deleteProductColor(Request $request)
+    {
+        $variant = ProductVariant::find($request->id);
+
+        if ($variant) {
+            $variant->delete();
+
+            $images = ProductImage::where('product_variant_id', $variant->id)->get();
+
+            if ($images->isNotEmpty()) {
+                foreach ($images as $image) {
+                    $imagePath = public_path($image->image_url);
+                    if (file_exists($imagePath)) {
+                        unlink($imagePath);
+                    }
+
+                    $image->delete();
+                }
+            }
+
+            return response()->json(['message' => 'Xóa màu thành công'], 200);
+        } else {
+            return response()->json(['message' => 'Màu này không tồn tại'], 404);
+        }
+    }
+
+    public function filterProductList(Request $request)
+    {
+        $query = Product::query();
+
+        if ($request->has('category') && !empty($request->category)) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('id', $request->category);
+            });
+        }
+
+        $products = $query->with(['category', 'variants.rom', 'variants.images'])
+            ->paginate($request->input('length', 10));
+
         return response()->json([
-            'message' => 'Không tìm thấy sản phẩm nào trong danh mục: ' . $categoryName,
-        ], 404);
+            'draw' => $request->input('draw'),
+            'recordsTotal' => $products->total(),
+            'recordsFiltered' => $products->total(),
+            'data' => $products->items(),
+        ]);
     }
-
-    return response()->json(['products' => $products], 200);
-}
-
 }
