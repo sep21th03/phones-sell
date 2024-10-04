@@ -29,18 +29,4 @@ class ProductVariant extends Model
     {
         return $this->hasMany(ProductImage::class);
     }
-
-    public static function createVariant($productId, $romId, $color, $color_code, $price, $availability, $stock) {
-        $variant = new self(); 
-        $variant->product_id = $productId;
-        $variant->rom_id = $romId;
-        $variant->color = $color;
-        $variant->color_code = $color_code;
-        $variant->price = $price;
-        $variant->availability = $availability;
-        $variant->stock = $stock;
-        $variant->save(); 
-
-        return $variant; 
-    }
 }

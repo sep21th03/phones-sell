@@ -21,6 +21,7 @@
                 operating_system: $("input[name='add_operating_system']").val(),
                 connectivity: $("input[name='add_connectivity']").val(),
                 bluetooth: $("input[name='add_bluetooth']").val(),
+                battery: $("input[name='add_battery']").val(),
                 pin: $("input[name='add_pin']").val(),
                 chip: $("input[name='add_chip']").val(),
                 dimensions: $("input[name='add_dimensions']").val(),

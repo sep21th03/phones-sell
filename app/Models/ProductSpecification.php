@@ -11,6 +11,9 @@ class ProductSpecification extends Model
 
     protected $table = 'product_specifications';
     protected $primaryKey = 'id';
+    protected $fillable = [
+        'id'
+    ];
     public $timestamps = false;
 
     public function product() {

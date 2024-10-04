@@ -3,78 +3,55 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Category;
+use App\Services\CategoryService;
 use App\Http\Requests\Admin\Category\DeleteCategoryRequest;
 use App\Http\Requests\Admin\Category\StoreCategoryRequest;
 use App\Http\Requests\Admin\Category\UpdateCategoryRequest;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $categoryService;
+
+    // Inject CategoryService vào controller
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
 
     public function index()
     {
-        $categories = Category::getCategory();
-        if ($categories) {
-            return response()->json([
-                'status' => 'success',
-                'message' => 'Danh sách danh mục.',
-                'data' => $categories,
-            ], 200);
-        }
+        $categories = $this->categoryService->getAllCategories();
+        return $categories
+                ? jsonResponse('success',  'Danh sách hãng', $categories)
+                : jsonResponse('error', 'Không tìm thấy danh sách hãng!');
     }
 
     public function store(StoreCategoryRequest $request)
     {
-        try {
             $data = $request->validated();
 
-            $category = Category::create([
-                'name' => $data['name'],
-            ]);
+            $category = $this->categoryService->store($data);
 
-            if ($category) {
-                return jsonResponse('success',  'Tạo danh mục thành công', $category);
-            } else {
-                return jsonResponse('error', 'Tạo danh mục thất bại');
-            }
-        } catch (\Exception $e) {
-            return jsonResponse('error', 'Có lỗi xảy ra: ' . $e->getMessage());
-        }
+            return $category
+                ? jsonResponse('success',  'Tạo danh mục thành công', $category)
+                : jsonResponse('error', 'Tạo danh mục thất bại');
     }
 
     public function update(UpdateCategoryRequest $request)
     {
-        try {
             $data = $request->validated();
-            $category = Category::find($data['id']);
+            $category = $this->categoryService->update($data['id'], $data);
 
-            if (!$category) {
-                return jsonResponse('error', 'Loại sản phẩm không tồn tại!', []);
-            }
-
-            $category->name = $request->name;
-            $category->save();
-
-            return jsonResponse('success', 'Cập nhật sản phẩm thành công', $category);
-        } catch (\Exception $e) {
-            return jsonResponse('error', 'Có lỗi xảy ra: ' . $e->getMessage());
-        }
+            return $category
+                ? jsonResponse('success',  'Sửa danh mục thành công', $category)
+                : jsonResponse('error', 'Sửa danh mục thất bại');
     }
     public function destroy(DeleteCategoryRequest $request)
     {
-        try {
             $data = $request->validated();
-            $category = Category::find($data['id']);
-            if (!$category) {
-                return jsonResponse('error', 'Loại sản phẩm không tồn tại!', []);
-            }
-            $category->delete_category($data['id']);
-            return jsonResponse('success','Xóa loại sản phẩm thành công.');
-        } catch (\Exception $e) {
-            return jsonResponse('error', 'Có lỗi xảy ra: ' . $e->getMessage());
-        }
+            $category = $this->categoryService->delete($data['id']);
+            return $category
+                ? jsonResponse('success', 'Xóa loại sản phẩm thành công.')
+                : jsonResponse('error', 'Xóa loại sản phẩm thất bại.');
     }
 }

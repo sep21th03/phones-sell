@@ -29,6 +29,7 @@
                 operating_system: $("input[name='edit_operating_system']").val(),
                 connectivity: $("input[name='edit_connectivity']").val(),
                 bluetooth: $("input[name='edit_bluetooth']").val(),
+                battery: $("input[name='edit_battery']").val(),
                 pin: $("input[name='edit_pin']").val(),
                 chip: $("input[name='edit_chip']").val(),
                 dimensions: $("input[name='edit_dimensions']").val(),
@@ -57,6 +58,7 @@
             for (const key in formValues) {
                 formData.append(key, formValues[key]);
             }
+
             $.ajax({
                 url: "{{ route('product.update') }}",
                 type: "POST",

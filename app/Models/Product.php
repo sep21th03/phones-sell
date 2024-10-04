@@ -35,15 +35,5 @@ class Product extends Model
     {
         return $this->hasMany(ProductVariant::class);
     }
-    public static function getProductByCategory($categoryName)
-    {
-        return self::with('specifications', 'variants.rom', 'variants.images')->whereHas('category', function ($query) use ($categoryName) {
-            $query->where('name', $categoryName);
-        })->get();
-    }
 
-    public static function deleteProducts(array $ids){
-        return DB::table('products')->whereIn('id', $ids)->delete();
-    }
-    
 }
