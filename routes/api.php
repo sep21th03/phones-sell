@@ -22,7 +22,6 @@ use App\Http\Controllers\Controller;
 
 Route::post('/user/login', [AuthController::class, 'login']);
 Route::post('/user/register', [AuthController::class, 'register']);
-Route::post('/admin/login', [AdminController::class, 'postlogin']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 

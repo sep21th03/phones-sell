@@ -5,7 +5,6 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\WebController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
@@ -21,16 +20,19 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/login', [WebController::class, 'login_page'])->name('login_page');
-Route::get('/register', [WebController::class, 'register'])->name('register');
-Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login')->middleware('guest');
+Route::post('/admin/login', [AdminController::class, 'postlogin'])->name('auth.login.post');
+
 // Route::middleware(['auth:sanctum'])->group(function () {
-//     Route::get('/', [WebController::class, 'dashboard'])->name('dashboard');
+//     Route::get('/', function () {
+//         return view('welcome');
+//     });
 // });
+
 Route::get('/', function () {
     return redirect('/admin');
 });
-Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     //Dashboard
     Route::prefix('/admin')->get('/', [DashboardController::class, 'index'])->name('dashboard');
     //Category
@@ -45,7 +47,7 @@ Route::middleware(['auth:sanctum', 'admin'])->group(function () {
     Route::prefix('product')->group(function () {
         Route::get('/', [DashboardController::class, 'manager_product'])->name('product.list');
         Route::get('/get', [ProductController::class, 'index'])->name('product.index');
-        Route::get('/{id}', [DashboardController::class, 'detai_product'])->name('product.detail');;
+        Route::get('/{id}', [DashboardController::class, 'detai_product'])->name('product.detail');
         Route::get('/add/product/', [DashboardController::class, 'add_product'])->name('product.add');
         Route::get('/get/{id}', [ProductController::class, 'show'])->name('product.show');
         Route::post('/add/color/', [ProductController::class, 'addColor'])->name('product.addColor');

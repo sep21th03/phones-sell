@@ -89,7 +89,7 @@
                                     <span class="fas fa-ellipsis-h fs-10"></span>
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end py-2">
-                                    <a class="dropdown-item" href="/admin/product/${data}">Xem chi tiết</a>
+                                    <a class="dropdown-item" href="/product/${data}">Xem chi tiết</a>
                                     <a class="dropdown-item" href="#!">Export</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#!" onclick="removeProduct(${data})">Xóa</a>

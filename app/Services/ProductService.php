@@ -253,6 +253,7 @@ class ProductService
                 'product_id' => $product->id,
                 'color' => $data['color'],
                 'color_code' => $data['color_code'],
+                'rom_id' => $data['rom_id'],
                 'price' => $data['price'],
                 'availability' => $data['availability'],
                 'stock' => $data['stock'],

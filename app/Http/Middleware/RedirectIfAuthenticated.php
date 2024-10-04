@@ -21,8 +21,7 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                // return redirect(RouteServiceProvider::HOME);
-                return redirect()->away('http://127.0.0.1:53293/index.html');
+                return redirect(RouteServiceProvider::HOME);
             }
         }
 

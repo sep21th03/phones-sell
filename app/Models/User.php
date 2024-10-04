@@ -4,16 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
-use DateTimeInterface;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
-use Laravel\Sanctum\NewAccessToken;
-
+use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -25,7 +23,8 @@ class User extends Authenticatable
         'password',
         'name',
         'phone',
-        'role',
+        'address',
+        'avt_url',
     ];
 
     /**
@@ -58,7 +57,7 @@ class User extends Authenticatable
         return self::where('email', $email)->exists();
     }
 
-    public static function createUser($email, $name, $password, $address, $phone)
+    public static function createUser($email, $name, $password, $address, $phone, $avt)
     {
         $create = new User();
         $create->email = $email;
@@ -66,23 +65,14 @@ class User extends Authenticatable
         $create->password = $password;
         $create->address = $address;
         $create->phone = $phone;
-        $create->role = 0;
+        $create->phone = $phone;
+        $create->avt_url = $avt;
 
         if ($create->save()) {
             return $create;
         }
 
         return null;
-    }
-
-    public static function getUser()
-    {
-        return self::all();
-    }
-
-    public static function getUserById($id)
-    {
-        return self::where('id', $id)->first();
     }
 
     public static function updateToken($username, $token)

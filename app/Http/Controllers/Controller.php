@@ -15,7 +15,7 @@ class Controller extends BaseController
 
     public function someFunction()
     {
-        if (!Auth::guard('sanctum')->check()) {
+        if (!Auth::check()) {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Bạn chưa đăng nhập',

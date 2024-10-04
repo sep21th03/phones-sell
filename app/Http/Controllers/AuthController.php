@@ -12,16 +12,6 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        if (Auth::check()) {
-            // return response()->json([
-            //     'status' => 'success',
-            //     'message' => 'Da dang nhap',
-            //     'redirect_url' => '/',
-            // ]);
-            return redirect()->route('dashboard');
-            // return redirect()->away('http://127.0.0.1:53293/index.html');
-        }
-        try {
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:8',
@@ -60,22 +50,8 @@ class AuthController extends Controller
                 'status' => 'success',
                 'message' => 'Đăng nhập thành công',
                 'access_token' => $tokenResult,
-                'token_type' => 'Bearer',
-                'redirect_url' => route('dashboard')
+                'token_type' => 'Bearer'
             ]);
-        } catch (ValidationException $validationException) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Xác thực thất bại',
-                'errors' => $validationException->errors()
-            ], 422);
-        } catch (\Exception $error) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Đã có lỗi xảy ra',
-                'errors' => ['message' => $error->getMessage()]
-            ], 500);
-        }
     }
 
     public function register(Request $request)
@@ -99,13 +75,17 @@ class AuthController extends Controller
                     'password' => ['Password khong giong nhau'],
                 ]);
             }
-            $user = User::createUser($request->email, $request->name, Hash::make($request->password), $request->address, $request->phone);
-            if (!$user) {
-                throw ValidationException::withMessages([
-                    'create' => ['Tao tai khoan that bai'],
-                ]);
-            }
-            Auth::login($user);
+            $avatarUrl = 'https://ui-avatars.com/api/?name=' . urlencode($request->name) . '&background=random';
+
+            $user = User::createUser(
+                $request->email,
+                $request->name,
+                Hash::make($request->password),
+                $request->address,
+                $request->phone,
+                $avatarUrl 
+            );
+            $user->assignRole('member');
             $tokenResult = $user->createToken($user->id)->plainTextToken;
             return response()->json([
                 'status' => 'success',

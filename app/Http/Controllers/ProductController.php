@@ -144,6 +144,7 @@ class ProductController extends Controller
     public function addColor(StoreProductColorRequest $request)
     {
         $data = $request->validated();
+        $data['image'] = $request->file('image_url');
         $result = $this->productService->addColor($data);
 
         return $result['status'] === 'success'

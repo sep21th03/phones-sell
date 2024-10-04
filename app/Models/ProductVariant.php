@@ -8,7 +8,7 @@ class ProductVariant extends Model
     protected $table = 'product_variants';
 
     protected $fillable = [
-        'product_id', 'rom_id', 'color', 'price', 'availability'
+        'product_id', 'rom_id', 'color', 'color_code', 'price', 'stock', 'availability'
     ];
     public $timestamps = false;
 
