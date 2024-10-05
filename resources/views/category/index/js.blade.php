@@ -2,6 +2,13 @@
     $(document).ready(function() {
         if ($("#list_category").length) {
             $("#list_category").DataTable({
+                dom: 'rtp',
+                initComplete: function() {
+                    var api = this.api();
+                    $('#searchInput').on('input', function() {
+                        api.search(this.value).draw();
+                    });
+                },
                 ajax: {
                     url: "{{ route('category.index') }}",
                     type: "get",
@@ -20,10 +27,16 @@
                         data: "name"
                     },
                     {
-                        data: "created_at"
+                        data: "created_at",
+                        render: function(data, type, row) {
+                            return convertToVietnamTime(data);
+                        }
                     },
                     {
-                        data: "updated_at"
+                        data: "updated_at",
+                        render: function(data, type, row) {
+                            return convertToVietnamTime(data);
+                        }
                     },
                     {
                         data: "id"
@@ -64,7 +77,20 @@
             });
         }
     });
+    function convertToVietnamTime(dateString) {
+        const date = new Date(dateString);
+        const vietnamFormatter = new Intl.DateTimeFormat('vi-VN', {
+            timeZone: 'Asia/Ho_Chi_Minh',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
 
+        return vietnamFormatter.format(date);
+    }
 
     function delete_category(categoryId) {
         const swalWithBootstrapButtons = Swal.mixin({

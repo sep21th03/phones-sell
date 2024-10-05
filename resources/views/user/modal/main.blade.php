@@ -1,25 +1,3 @@
-<div class="modal fade" id="addUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm loại sản phẩm</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="mb-3">
-                        <label for="addInputUser" class="form-label">Tên loại</label>
-                        <input type="text" name="name" class="form-control" id="addInputUser" aria-describedby="emailHelp">
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                <button type="button" name="submit_add_category" class="btn btn-primary">Thêm</button>
-            </div>
-        </div>
-    </div>
-</div>
 <div class="modal fade" id="editUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -61,7 +39,7 @@
         document.getElementById("editInputUserName").value = rowData.name;
         document.getElementById("editInputUserEmail").value = rowData.email;
         document.getElementById("editInputUserPhone").value = rowData.phone;
-        document.getElementById("editInputUserRole").value = rowData.role;
+        document.getElementById("editInputUserRole").value = rowData.roles;
         document.getElementById("editUser").setAttribute("data-id", id);
         const modal = new bootstrap.Modal(document.getElementById("editUser"));
         modal.show();
@@ -114,10 +92,6 @@
                             updated_at: data.data.updated_at,
                             id: data.data.id,
                         }).draw();
-                        document.getElementById('editInputUserName').value = ""
-                        document.getElementById('editInputUserEmail').value = ""
-                        document.getElementById('editInputUserPhone').value = ""
-                        document.getElementById('editInputUserRole').value = "";
                     } else {
                         console.error("Tài khoản không tồn tại để cập nhật");
                     }

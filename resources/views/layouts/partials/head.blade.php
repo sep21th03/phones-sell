@@ -52,7 +52,7 @@
         <a class="navbar-brand me-1 me-sm-3" href="{{ route('dashboard') }}">
           <div class="d-flex align-items-center">
             <div class="d-flex align-items-center"><img src=" {{ url("assets/img/icons/logo.png") }}" alt="phoenix" width="27" />
-              <h5 class="logo-text ms-2 d-none d-sm-block">phoenix</h5>
+              <h5 class="logo-text ms-2 d-none d-sm-block">Admin</h5>
             </div>
           </div>
         </a>
@@ -243,44 +243,36 @@
         <li class="nav-item dropdown">
           <a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <div class="avatar avatar-l">
-              <img class="rounded-circle" src="{{ url('assets/img/team/40x40/57.webp') }}" alt="" />
+              <img class="rounded-circle" src="@if (Auth::check())
+                                        {{ Auth::user()->avt_url }}
+                                    @endif" alt="" />
             </div>
           </a>
-          <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser" style="left: auto; top: 4rem;">
+          <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border" aria-labelledby="navbarDropdownUser" style="left: auto; top: 4rem; height: 210px;">
             <div class="card position-relative border-0">
               <div class="card-body p-0">
                 <div class="text-center pt-4 pb-3">
                   <div class="avatar avatar-xl">
-                    <img class="rounded-circle" src="{{ url('assets/img/team/72x72/57.webp') }}" alt="" />
+                    <img class="rounded-circle" src="@if (Auth::check())
+                                        {{ Auth::user()->avt_url }}
+                                    @endif" alt="" />
                   </div>
-                  <h6 class="mt-2 text-body-emphasis">Jerry Seinfield</h6>
-                </div>
-                <div class="mb-3 mx-3">
-                  <input class="form-control form-control-sm" id="statusUpdateInput" type="text" placeholder="Update your status" />
+                  <h6 class="mt-2 text-body-emphasis"> @if (Auth::check())
+                    {{ Auth::user()->name }}
+                    @endif
+                  </h6>
                 </div>
               </div>
-              <div class="overflow-auto scrollbar" style="height: 10rem;">
+              <div class="overflow-auto scrollbar">
                 <ul class="nav d-flex flex-column mb-2 pb-1">
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user"></span><span>Profile</span></a></li>
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"><span class="me-2 text-body align-bottom" data-feather="pie-chart"></span>Dashboard</a></li>
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="lock"></span>Posts &amp; Activity</a></li>
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="settings"></span>Settings &amp; Privacy</a></li>
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="help-circle"></span>Help Center</a></li>
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="globe"></span>Language</a></li>
+                  <li class="nav-item"><a class="nav-link px-3 d-block" href="{{ route('dashboard') }}"><span class="me-2 text-body align-bottom" data-feather="pie-chart"></span>Dashboard</a></li>
                 </ul>
               </div>
-              <div class="card-footer p-0 border-top border-translucent">
-                <ul class="nav d-flex flex-column my-3">
-                  <li class="nav-item"><a class="nav-link px-3 d-block" href="#!"> <span class="me-2 text-body align-bottom" data-feather="user-plus"></span>Add another account</a></li>
-                </ul>
-                <hr />
+              <div class="p-0">
                 <div class="px-3">
                   <a id="logoutButton" class="btn btn-phoenix-secondary d-flex flex-center w-100" href="#">
-                    <span class="me-2" data-feather="log-out"></span>Sign out
+                    <span class="me-2" data-feather="log-out"></span>Đăng xuất
                   </a>
-                </div>
-                <div class="my-2 text-center fw-bold fs-10 text-body-quaternary">
-                  <a class="text-body-quaternary me-1" href="#!">Privacy policy</a>&bull;<a class="text-body-quaternary mx-1" href="#!">Terms</a>&bull;<a class="text-body-quaternary ms-1" href="#!">Cookies</a>
                 </div>
               </div>
             </div>

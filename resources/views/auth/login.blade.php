@@ -57,7 +57,7 @@
           let email = document.querySelector('input[name="email"]').value;
           let password = document.querySelector('input[name="password"]').value;
           let token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-          fetch('/api/admin/login', {
+          fetch("{{ route('auth.login.post') }}", {
                   method: 'POST',
                   body: JSON.stringify({
                       email: email,

@@ -17,7 +17,7 @@ class DashboardController extends Controller
         if (!Auth::check()) {
             return redirect()->route('auth.login');
         }
-        return view('dashboard',  ['total_products' => Product::count()]);
+        return view('dashboard',  ['total_products' => Product::count(), 'users' => User::all()]);
     }
     public function manager_user(){
         if (Auth::check()) {
@@ -35,8 +35,7 @@ class DashboardController extends Controller
     public function manager_product()
     {
         if (Auth::user()) {
-            $categories = Category::all();
-            return view('product.index.list', ['categories' => $categories]);
+            return view('product.index.list', ['total_products' => Product::count()]);
         }
         return redirect()->route('auth.login');
     }

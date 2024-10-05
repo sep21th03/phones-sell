@@ -3,6 +3,24 @@
         let base_url = window.location.origin;
         if ($("#list_product").length) {
             $("#list_product").DataTable({
+                dom: 'rtpl',
+                initComplete: function() {
+                    var api = this.api();
+                    $('#searchInput').on('input', function() {
+                        api.search(this.value).draw();
+                    });
+                    var lengthDiv = $('#list_product_length');
+                    lengthDiv.html(`
+                <label>Hiển thị
+                    <select name="list_product_length" aria-controls="list_product" class="form-select form-select-sm w-25">
+                        <option value="10">10</option>
+                        <option value="25">25</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select> 
+                sản phẩm / trang</label>
+            `);
+                },
                 ajax: {
                     url: " {{ route('product.index') }}",
                     type: "get",
@@ -59,10 +77,11 @@
                         },
                     },
                     {
-                        data: "title",
-                        render: function(data) {
-                            return `<a class="fw-semibold line-clamp-3 mb-0" href="">${data}</a>`;
-                        },
+                            data: "title",
+                            render: function(data, type, row) {
+                                const productId = row.id; 
+                                return `<a class="fw-semibold line-clamp-3 mb-0" href="{{ route('product.detail', '') }}/${productId}">${data}</a>`;
+                            },
                     },
                     {
                         data: "category_name"
@@ -90,7 +109,7 @@
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-end py-2">
                                     <a class="dropdown-item" href="/product/${data}">Xem chi tiết</a>
-                                    <a class="dropdown-item" href="#!">Export</a>
+                                    <a class="dropdown-item" href="#!" onclick="exportProduct(${data})">Export</a>
                                     <div class="dropdown-divider"></div>
                                     <a class="dropdown-item text-danger" href="#!" onclick="removeProduct(${data})">Xóa</a>
                                 </div>
@@ -128,7 +147,7 @@
                 isChecked
             );
         });
-        
+
         $('#category-filter').on('change', function() {
             table.ajax.reload();
         });
@@ -253,5 +272,109 @@
                 text: "Vui lòng chọn ít nhất một sản phẩm để xóa.",
             });
         }
+    }
+
+    function exportToExcel() {
+        const rows = [];
+        const table = document.getElementById('list_product');
+
+        const headers = ['Tên Sản Phẩm', 'Dung Lượng', 'Hãng'];
+        rows.push(headers);
+
+        const bodyRows = table.querySelectorAll('tbody tr');
+        bodyRows.forEach(row => {
+            const cells = row.querySelectorAll('td');
+            if (cells.length > 0) {
+                const name = cells[2].innerText;
+                const capacity = cells[4].innerText;
+                const category = cells[3].innerText;
+                rows.push([name, capacity, category]);
+            }
+        });
+
+        const ws = XLSX.utils.aoa_to_sheet(rows);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, ws, 'Products');
+
+        const excelFileName = 'Products_Data.xlsx';
+
+        XLSX.writeFile(workbook, excelFileName);
+
+    }
+
+
+    function exportProduct(productId) {
+        const base_url = window.location.origin;
+        fetch(`{{ route('product.show', '') }}/${productId}`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": document.querySelector('meta[name="csrf-token"]').getAttribute("content"),
+                }
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const headers = [
+                    'Tên Sản Phẩm', 'Dung Lượng', 'Hãng', 'Kích thước màn hình',
+                    'Công nghệ màn hình', 'Độ phân giải màn hình', 'Dung lượng RAM',
+                    'Khe cắm thẻ nhớ', 'Thẻ SIM', 'Hệ điều hành', 'Wi-Fi',
+                    'Bluetooth', 'Camera trước', 'Camera sau', 'Pin',
+                    'Công nghệ sạc', 'Chipset', 'Kích thước', 'Trọng lượng'
+                ];
+
+                const specifications = data.data.specifications || {};
+                const variant = data.data.variants[0] || {};
+                const rom = variant.rom || {};
+
+                const rowData = [
+                    data.data.title || '',
+                    rom.capacity || '',
+                    specifications.screen_size || '',
+                    specifications.screen_type || '',
+                    specifications.screen_resolution || '',
+                    specifications.ram || '',
+                    specifications.memory_card_slot || 'Không',
+                    specifications.sim || '',
+                    specifications.operating_system || '',
+                    specifications.connectivity || '',
+                    specifications.bluetooth || '',
+                    specifications.camera_front || '',
+                    specifications.camera_rear || '',
+                    specifications.battery || '',
+                    specifications.pin || '',
+                    specifications.chip || '',
+                    specifications.dimensions || '',
+                    specifications.weight || ''
+                ];
+
+                const ws = XLSX.utils.aoa_to_sheet([headers, rowData]);
+                const wb = XLSX.utils.book_new();
+                XLSX.utils.book_append_sheet(wb, ws, "Product Data");
+
+                const excelBuffer = XLSX.write(wb, {
+                    bookType: 'xlsx',
+                    type: 'array'
+                });
+                saveExcelFile(excelBuffer, `${data.data.title}.xlsx`);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred while exporting the product data.');
+            });
+    }
+
+    function saveExcelFile(buffer, fileName) {
+        const data = new Blob([buffer], {
+            type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        });
+        const link = document.createElement('a');
+        link.href = window.URL.createObjectURL(data);
+        link.download = fileName;
+        link.click();
     }
 </script>

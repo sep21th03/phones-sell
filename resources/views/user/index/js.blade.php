@@ -2,30 +2,28 @@
     $(document).ready(function() {
         if ($("#list_user").length) {
             $("#list_user").DataTable({
+                dom: 'rtp',
+                initComplete: function() {
+                    var api = this.api();
+                    $('#searchInput').on('input', function() {
+                        api.search(this.value).draw();
+                    });
+                },
                 ajax: {
                     url: "{{ route('user.index') }}",
                     type: "get",
-                    dataSrc: "data",
+                    dataSrc: function(json) {
+                        return json.data;
+                    },
                     headers: {
                         "Content-Type": "application/json",
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
-                        ),
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
-                        console.log("Error get data from ajax");
+                        console.log("Error getting data from ajax");
                     },
                 },
-                columns: [{
-                        data: "id",
-                        render: function(data, type, row) {
-                            return `<div class="form-check mb-0 fs-8">
-                                    <input class="form-check-input" type="checkbox" data-bulk-select-row='${JSON.stringify(
-                                        row
-                                    )}' />
-                                </div>`;
-                        },
-                    },
+                columns: [
                     {
                         data: "name"
                     },
@@ -36,9 +34,9 @@
                         data: "phone"
                     },
                     {
-                        data: "role",
+                        data: "roles",
                         render: function(data, type, row) {
-                            return row.role == 1? "Quản trị viên" : "Người dùng";
+                            return data ? data : 'No role';
                         }
                     },
                     {
@@ -54,29 +52,22 @@
                         }
                     },
                     {
-                        data: "id"
-                    },
-                    {
-                    data: "role", 
-                    visible: false,
-                    render: function(data, type, row) {
-                        return row.role == 1 ? 1 : 0;
+                        data: "id",
+                        render: function(data) {
+                            return `
+                            <div class="btn-reveal-trigger position-relative">
+                                <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window">
+                                    <span class="fas fa-ellipsis-h fs-10"></span>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end py-2">
+                                    <a class="dropdown-item" href="#" onclick="open_modal_edit_user(${data})">Sửa</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item text-danger" href="#!" onclick="delete_user(${data})">Xóa</a>
+                                </div>
+                            </div>`;
+                        },
                     }
-                }
                 ],
-                columnDefs: [{
-                    targets: 7,
-                    render: function(data, type, row) {
-                        return (
-                            '<button type="button" class="btn btn-primary" onclick="open_modal_edit_user(' +
-                            data +
-                            ')">Sửa</button> <button type="button" class="btn btn-danger" onclick="delete_user(' +
-                            data +
-                            ')">Xóa</button>'
-                        );
-                    },
-                    className: "my-class",
-                }, ],
                 rowId: "id",
                 language: {
                     lengthMenu: "Hiện thị _MENU_ loại sản phẩm mỗi trang",
@@ -93,11 +84,14 @@
                     },
                 },
                 order: [
-                    [8, "desc"]
+                    [0, "desc"]
                 ],
             });
         }
     });
+
+
+
 
     function convertToVietnamTime(dateString) {
         const date = new Date(dateString);
@@ -112,5 +106,54 @@
         });
 
         return vietnamFormatter.format(date);
+    }
+
+    function delete_user(userId) {
+        Swal.fire({
+            title: 'Bạn có chắc chắn?',
+            text: "Bạn sẽ không thể hoàn tác hành động này!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Đồng ý, xóa!',
+            cancelButtonText: 'Hủy'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.ajax({
+                    url: "{{ route('user.destroy') }}",
+                    type: 'post',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        id: userId
+                    },
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            Swal.fire(
+                                'Đã xóa!',
+                                response.message,
+                                'success'
+                            );
+                            $('#list_user').DataTable().ajax.reload();
+                        } else {
+                            Swal.fire(
+                                'Lỗi!',
+                                'Có lỗi xảy ra khi xóa người dùng.',
+                                'error'
+                            );
+                        }
+                    },
+                    error: function() {
+                        Swal.fire(
+                            'Lỗi!',
+                            'Có lỗi xảy ra khi xóa người dùng.',
+                            'error'
+                        );
+                    }
+                });
+            }
+        });
     }
 </script>

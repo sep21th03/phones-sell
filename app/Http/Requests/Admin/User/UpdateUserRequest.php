@@ -47,22 +47,22 @@ class UpdateUserRequest extends FormRequest
             'role.required' => 'Vui lòng chọn vai trò',
             'role.exists' => 'Vai trò không tồn tại',
             'name.required' => 'Vui lòng nhập tên',
-            'name.string' => 'Tên phải là chu��i',
+            'name.string' => 'Tên phải là chữ',
             'name.max' => 'Tên không quá 255 ký tự',
             'email.required' => 'Vui lòng nhập email',
-            'email.email' => 'Email không đúng đ��nh dạng',
+            'email.email' => 'Email không đúng định dạng',
         ];
     }
 
     protected function failedValidation(Validator $validator)
     {
         $errors = $validator->errors()->all();
-        throw new HttpResponseException(jsonResponse(1, $errors));
+        throw new HttpResponseException(jsonResponse('error', $errors));
     }
 
     public function failedAuthorization()
     {
         $errors = ['Bạn không thể chỉnh sửa thông tin của chính bạn.'];
-        throw new HttpResponseException(jsonResponse(1, $errors));
+        throw new HttpResponseException(jsonResponse('error', $errors));
     }
 }

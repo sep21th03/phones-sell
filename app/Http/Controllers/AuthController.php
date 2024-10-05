@@ -12,6 +12,16 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
+        if (Auth::check()) {
+            // return response()->json([
+            //     'status' => 'success',
+            //     'message' => 'Da dang nhap',
+            //     'redirect_url' => '/',
+            // ]);
+            return redirect()->route('dashboard');
+            // return redirect()->away('http://127.0.0.1:53293/index.html');
+        }
+        try {
             $request->validate([
                 'email' => 'required|email',
                 'password' => 'required|min:8',
@@ -50,8 +60,22 @@ class AuthController extends Controller
                 'status' => 'success',
                 'message' => 'Đăng nhập thành công',
                 'access_token' => $tokenResult,
-                'token_type' => 'Bearer'
+                'token_type' => 'Bearer',
+                'redirect_url' => route('dashboard')
             ]);
+        } catch (ValidationException $validationException) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Xác thực thất bại',
+                'errors' => $validationException->errors()
+            ], 422);
+        } catch (\Exception $error) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Đã có lỗi xảy ra',
+                'errors' => ['message' => $error->getMessage()]
+            ], 500);
+        }
     }
 
     public function register(Request $request)
@@ -86,6 +110,7 @@ class AuthController extends Controller
                 $avatarUrl 
             );
             $user->assignRole('member');
+            Auth::login($user);
             $tokenResult = $user->createToken($user->id)->plainTextToken;
             return response()->json([
                 'status' => 'success',

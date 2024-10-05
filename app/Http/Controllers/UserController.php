@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Services\UserService;
+use App\Services\RoleService;
+use Illuminate\Http\Request;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 class UserController extends Controller
 {
@@ -13,16 +15,34 @@ class UserController extends Controller
     }
     public function index()
     {
-        $result = $this->userService->getAllUsers();
+        $result = $this->userService->getAllUsersWithRoles();
+
         return $result
-            ? jsonResponse('success',  'Danh sách người dùng', $result)
+            ? jsonResponse('success', 'Danh sách người dùng', $result)
             : jsonResponse('error', 'Không tìm thấy danh sách người dùng!');
     }
-    public function update(UpdateUserRequest $request){
+    public function update(UpdateUserRequest $request)
+    {
         $data = $request->validated();
         $result = $this->userService->update($data['id'], $data);
+
+        if ($result) {
+            $updatedUser = $this->userService->getAllUsersWithRoles()->where('id', $data['id'])->first();
+            return jsonResponse('success', 'Người dùng đã được cập nhật thành công', $updatedUser);
+        } else {
+            return jsonResponse('error', 'Cập nhật người dùng thất bại!');
+        }
+    }
+    public function destroy(Request $request)
+    {
+        $result = $this->userService->delete($request->id);
+
         return $result
-        ? jsonResponse('success', 'Cập nhật người dùng thành công!')
-        : jsonResponse('error', 'Cập nhật người dùng thất bại!');
+            ? jsonResponse('success', 'Người dùng đã được xóa thành công')
+            : jsonResponse('error', 'Xóa người dùng thất bại!');
+    }
+    public function roleService()
+    {
+        return app(RoleService::class);
     }
 }

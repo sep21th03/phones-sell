@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login')->middleware('guest');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login');
 Route::post('/admin/login', [AdminController::class, 'postlogin'])->name('auth.login.post');
 
 // Route::middleware(['auth:sanctum'])->group(function () {
@@ -62,6 +62,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'manager_user'])->name('user.list');
         Route::get('/get', [UserController::class, 'index'])->name('user.index');
         Route::post('/edit', [UserController::class, 'update'])->name('user.update');
+        Route::post('/delete', [UserController::class, 'destroy'])->name('user.destroy');
     });
 });
 
