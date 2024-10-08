@@ -8,6 +8,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CKEditorController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +59,13 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/delete/color', [ProductController::class, 'deleteProductColor'])->name('product.deleteProductColor');
         Route::get('/get/category={query}', [ProductController::class, 'getProductsByCategory']);
     });
+    //Order
+    Route::prefix('order')->group(function () {
+        Route::get('/', [DashboardController::class, 'manager_order'])->name('order.list');
+        Route::get('/{id}', [DashboardController::class, 'detail_order'])->name('order.detail');
+        Route::post('update', [OrderController::class, 'updateStatus'])->name('order.update');
+    });
+    //User
     Route::prefix('user')->group(function () {
         Route::get('/', [DashboardController::class, 'manager_user'])->name('user.list');
         Route::get('/get', [UserController::class, 'index'])->name('user.index');

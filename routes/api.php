@@ -1,13 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\User\UserGetController;
-use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +25,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('user/info', [UserController::class, 'index']);
+
+    Route::get('cart', [CartController::class, 'getMyCart']);
+    Route::post('cart/update', [CartController::class, 'updateMyCart']);
+
+    Route::get('order', [OrderController::class, 'getListByUser']);
+    Route::get('order/detail/{id}', [OrderController::class,'getDetailOrder']);
+    Route::post('order/store', [OrderController::class,'store']);
 });
 
 

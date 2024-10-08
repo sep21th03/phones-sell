@@ -22,20 +22,8 @@
                   <div class="d-flex align-items-center"><span class="nav-link-text">Người dùng</span></div>
                 </a><!-- more inner pages-->
               </li>
-              <li class="nav-item"><a class="nav-link" href="/customer-details.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-text">Customer details</span></div>
-                </a><!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="/orders.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-text">Orders</span></div>
-                </a><!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="/order-details.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-text">Order details</span></div>
-                </a><!-- more inner pages-->
-              </li>
-              <li class="nav-item"><a class="nav-link" href="/refund.html">
-                  <div class="d-flex align-items-center"><span class="nav-link-text">Refund</span></div>
+              <li class="nav-item"><a class="nav-link" href="{{ route("order.list") }}">
+                  <div class="d-flex align-items-center"><span class="nav-link-text">Đơn hàng</span></div>
                 </a><!-- more inner pages-->
               </li>
             </ul>

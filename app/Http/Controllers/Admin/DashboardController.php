@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Rom;
+use App\Models\Order;
 
 class DashboardController extends Controller
 {
@@ -36,6 +37,14 @@ class DashboardController extends Controller
     {
         if (Auth::user()) {
             return view('product.index.list', ['total_products' => Product::count()]);
+        }
+        return redirect()->route('auth.login');
+    }
+    public function manager_order()
+    {
+        if (Auth::user()) {
+            $orders = Order::with('user')->get();
+            return view('order.index.list', ['total_order' => Order::count(), 'orders' => $orders]);
         }
         return redirect()->route('auth.login');
     }
@@ -101,6 +110,13 @@ class DashboardController extends Controller
             $categories = Category::all();
             $roms = Rom::all();
             return view('product.create.add', compact(['categories', 'roms']));
+        }
+        return redirect()->route('auth.login');
+    }
+    public function detail_order($id){
+        if (Auth::user()) {
+            $order = Order::with('user', 'orderDetails.productVariant.images', 'orderDetails.productVariant.product')->find($id);
+            return view('order.edit.detail', compact(['order']));
         }
         return redirect()->route('auth.login');
     }
