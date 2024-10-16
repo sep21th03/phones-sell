@@ -16,7 +16,7 @@ class UserController extends Controller
     public function index()
     {
         $result = $this->userService->getAllUsersWithRoles();
-
+        
         return $result
             ? jsonResponse('success', 'Danh sách người dùng', $result)
             : jsonResponse('error', 'Không tìm thấy danh sách người dùng!');

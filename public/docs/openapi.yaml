@@ -1,0 +1,1656 @@
+openapi: 3.0.3
+info:
+  title: Phone
+  description: ''
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost'
+paths:
+  /api/user/login:
+    post:
+      summary: ''
+      operationId: postApiUserLogin
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/user/register:
+    post:
+      summary: ''
+      operationId: postApiUserRegister
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/logout:
+    post:
+      summary: ''
+      operationId: postApiLogout
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+  /api/cart:
+    get:
+      summary: 'Lấy giỏ hàng của người dùng hiện tại.'
+      operationId: lyGiHngCaNgiDngHinTi
+      description: "Phương thức này sử dụng `cartService` để tìm giỏ hàng của người dùng dựa trên\nID của người dùng hiện tại được lấy từ `Auth::user()`."
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  /api/cart/update:
+    post:
+      summary: 'Cập nhật giỏ hàng của người dùng hiện tại.'
+      operationId: cpNhtGiHngCaNgiDngHinTi
+      description: "Phương thức này nhận yêu cầu cập nhật giỏ hàng từ người dùng, xác thực dữ liệu\nđầu vào bằng `UpdateCartRequest`, sau đó sử dụng `cartService` để cập nhật giỏ hàng\ndựa trên ID người dùng."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_variant_id:
+                  type: number
+                  description: ''
+                  example: 5397659.0334192
+                quantity:
+                  type: integer
+                  description: 'Must be at least 0. Must not be greater than 100.'
+                  example: 15
+              required:
+                - product_variant_id
+                - quantity
+      security: []
+  /api/product-detail/review:
+    post:
+      summary: 'Lưu đánh giá sản phẩm.'
+      operationId: lunhGiSnPhm
+      description: "Phương thức này nhận yêu cầu chứa thông tin đánh giá sản phẩm từ người dùng,\nkiểm tra và xác thực dữ liệu đầu vào bằng lớp `StoreReviewRequest`, sau đó\nchuyển dữ liệu đã xác thực cho `ProductService` để lưu đánh giá."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                product_id:
+                  type: string
+                  description: ''
+                  example: facilis
+                rating:
+                  type: integer
+                  description: 'Must be at least 1. Must not be greater than 5.'
+                  example: 3
+                comment:
+                  type: string
+                  description: 'Must not be greater than 255 characters.'
+                  example: zxefqijq
+              required:
+                - product_id
+                - rating
+                - comment
+      security: []
+  /api/order:
+    get:
+      summary: 'Lấy danh sách đơn hàng của người dùng hiện tại.'
+      operationId: lyDanhSchnHngCaNgiDngHinTi
+      description: 'Phương thức này sử dụng `orderService` để lấy danh sách đơn hàng của người dùng hiện tại.'
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+  '/api/order/detail/{id}':
+    get:
+      summary: 'Lấy chi tiết đơn hàng theo ID.'
+      operationId: lyChiTitnHngTheoID
+      description: 'Phương thức này sử dụng `orderService` để lấy chi tiết đơn hàng dựa trên ID được truyền vào.'
+      parameters: []
+      responses:
+        401:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: Unauthenticated.
+                properties:
+                  message:
+                    type: string
+                    example: Unauthenticated.
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the detail.'
+        example: doloribus
+        required: true
+        schema:
+          type: string
+  /api/order/store:
+    post:
+      summary: 'Tạo đơn hàng mới.'
+      operationId: tonHngMi
+      description: "Phương thức này nhận yêu cầu từ người dùng, xác thực dữ liệu bằng `StoreOrderRequest`,\nsau đó sử dụng `orderService` để tạo đơn hàng mới."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                first_name:
+                  type: string
+                  description: ''
+                  example: ipsum
+                last_name:
+                  type: string
+                  description: ''
+                  example: officia
+                phone:
+                  type: number
+                  description: ''
+                  example: 22519.106
+                address:
+                  type: string
+                  description: ''
+                  example: itaque
+                note:
+                  type: string
+                  description: ''
+                  example: null
+                message:
+                  type: string
+                  description: ''
+                  example: null
+                payment_method:
+                  type: string
+                  description: ''
+                  example: '0'
+                  enum:
+                    - '0'
+                    - '1'
+                shipping_fee:
+                  type: string
+                  description: ''
+                  example: null
+                order_details:
+                  type: array
+                  description: ''
+                  example:
+                    - []
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                        description: ''
+                        example: ut
+                      product_variant_id:
+                        type: string
+                        description: ''
+                        example: repudiandae
+                      price:
+                        type: number
+                        description: ''
+                        example: 33191819.588423
+                      quantity:
+                        type: integer
+                        description: 'Must be at least 1.'
+                        example: 84
+                    required:
+                      - id
+                      - product_variant_id
+                      - price
+                      - quantity
+                total_price:
+                  type: number
+                  description: ''
+                  example: 1610.986
+              required:
+                - first_name
+                - last_name
+                - phone
+                - address
+                - payment_method
+                - order_details
+                - total_price
+      security: []
+  '/api/order/update/{id}':
+    post:
+      summary: 'Cập nhật đơn hàng.'
+      operationId: cpNhtnHng
+      description: "Phương thức này nhận yêu cầu cập nhật đơn hàng, xác thực dữ liệu bằng `UpdateOrderRequest`,\nsau đó sử dụng `orderService` để cập nhật đơn hàng dựa trên ID."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                phone:
+                  type: number
+                  description: ''
+                  example: 0.763076691
+                address:
+                  type: string
+                  description: ''
+                  example: et
+                notes:
+                  type: string
+                  description: ''
+                  example: null
+                name:
+                  type: string
+                  description: ''
+                  example: rerum
+              required:
+                - phone
+                - address
+                - name
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the update.'
+        example: quae
+        required: true
+        schema:
+          type: string
+  '/api/order/delete/{id}':
+    post:
+      summary: 'Xóa đơn hàng theo ID.'
+      operationId: xanHngTheoID
+      description: 'Phương thức này sử dụng `orderService` để xóa đơn hàng dựa trên ID được truyền vào.'
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the delete.'
+        example: vero
+        required: true
+        schema:
+          type: string
+  /api/order/vnpay_payment:
+    post:
+      summary: 'Thanh toán đơn hàng bằng VNPay.'
+      operationId: thanhTonnHngBngVNPay
+      description: "Phương thức này xử lý thanh toán bằng VNPay, tạo URL thanh toán dựa trên dữ liệu đơn hàng\nvà các thông tin bảo mật từ môi trường (env)."
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                order_id:
+                  type: string
+                  description: ''
+                  example: a
+                amount:
+                  type: integer
+                  description: ''
+                  example: 1
+                url_return:
+                  type: string
+                  description: 'Must be a valid URL.'
+                  example: 'https://nikolaus.net/laudantium-corrupti-ea-voluptates-omnis-debitis.html'
+              required:
+                - order_id
+                - amount
+                - url_return
+      security: []
+  /api/category:
+    get:
+      summary: 'Lấy danh sách tất cả các hãng (categories).'
+      operationId: lyDanhSchTtCCcHngcategories
+      description: "Phương thức này sử dụng `categoryService` để lấy toàn bộ danh sách các hãng từ cơ sở dữ liệu.\nNếu danh sách các hãng tồn tại, phương thức sẽ trả về phản hồi dạng JSON với trạng thái thành công,\nnếu không sẽ trả về thông báo lỗi."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      name: Apple
+                      created_at: '2024-10-04T12:17:52.000000Z'
+                      updated_at: '2024-10-04T12:17:52.000000Z'
+                    -
+                      id: 2
+                      name: XiaoMi
+                      created_at: '2024-10-04T12:18:01.000000Z'
+                      updated_at: '2024-10-04T12:18:01.000000Z'
+                    -
+                      id: 3
+                      name: Huawei
+                      created_at: '2024-10-04T12:18:07.000000Z'
+                      updated_at: '2024-10-04T12:18:07.000000Z'
+                    -
+                      id: 4
+                      name: Nokia
+                      created_at: '2024-10-04T12:18:18.000000Z'
+                      updated_at: '2024-10-04T12:18:18.000000Z'
+                    -
+                      id: 5
+                      name: Samsung
+                      created_at: '2024-10-04T12:18:23.000000Z'
+                      updated_at: '2024-10-04T12:18:23.000000Z'
+                    -
+                      id: 6
+                      name: Pixel
+                      created_at: '2024-10-04T12:18:39.000000Z'
+                      updated_at: '2024-10-04T12:18:39.000000Z'
+                  status: success
+                  message: 'Danh sách hãng'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        name: Apple
+                        created_at: '2024-10-04T12:17:52.000000Z'
+                        updated_at: '2024-10-04T12:17:52.000000Z'
+                      -
+                        id: 2
+                        name: XiaoMi
+                        created_at: '2024-10-04T12:18:01.000000Z'
+                        updated_at: '2024-10-04T12:18:01.000000Z'
+                      -
+                        id: 3
+                        name: Huawei
+                        created_at: '2024-10-04T12:18:07.000000Z'
+                        updated_at: '2024-10-04T12:18:07.000000Z'
+                      -
+                        id: 4
+                        name: Nokia
+                        created_at: '2024-10-04T12:18:18.000000Z'
+                        updated_at: '2024-10-04T12:18:18.000000Z'
+                      -
+                        id: 5
+                        name: Samsung
+                        created_at: '2024-10-04T12:18:23.000000Z'
+                        updated_at: '2024-10-04T12:18:23.000000Z'
+                      -
+                        id: 6
+                        name: Pixel
+                        created_at: '2024-10-04T12:18:39.000000Z'
+                        updated_at: '2024-10-04T12:18:39.000000Z'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        name:
+                          type: string
+                          example: Apple
+                        created_at:
+                          type: string
+                          example: '2024-10-04T12:17:52.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-10-04T12:17:52.000000Z'
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Danh sách hãng'
+      tags:
+        - Endpoints
+      security: []
+  /api/product-list:
+    get:
+      summary: 'Lấy danh sách tất cả sản phẩm.'
+      operationId: lyDanhSchTtCSnPhm
+      description: ''
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 2
+                      category_id: 1
+                      category_name: Apple
+                      title: 'iPhone 11 64GB Chính hãng'
+                      description: null
+                      discount: '10.00'
+                      info: null
+                      specifications:
+                        id: 2
+                        product_id: 2
+                        screen_size: '6.1 inches'
+                        screen_type: 'IPS LCD'
+                        screen_resolution: '1792 x 828 pixel'
+                        ram: null
+                        memory_card_slot: null
+                        battery: null
+                        sim: null
+                        camera_front: null
+                        camera_rear: null
+                        operating_system: null
+                        chip: null
+                        pin: null
+                        connectivity: null
+                        bluetooth: null
+                        dimensions: null
+                        weight: null
+                      variants:
+                        -
+                          id: 1
+                          product_id: 2
+                          rom_id: 2
+                          color: Trắng
+                          price: '7490000.00'
+                          availability: 0
+                          stock: 0
+                          rom:
+                            id: 2
+                            capacity: '64 GB'
+                          images:
+                            -
+                              id: 1
+                              product_variant_id: 1
+                              image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                        -
+                          id: 2
+                          product_id: 2
+                          rom_id: 2
+                          color: Đỏ
+                          price: '7490000.00'
+                          availability: 1
+                          stock: 7
+                          rom:
+                            id: 2
+                            capacity: '64 GB'
+                          images:
+                            -
+                              id: 2
+                              product_variant_id: 2
+                              image_url: assets/img/products/tjhjgEcsO0_1728046277.webp
+                        -
+                          id: 7
+                          product_id: 2
+                          rom_id: 2
+                          color: Tím
+                          price: '7490000.00'
+                          availability: 1
+                          stock: 6
+                          rom:
+                            id: 2
+                            capacity: '64 GB'
+                          images:
+                            -
+                              id: 7
+                              product_variant_id: 7
+                              image_url: assets/img/products/TTdau3yC2S_1728046798.webp
+                    -
+                      id: 8
+                      category_id: 1
+                      category_name: Apple
+                      title: 'iPhone 13 128GB'
+                      description: null
+                      discount: '10.00'
+                      info: "<p>M&aacute;y mới 100% , ch&iacute;nh h&atilde;ng Apple Việt Nam.<br />\r\nCellphoneS hiện l&agrave; đại l&yacute; b&aacute;n lẻ uỷ quyền iPhone ch&iacute;nh h&atilde;ng VN/A của Apple Việt Nam</p>\r\n\r\n<p>Hộp, S&aacute;ch hướng dẫn, C&acirc;y lấy sim, C&aacute;p Lightning - Type C</p>\r\n\r\n<p>1 ĐỔI 1 trong 30 ng&agrave;y nếu c&oacute; lỗi phần cứng nh&agrave; sản xuất. Bảo h&agrave;nh 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ch&iacute;nh h&atilde;ng Apple:</p>"
+                      specifications:
+                        id: 8
+                        product_id: 8
+                        screen_size: null
+                        screen_type: null
+                        screen_resolution: null
+                        ram: null
+                        memory_card_slot: null
+                        battery: null
+                        sim: null
+                        camera_front: null
+                        camera_rear: null
+                        operating_system: null
+                        chip: null
+                        pin: null
+                        connectivity: null
+                        bluetooth: null
+                        dimensions: null
+                        weight: null
+                      variants:
+                        -
+                          id: 13
+                          product_id: 8
+                          rom_id: 3
+                          color: Trắng
+                          price: '13790000.00'
+                          availability: 0
+                          stock: 0
+                          rom:
+                            id: 3
+                            capacity: '128 GB'
+                          images:
+                            -
+                              id: 13
+                              product_variant_id: 13
+                              image_url: assets/img/products/ZAIeDakxCr_1728047099.webp
+                        -
+                          id: 14
+                          product_id: 8
+                          rom_id: 3
+                          color: Đỏ
+                          price: '13790000.00'
+                          availability: 1
+                          stock: 6
+                          rom:
+                            id: 3
+                            capacity: '128 GB'
+                          images:
+                            -
+                              id: 14
+                              product_variant_id: 14
+                              image_url: assets/img/products/hAy7x5hf9Z_1728047175.webp
+                    -
+                      id: 9
+                      category_id: 5
+                      category_name: Samsung
+                      title: 'Samsung Galaxy S24 Ultra 12GB 256GB'
+                      description: null
+                      discount: '10.00'
+                      info: null
+                      specifications:
+                        id: 9
+                        product_id: 9
+                        screen_size: null
+                        screen_type: null
+                        screen_resolution: null
+                        ram: null
+                        memory_card_slot: null
+                        battery: null
+                        sim: null
+                        camera_front: null
+                        camera_rear: null
+                        operating_system: null
+                        chip: null
+                        pin: null
+                        connectivity: null
+                        bluetooth: null
+                        dimensions: null
+                        weight: null
+                      variants:
+                        -
+                          id: 15
+                          product_id: 9
+                          rom_id: 4
+                          color: Đen
+                          price: '27990000.00'
+                          availability: 1
+                          stock: 3
+                          rom:
+                            id: 4
+                            capacity: '256 GB'
+                          images:
+                            -
+                              id: 15
+                              product_variant_id: 15
+                              image_url: assets/img/products/IxYSeC6SA8_1728047292.webp
+                  status: success
+                  message: 'Danh sách sản phẩm'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 2
+                        category_id: 1
+                        category_name: Apple
+                        title: 'iPhone 11 64GB Chính hãng'
+                        description: null
+                        discount: '10.00'
+                        info: null
+                        specifications:
+                          id: 2
+                          product_id: 2
+                          screen_size: '6.1 inches'
+                          screen_type: 'IPS LCD'
+                          screen_resolution: '1792 x 828 pixel'
+                          ram: null
+                          memory_card_slot: null
+                          battery: null
+                          sim: null
+                          camera_front: null
+                          camera_rear: null
+                          operating_system: null
+                          chip: null
+                          pin: null
+                          connectivity: null
+                          bluetooth: null
+                          dimensions: null
+                          weight: null
+                        variants:
+                          -
+                            id: 1
+                            product_id: 2
+                            rom_id: 2
+                            color: Trắng
+                            price: '7490000.00'
+                            availability: 0
+                            stock: 0
+                            rom:
+                              id: 2
+                              capacity: '64 GB'
+                            images:
+                              -
+                                id: 1
+                                product_variant_id: 1
+                                image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                          -
+                            id: 2
+                            product_id: 2
+                            rom_id: 2
+                            color: Đỏ
+                            price: '7490000.00'
+                            availability: 1
+                            stock: 7
+                            rom:
+                              id: 2
+                              capacity: '64 GB'
+                            images:
+                              -
+                                id: 2
+                                product_variant_id: 2
+                                image_url: assets/img/products/tjhjgEcsO0_1728046277.webp
+                          -
+                            id: 7
+                            product_id: 2
+                            rom_id: 2
+                            color: Tím
+                            price: '7490000.00'
+                            availability: 1
+                            stock: 6
+                            rom:
+                              id: 2
+                              capacity: '64 GB'
+                            images:
+                              -
+                                id: 7
+                                product_variant_id: 7
+                                image_url: assets/img/products/TTdau3yC2S_1728046798.webp
+                      -
+                        id: 8
+                        category_id: 1
+                        category_name: Apple
+                        title: 'iPhone 13 128GB'
+                        description: null
+                        discount: '10.00'
+                        info: "<p>M&aacute;y mới 100% , ch&iacute;nh h&atilde;ng Apple Việt Nam.<br />\r\nCellphoneS hiện l&agrave; đại l&yacute; b&aacute;n lẻ uỷ quyền iPhone ch&iacute;nh h&atilde;ng VN/A của Apple Việt Nam</p>\r\n\r\n<p>Hộp, S&aacute;ch hướng dẫn, C&acirc;y lấy sim, C&aacute;p Lightning - Type C</p>\r\n\r\n<p>1 ĐỔI 1 trong 30 ng&agrave;y nếu c&oacute; lỗi phần cứng nh&agrave; sản xuất. Bảo h&agrave;nh 12 th&aacute;ng tại trung t&acirc;m bảo h&agrave;nh ch&iacute;nh h&atilde;ng Apple:</p>"
+                        specifications:
+                          id: 8
+                          product_id: 8
+                          screen_size: null
+                          screen_type: null
+                          screen_resolution: null
+                          ram: null
+                          memory_card_slot: null
+                          battery: null
+                          sim: null
+                          camera_front: null
+                          camera_rear: null
+                          operating_system: null
+                          chip: null
+                          pin: null
+                          connectivity: null
+                          bluetooth: null
+                          dimensions: null
+                          weight: null
+                        variants:
+                          -
+                            id: 13
+                            product_id: 8
+                            rom_id: 3
+                            color: Trắng
+                            price: '13790000.00'
+                            availability: 0
+                            stock: 0
+                            rom:
+                              id: 3
+                              capacity: '128 GB'
+                            images:
+                              -
+                                id: 13
+                                product_variant_id: 13
+                                image_url: assets/img/products/ZAIeDakxCr_1728047099.webp
+                          -
+                            id: 14
+                            product_id: 8
+                            rom_id: 3
+                            color: Đỏ
+                            price: '13790000.00'
+                            availability: 1
+                            stock: 6
+                            rom:
+                              id: 3
+                              capacity: '128 GB'
+                            images:
+                              -
+                                id: 14
+                                product_variant_id: 14
+                                image_url: assets/img/products/hAy7x5hf9Z_1728047175.webp
+                      -
+                        id: 9
+                        category_id: 5
+                        category_name: Samsung
+                        title: 'Samsung Galaxy S24 Ultra 12GB 256GB'
+                        description: null
+                        discount: '10.00'
+                        info: null
+                        specifications:
+                          id: 9
+                          product_id: 9
+                          screen_size: null
+                          screen_type: null
+                          screen_resolution: null
+                          ram: null
+                          memory_card_slot: null
+                          battery: null
+                          sim: null
+                          camera_front: null
+                          camera_rear: null
+                          operating_system: null
+                          chip: null
+                          pin: null
+                          connectivity: null
+                          bluetooth: null
+                          dimensions: null
+                          weight: null
+                        variants:
+                          -
+                            id: 15
+                            product_id: 9
+                            rom_id: 4
+                            color: Đen
+                            price: '27990000.00'
+                            availability: 1
+                            stock: 3
+                            rom:
+                              id: 4
+                              capacity: '256 GB'
+                            images:
+                              -
+                                id: 15
+                                product_variant_id: 15
+                                image_url: assets/img/products/IxYSeC6SA8_1728047292.webp
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        category_id:
+                          type: integer
+                          example: 1
+                        category_name:
+                          type: string
+                          example: Apple
+                        title:
+                          type: string
+                          example: 'iPhone 11 64GB Chính hãng'
+                        description:
+                          type: string
+                          example: null
+                        discount:
+                          type: string
+                          example: '10.00'
+                        info:
+                          type: string
+                          example: null
+                        specifications:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            product_id:
+                              type: integer
+                              example: 2
+                            screen_size:
+                              type: string
+                              example: '6.1 inches'
+                            screen_type:
+                              type: string
+                              example: 'IPS LCD'
+                            screen_resolution:
+                              type: string
+                              example: '1792 x 828 pixel'
+                            ram:
+                              type: string
+                              example: null
+                            memory_card_slot:
+                              type: string
+                              example: null
+                            battery:
+                              type: string
+                              example: null
+                            sim:
+                              type: string
+                              example: null
+                            camera_front:
+                              type: string
+                              example: null
+                            camera_rear:
+                              type: string
+                              example: null
+                            operating_system:
+                              type: string
+                              example: null
+                            chip:
+                              type: string
+                              example: null
+                            pin:
+                              type: string
+                              example: null
+                            connectivity:
+                              type: string
+                              example: null
+                            bluetooth:
+                              type: string
+                              example: null
+                            dimensions:
+                              type: string
+                              example: null
+                            weight:
+                              type: string
+                              example: null
+                        variants:
+                          type: array
+                          example:
+                            -
+                              id: 1
+                              product_id: 2
+                              rom_id: 2
+                              color: Trắng
+                              price: '7490000.00'
+                              availability: 0
+                              stock: 0
+                              rom:
+                                id: 2
+                                capacity: '64 GB'
+                              images:
+                                -
+                                  id: 1
+                                  product_variant_id: 1
+                                  image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                            -
+                              id: 2
+                              product_id: 2
+                              rom_id: 2
+                              color: Đỏ
+                              price: '7490000.00'
+                              availability: 1
+                              stock: 7
+                              rom:
+                                id: 2
+                                capacity: '64 GB'
+                              images:
+                                -
+                                  id: 2
+                                  product_variant_id: 2
+                                  image_url: assets/img/products/tjhjgEcsO0_1728046277.webp
+                            -
+                              id: 7
+                              product_id: 2
+                              rom_id: 2
+                              color: Tím
+                              price: '7490000.00'
+                              availability: 1
+                              stock: 6
+                              rom:
+                                id: 2
+                                capacity: '64 GB'
+                              images:
+                                -
+                                  id: 7
+                                  product_variant_id: 7
+                                  image_url: assets/img/products/TTdau3yC2S_1728046798.webp
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                                example: 1
+                              product_id:
+                                type: integer
+                                example: 2
+                              rom_id:
+                                type: integer
+                                example: 2
+                              color:
+                                type: string
+                                example: Trắng
+                              price:
+                                type: string
+                                example: '7490000.00'
+                              availability:
+                                type: integer
+                                example: 0
+                              stock:
+                                type: integer
+                                example: 0
+                              rom:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 2
+                                  capacity:
+                                    type: string
+                                    example: '64 GB'
+                              images:
+                                type: array
+                                example:
+                                  -
+                                    id: 1
+                                    product_variant_id: 1
+                                    image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      example: 1
+                                    product_variant_id:
+                                      type: integer
+                                      example: 1
+                                    image_url:
+                                      type: string
+                                      example: assets/img/products/fM0FKmGS3a_1728045310.webp
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Danh sách sản phẩm'
+      tags:
+        - Endpoints
+      security: []
+  '/api/product-detail/{id}':
+    get:
+      summary: 'Hiển thị thông tin sản phẩm theo ID.'
+      operationId: hinThThngTinSnPhmTheoID
+      description: ''
+      parameters: []
+      responses:
+        404:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  message: 'No query results for model [App\Models\Product].'
+                properties:
+                  message:
+                    type: string
+                    example: 'No query results for model [App\Models\Product].'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the product detail.'
+        example: minus
+        required: true
+        schema:
+          type: string
+  /api/reviews:
+    get:
+      summary: 'Lấy danh sách các đánh giá sản phẩm.'
+      operationId: lyDanhSchCcnhGiSnPhm
+      description: "Phương thức này nhận yêu cầu và chuyển nó đến `ProductService` để lấy danh sách\nđánh giá sản phẩm từ cơ sở dữ liệu."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 1
+                      product_id: 2
+                      user_id: 4
+                      rating: 5
+                      comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                      created_at: '2024-10-11T08:39:03.000000Z'
+                      updated_at: '2024-10-11T08:39:03.000000Z'
+                      product:
+                        id: 2
+                        title: 'iPhone 11 64GB Chính hãng'
+                      user:
+                        id: 4
+                        name: Sep21th03
+                        avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                    -
+                      id: 2
+                      product_id: 2
+                      user_id: 4
+                      rating: 5
+                      comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                      created_at: '2024-10-11T08:49:20.000000Z'
+                      updated_at: '2024-10-11T08:49:20.000000Z'
+                      product:
+                        id: 2
+                        title: 'iPhone 11 64GB Chính hãng'
+                      user:
+                        id: 4
+                        name: Sep21th03
+                        avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                  status: success
+                  message: 'Lấy đánh giá thành công!'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 1
+                        product_id: 2
+                        user_id: 4
+                        rating: 5
+                        comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at: '2024-10-11T08:39:03.000000Z'
+                        updated_at: '2024-10-11T08:39:03.000000Z'
+                        product:
+                          id: 2
+                          title: 'iPhone 11 64GB Chính hãng'
+                        user:
+                          id: 4
+                          name: Sep21th03
+                          avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                      -
+                        id: 2
+                        product_id: 2
+                        user_id: 4
+                        rating: 5
+                        comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at: '2024-10-11T08:49:20.000000Z'
+                        updated_at: '2024-10-11T08:49:20.000000Z'
+                        product:
+                          id: 2
+                          title: 'iPhone 11 64GB Chính hãng'
+                        user:
+                          id: 4
+                          name: Sep21th03
+                          avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 1
+                        product_id:
+                          type: integer
+                          example: 2
+                        user_id:
+                          type: integer
+                          example: 4
+                        rating:
+                          type: integer
+                          example: 5
+                        comment:
+                          type: string
+                          example: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at:
+                          type: string
+                          example: '2024-10-11T08:39:03.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-10-11T08:39:03.000000Z'
+                        product:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            title:
+                              type: string
+                              example: 'iPhone 11 64GB Chính hãng'
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 4
+                            name:
+                              type: string
+                              example: Sep21th03
+                            avt_url:
+                              type: string
+                              example: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Lấy đánh giá thành công!'
+      tags:
+        - Endpoints
+      security: []
+  '/api/review/{id}':
+    get:
+      summary: 'Lấy danh sách đánh giá theo ID sản phẩm.'
+      operationId: lyDanhSchnhGiTheoIDSnPhm
+      description: "Phương thức này nhận ID sản phẩm và lấy các đánh giá liên quan đến sản phẩm đó\nthông qua `ProductService`."
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data: []
+                  status: success
+                  message: 'Lấy đánh giá thành công!'
+                properties:
+                  data:
+                    type: array
+                    example: []
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Lấy đánh giá thành công!'
+      tags:
+        - Endpoints
+      security: []
+    parameters:
+      -
+        in: path
+        name: id
+        description: 'The ID of the review.'
+        example: maxime
+        required: true
+        schema:
+          type: string
+  /api/reviewsall:
+    get:
+      summary: 'Lấy toàn bộ đánh giá sản phẩm.'
+      operationId: lyTonBnhGiSnPhm
+      description: 'Phương thức này trả về toàn bộ các đánh giá sản phẩm hiện có thông qua `ProductService`.'
+      parameters: []
+      responses:
+        200:
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  data:
+                    -
+                      id: 2
+                      product_id: 2
+                      user_id: 4
+                      rating: 5
+                      comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                      created_at: '2024-10-11T08:49:20.000000Z'
+                      updated_at: '2024-10-11T08:49:20.000000Z'
+                      product:
+                        id: 2
+                        title: 'iPhone 11 64GB Chính hãng'
+                        variants:
+                          -
+                            id: 1
+                            product_id: 2
+                            rom_id: 2
+                            color: Trắng
+                            color_code: '#FAF9F2'
+                            stock: 0
+                            availability: 0
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images:
+                              -
+                                id: 1
+                                product_variant_id: 1
+                                image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                created_at: null
+                                updated_at: null
+                          -
+                            id: 2
+                            product_id: 2
+                            rom_id: 2
+                            color: Đỏ
+                            color_code: '#b4052a'
+                            stock: 7
+                            availability: 1
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images: []
+                          -
+                            id: 7
+                            product_id: 2
+                            rom_id: 2
+                            color: Tím
+                            color_code: '#000000'
+                            stock: 6
+                            availability: 1
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images: []
+                      user:
+                        id: 4
+                        name: Sep21th03
+                        avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                    -
+                      id: 1
+                      product_id: 2
+                      user_id: 4
+                      rating: 5
+                      comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                      created_at: '2024-10-11T08:39:03.000000Z'
+                      updated_at: '2024-10-11T08:39:03.000000Z'
+                      product:
+                        id: 2
+                        title: 'iPhone 11 64GB Chính hãng'
+                        variants:
+                          -
+                            id: 1
+                            product_id: 2
+                            rom_id: 2
+                            color: Trắng
+                            color_code: '#FAF9F2'
+                            stock: 0
+                            availability: 0
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images:
+                              -
+                                id: 1
+                                product_variant_id: 1
+                                image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                created_at: null
+                                updated_at: null
+                          -
+                            id: 2
+                            product_id: 2
+                            rom_id: 2
+                            color: Đỏ
+                            color_code: '#b4052a'
+                            stock: 7
+                            availability: 1
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images: []
+                          -
+                            id: 7
+                            product_id: 2
+                            rom_id: 2
+                            color: Tím
+                            color_code: '#000000'
+                            stock: 6
+                            availability: 1
+                            price: '7490000.00'
+                            created_at: null
+                            updated_at: null
+                            images: []
+                      user:
+                        id: 4
+                        name: Sep21th03
+                        avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                  status: success
+                  message: 'Lấy đánh giá thành công!'
+                properties:
+                  data:
+                    type: array
+                    example:
+                      -
+                        id: 2
+                        product_id: 2
+                        user_id: 4
+                        rating: 5
+                        comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at: '2024-10-11T08:49:20.000000Z'
+                        updated_at: '2024-10-11T08:49:20.000000Z'
+                        product:
+                          id: 2
+                          title: 'iPhone 11 64GB Chính hãng'
+                          variants:
+                            -
+                              id: 1
+                              product_id: 2
+                              rom_id: 2
+                              color: Trắng
+                              color_code: '#FAF9F2'
+                              stock: 0
+                              availability: 0
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images:
+                                -
+                                  id: 1
+                                  product_variant_id: 1
+                                  image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                  created_at: null
+                                  updated_at: null
+                            -
+                              id: 2
+                              product_id: 2
+                              rom_id: 2
+                              color: Đỏ
+                              color_code: '#b4052a'
+                              stock: 7
+                              availability: 1
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images: []
+                            -
+                              id: 7
+                              product_id: 2
+                              rom_id: 2
+                              color: Tím
+                              color_code: '#000000'
+                              stock: 6
+                              availability: 1
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images: []
+                        user:
+                          id: 4
+                          name: Sep21th03
+                          avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                      -
+                        id: 1
+                        product_id: 2
+                        user_id: 4
+                        rating: 5
+                        comment: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at: '2024-10-11T08:39:03.000000Z'
+                        updated_at: '2024-10-11T08:39:03.000000Z'
+                        product:
+                          id: 2
+                          title: 'iPhone 11 64GB Chính hãng'
+                          variants:
+                            -
+                              id: 1
+                              product_id: 2
+                              rom_id: 2
+                              color: Trắng
+                              color_code: '#FAF9F2'
+                              stock: 0
+                              availability: 0
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images:
+                                -
+                                  id: 1
+                                  product_variant_id: 1
+                                  image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                  created_at: null
+                                  updated_at: null
+                            -
+                              id: 2
+                              product_id: 2
+                              rom_id: 2
+                              color: Đỏ
+                              color_code: '#b4052a'
+                              stock: 7
+                              availability: 1
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images: []
+                            -
+                              id: 7
+                              product_id: 2
+                              rom_id: 2
+                              color: Tím
+                              color_code: '#000000'
+                              stock: 6
+                              availability: 1
+                              price: '7490000.00'
+                              created_at: null
+                              updated_at: null
+                              images: []
+                        user:
+                          id: 4
+                          name: Sep21th03
+                          avt_url: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                          example: 2
+                        product_id:
+                          type: integer
+                          example: 2
+                        user_id:
+                          type: integer
+                          example: 4
+                        rating:
+                          type: integer
+                          example: 5
+                        comment:
+                          type: string
+                          example: 'Sản phẩm rất tuyệt vời, mình rất hài lòng!'
+                        created_at:
+                          type: string
+                          example: '2024-10-11T08:49:20.000000Z'
+                        updated_at:
+                          type: string
+                          example: '2024-10-11T08:49:20.000000Z'
+                        product:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 2
+                            title:
+                              type: string
+                              example: 'iPhone 11 64GB Chính hãng'
+                            variants:
+                              type: array
+                              example:
+                                -
+                                  id: 1
+                                  product_id: 2
+                                  rom_id: 2
+                                  color: Trắng
+                                  color_code: '#FAF9F2'
+                                  stock: 0
+                                  availability: 0
+                                  price: '7490000.00'
+                                  created_at: null
+                                  updated_at: null
+                                  images:
+                                    -
+                                      id: 1
+                                      product_variant_id: 1
+                                      image_url: assets/img/products/fM0FKmGS3a_1728045310.webp
+                                      created_at: null
+                                      updated_at: null
+                                -
+                                  id: 2
+                                  product_id: 2
+                                  rom_id: 2
+                                  color: Đỏ
+                                  color_code: '#b4052a'
+                                  stock: 7
+                                  availability: 1
+                                  price: '7490000.00'
+                                  created_at: null
+                                  updated_at: null
+                                  images: []
+                                -
+                                  id: 7
+                                  product_id: 2
+                                  rom_id: 2
+                                  color: Tím
+                                  color_code: '#000000'
+                                  stock: 6
+                                  availability: 1
+                                  price: '7490000.00'
+                                  created_at: null
+                                  updated_at: null
+                                  images: []
+                              items:
+                                type: object
+                                properties:
+                                  id:
+                                    type: integer
+                                    example: 1
+                                  product_id:
+                                    type: integer
+                                    example: 2
+                                  rom_id:
+                                    type: integer
+                                    example: 2
+                                  color:
+                                    type: string
+                                    example: Trắng
+                                  color_code:
+                                    type: string
+                                    example: '#FAF9F2'
+                                  stock:
+                                    type: integer
+                                    example: 0
+                                  availability:
+                                    type: integer
+                                    example: 0
+                                  price:
+                                    type: string
+                                    example: '7490000.00'
+                                  created_at:
+                                    type: string
+                                    example: null
+                                  updated_at:
+                                    type: string
+                                    example: null
+                                  images:
+                                    type: array
+                                    example:
+                                      - { id: 1, product_variant_id: 1, image_url: assets/img/products/fM0FKmGS3a_1728045310.webp, created_at: null, updated_at: null }
+                                    items:
+                                      type: object
+                                      properties: { id: { type: integer, example: 1 }, product_variant_id: { type: integer, example: 1 }, image_url: { type: string, example: assets/img/products/fM0FKmGS3a_1728045310.webp }, created_at: { type: string, example: null }, updated_at: { type: string, example: null } }
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 4
+                            name:
+                              type: string
+                              example: Sep21th03
+                            avt_url:
+                              type: string
+                              example: 'https://ui-avatars.com/api/?name=Admin&background=random'
+                  status:
+                    type: string
+                    example: success
+                  message:
+                    type: string
+                    example: 'Lấy đánh giá thành công!'
+      tags:
+        - Endpoints
+      security: []
+  /api/some-endpoint:
+    post:
+      summary: ''
+      operationId: postApiSomeEndpoint
+      description: ''
+      parameters: []
+      responses: {  }
+      tags:
+        - Endpoints
+      security: []
+tags:
+  -
+    name: Endpoints
+    description: ''

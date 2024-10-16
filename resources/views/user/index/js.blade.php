@@ -23,15 +23,27 @@
                         console.log("Error getting data from ajax");
                     },
                 },
-                columns: [
+                columns: [{
+                        data: null,
+                        render: function(data, type, row) {
+                            return `<div class="d-flex justify-content-start align-items-center">
+                <img class="rounded-circle" src="${row.avt_url}" alt="${row.name}" style="width: 50px; height: 50px;" />
+                <h6 class="mb-0 ms-3 text-body">${row.name}</h6>
+            </div>`;
+                        }
+                    },
+
                     {
-                        data: "name"
+                        data: "email",
+                        render: function(data, type, row) {
+                            return `<span class="float-start">${data}</span>`;
+                        }
                     },
                     {
-                        data: "email"
-                    },
-                    {
-                        data: "phone"
+                        data: "phone",
+                        render: function(data, type, row) {
+                            return `<span class="float-start">${data}</span>`;
+                        }
                     },
                     {
                         data: "roles",

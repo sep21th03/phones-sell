@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\ProductSpecification;
 use App\Models\ProductVariant;
 use App\Models\ProductImage;
+use App\Models\ProductReview;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
@@ -183,21 +184,19 @@ class ProductService
                 if ($product_image) {
                     $oldImagePath = public_path($product_image->image_url);
 
-                    if ($product_image->image_url === 'assets/img/products/template_img.jpg') {
-                        $randomName = Str::random(10);
-                        $image = $data['image'];
-                        $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
-
-                        $image->move(public_path('assets/img/products'), $imageName);
-
-                        $product_image->image_url = 'assets/img/products/' . $imageName;
-                        $product_image->save();
-                    } else {
+                    if ($product_image->image_url !== 'assets/img/products/template_img.jpg') {
                         if (file_exists($oldImagePath)) {
                             unlink($oldImagePath);
                         }
-                        $product_image->delete();
                     }
+                    $randomName = Str::random(10);
+                    $image = $data['image'];
+                    $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
+
+                    $image->move(public_path('assets/img/products'), $imageName);
+
+                    $product_image->image_url = 'assets/img/products/' . $imageName;
+                    $product_image->save();
                 } else {
                     $randomName = Str::random(10);
                     $image = $data['image'];
@@ -267,7 +266,7 @@ class ProductService
                 $image->move(public_path('assets/img/products'), $imageName);
 
                 $imageAdd = new ProductImage();
-                $imageAdd->product_variant_id = $variant->id; 
+                $imageAdd->product_variant_id = $variant->id;
                 $imageAdd->image_url = 'assets/img/products/' . $imageName;
                 $imageAdd->save();
             } else {
@@ -288,7 +287,7 @@ class ProductService
             DB::rollBack();
             return [
                 'status' => 'error',
-                'message' => $exception->getMessage() 
+                'message' => $exception->getMessage()
             ];
         }
     }
@@ -315,12 +314,13 @@ class ProductService
             }
         }
         return [
-           'status' => 'success',
-           'message' => 'Màu sắc đã xóa thành công.'
+            'status' => 'success',
+            'message' => 'Màu sắc đã xóa thành công.'
         ];
     }
 
-    public function deleteProducts(array $ids){
+    public function deleteProducts(array $ids)
+    {
         return DB::table('products')->whereIn('id', $ids)->delete();
     }
 
@@ -329,5 +329,43 @@ class ProductService
         return Product::with('specifications', 'variants.rom', 'variants.images')->whereHas('category', function ($query) use ($categoryName) {
             $query->where('name', $categoryName);
         })->get();
+    }
+
+    public function countOutOfStockProducts()
+    {
+        return Product::whereHas('variants', function ($query) {
+            $query->where('availability', 0);
+        })->count();
+    }
+
+
+    //Reivew
+    public function getReviews($data)
+    {
+        $limit = $data['length'] ?? 10;
+        return ProductReview::with('product:id,title', 'user:id,name,avt_url')->orderBy('rating', 'desc')->limit($limit)->get();;
+    }
+    function getReviewByProductId($product_id)
+    {
+        return ProductReview::where('product_id', $product_id)->with('user:id,name')->get();
+    }
+    public function storeReview($data)
+    {
+        return ProductReview::create([...$data, 'user_id' => auth()->user()->id]);
+    }
+    public function getReviewsAll()
+    {
+        $limit = $data['length'] ?? 10;
+        $reviews = ProductReview::with([
+            'product:id,title',
+            'product.variants' => function ($query) {
+                $query->with(['images' => function ($query) {
+                    $query->limit(1); 
+                }]);
+            },
+            'user:id,name,avt_url'
+        ])->limit($limit)->orderBy('created_at', 'desc')->get();
+
+        return $reviews;
     }
 }

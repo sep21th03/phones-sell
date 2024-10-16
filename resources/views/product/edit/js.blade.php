@@ -76,7 +76,7 @@
                         text: "Sửa sản phẩm thành công!",
                         timer: 1500,
                         showConfirmButton: false,
-                    });
+                    }).then(() => location.reload());
                 },
                 error: function(xhr, status, error) {
                     console.error(error);

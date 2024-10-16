@@ -66,12 +66,12 @@
                                         }
                                     } else {
                                         html +=
-                                            '<td class="text-center">Không có hình ảnh</td>';
+                                            '';
                                     }
                                 });
                             } else {
                                 html +=
-                                    '<td class="text-center">Không có hình ảnh</td>';
+                                    '';
                             }
                             return html;
                         },
@@ -80,7 +80,7 @@
                             data: "title",
                             render: function(data, type, row) {
                                 const productId = row.id; 
-                                return `<a class="fw-semibold line-clamp-3 mb-0" href="{{ route('product.detail', '') }}/${productId}">${data}</a>`;
+                                return `<a class="float-start fw-semibold line-clamp-3 mb-0" href="{{ route('product.detail', '') }}/${productId}">${data}</a>`;
                             },
                     },
                     {

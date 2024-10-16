@@ -107,7 +107,7 @@ class AuthController extends Controller
                 Hash::make($request->password),
                 $request->address,
                 $request->phone,
-                $avatarUrl 
+                $avatarUrl
             );
             $user->assignRole('member');
             Auth::login($user);
@@ -131,8 +131,14 @@ class AuthController extends Controller
     {
         try {
             $user = $request->user();
+
             $user->remember_token = null;
             $user->save();
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
 
             return response()->json(['message' => 'Đã đăng xuất thành công']);
         } catch (\Exception $e) {

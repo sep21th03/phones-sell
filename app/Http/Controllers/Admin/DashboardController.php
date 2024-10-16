@@ -3,14 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Rom;
 use App\Models\Order;
-
+use App\Services\ProductService;
+use App\Services\OrderService;
+use App\Services\UserService;
 class DashboardController extends Controller
 {
     public function index()
@@ -18,7 +19,23 @@ class DashboardController extends Controller
         if (!Auth::check()) {
             return redirect()->route('auth.login');
         }
-        return view('dashboard',  ['total_products' => Product::count(), 'users' => User::all()]);
+        $outOfStockProducts = $this->productService()->countOutOfStockProducts();
+        $getReviewsAll = $this->productService()->getReviewsAll();
+        $successOrder = $this->orderService()->getOrderStatusSuccess();
+        $waitingOrder = $this->orderService()->getOrderStatusWaiting();
+        $getOrderLast = $this->orderService()->getOrderLast();
+        $getNewUsersComparison = $this->userService()->getNewUsersComparison();
+        $getCompletedOrdersComparison = $this->orderService()->getCompletedOrdersComparison();
+        return view('dashboard',  
+        [
+            'outOfStockProducts' => $outOfStockProducts, 
+            'successOrder' => $successOrder, 
+            'waitingOrder' => $waitingOrder, 
+            'getReviewsAll' => $getReviewsAll,
+            'getOrderLast' => $getOrderLast,
+            'getNewUsersComparison' => $getNewUsersComparison,
+            'getCompletedOrdersComparison' => $getCompletedOrdersComparison,
+        ]);
     }
     public function manager_user(){
         if (Auth::check()) {
@@ -43,7 +60,7 @@ class DashboardController extends Controller
     public function manager_order()
     {
         if (Auth::user()) {
-            $orders = Order::with('user')->get();
+            $orders = Order::with('user')->orderBy('created_at', 'desc')->get();
             return view('order.index.list', ['total_order' => Order::count(), 'orders' => $orders]);
         }
         return redirect()->route('auth.login');
@@ -119,5 +136,25 @@ class DashboardController extends Controller
             return view('order.edit.detail', compact(['order']));
         }
         return redirect()->route('auth.login');
+    }
+    public function history_order($id){
+        if (Auth::user()) {
+            $orders = Order::where('user_id', $id)->get();
+            return view('order.edit.main', compact(['orders']));
+        }
+        return redirect()->route('auth.login');
+    }
+
+    public function productService()
+    {
+       return app(ProductService::class);
+    }
+    public function orderService()
+    {
+       return app(OrderService::class);
+    }
+    public function userService()
+    {
+       return app(UserService::class);
     }
 }

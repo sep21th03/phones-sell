@@ -1,0 +1,843 @@
+{
+    "variable": [
+        {
+            "id": "baseUrl",
+            "key": "baseUrl",
+            "type": "string",
+            "name": "string",
+            "value": "http:\/\/localhost"
+        }
+    ],
+    "info": {
+        "name": "Phone",
+        "_postman_id": "c6f3cc41-eeb1-4090-9132-4d866d9bc3cb",
+        "description": "",
+        "schema": "https:\/\/schema.getpostman.com\/json\/collection\/v2.1.0\/collection.json"
+    },
+    "item": [
+        {
+            "name": "Endpoints",
+            "description": "",
+            "item": [
+                {
+                    "name": "POST api\/user\/login",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/login",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/login"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/user\/register",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/user\/register",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/user\/register"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "POST api\/logout",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/logout",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/logout"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "L\u1ea5y gi\u1ecf h\u00e0ng c\u1ee7a ng\u01b0\u1eddi d\u00f9ng hi\u1ec7n t\u1ea1i.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/cart",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/cart"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y s\u1eed d\u1ee5ng `cartService` \u0111\u1ec3 t\u00ecm gi\u1ecf h\u00e0ng c\u1ee7a ng\u01b0\u1eddi d\u00f9ng d\u1ef1a tr\u00ean\nID c\u1ee7a ng\u01b0\u1eddi d\u00f9ng hi\u1ec7n t\u1ea1i \u0111\u01b0\u1ee3c l\u1ea5y t\u1eeb `Auth::user()`.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "C\u1eadp nh\u1eadt gi\u1ecf h\u00e0ng c\u1ee7a ng\u01b0\u1eddi d\u00f9ng hi\u1ec7n t\u1ea1i.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/cart\/update",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/cart\/update"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"product_variant_id\":5397659.033419205,\"quantity\":15}"
+                        },
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn y\u00eau c\u1ea7u c\u1eadp nh\u1eadt gi\u1ecf h\u00e0ng t\u1eeb ng\u01b0\u1eddi d\u00f9ng, x\u00e1c th\u1ef1c d\u1eef li\u1ec7u\n\u0111\u1ea7u v\u00e0o b\u1eb1ng `UpdateCartRequest`, sau \u0111\u00f3 s\u1eed d\u1ee5ng `cartService` \u0111\u1ec3 c\u1eadp nh\u1eadt gi\u1ecf h\u00e0ng\nd\u1ef1a tr\u00ean ID ng\u01b0\u1eddi d\u00f9ng.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "L\u01b0u \u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/product-detail\/review",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/product-detail\/review"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"product_id\":\"facilis\",\"rating\":3,\"comment\":\"zxefqijq\"}"
+                        },
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn y\u00eau c\u1ea7u ch\u1ee9a th\u00f4ng tin \u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m t\u1eeb ng\u01b0\u1eddi d\u00f9ng,\nki\u1ec3m tra v\u00e0 x\u00e1c th\u1ef1c d\u1eef li\u1ec7u \u0111\u1ea7u v\u00e0o b\u1eb1ng l\u1edbp `StoreReviewRequest`, sau \u0111\u00f3\nchuy\u1ec3n d\u1eef li\u1ec7u \u0111\u00e3 x\u00e1c th\u1ef1c cho `ProductService` \u0111\u1ec3 l\u01b0u \u0111\u00e1nh gi\u00e1.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "L\u1ea5y danh s\u00e1ch \u0111\u01a1n h\u00e0ng c\u1ee7a ng\u01b0\u1eddi d\u00f9ng hi\u1ec7n t\u1ea1i.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y s\u1eed d\u1ee5ng `orderService` \u0111\u1ec3 l\u1ea5y danh s\u00e1ch \u0111\u01a1n h\u00e0ng c\u1ee7a ng\u01b0\u1eddi d\u00f9ng hi\u1ec7n t\u1ea1i.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "L\u1ea5y chi ti\u1ebft \u0111\u01a1n h\u00e0ng theo ID.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order\/detail\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order\/detail\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "doloribus",
+                                    "description": "The ID of the detail."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y s\u1eed d\u1ee5ng `orderService` \u0111\u1ec3 l\u1ea5y chi ti\u1ebft \u0111\u01a1n h\u00e0ng d\u1ef1a tr\u00ean ID \u0111\u01b0\u1ee3c truy\u1ec1n v\u00e0o.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 401,
+                            "body": "{\"message\":\"Unauthenticated.\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "T\u1ea1o \u0111\u01a1n h\u00e0ng m\u1edbi.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order\/store",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order\/store"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"first_name\":\"ipsum\",\"last_name\":\"officia\",\"phone\":22519.106,\"address\":\"itaque\",\"payment_method\":\"0\",\"order_details\":[{\"id\":\"ut\",\"product_variant_id\":\"repudiandae\",\"price\":33191819.58842326,\"quantity\":84}],\"total_price\":1610.986}"
+                        },
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn y\u00eau c\u1ea7u t\u1eeb ng\u01b0\u1eddi d\u00f9ng, x\u00e1c th\u1ef1c d\u1eef li\u1ec7u b\u1eb1ng `StoreOrderRequest`,\nsau \u0111\u00f3 s\u1eed d\u1ee5ng `orderService` \u0111\u1ec3 t\u1ea1o \u0111\u01a1n h\u00e0ng m\u1edbi.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "C\u1eadp nh\u1eadt \u0111\u01a1n h\u00e0ng.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order\/update\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order\/update\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "quae",
+                                    "description": "The ID of the update."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"phone\":0.763076691,\"address\":\"et\",\"name\":\"rerum\"}"
+                        },
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn y\u00eau c\u1ea7u c\u1eadp nh\u1eadt \u0111\u01a1n h\u00e0ng, x\u00e1c th\u1ef1c d\u1eef li\u1ec7u b\u1eb1ng `UpdateOrderRequest`,\nsau \u0111\u00f3 s\u1eed d\u1ee5ng `orderService` \u0111\u1ec3 c\u1eadp nh\u1eadt \u0111\u01a1n h\u00e0ng d\u1ef1a tr\u00ean ID.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "X\u00f3a \u0111\u01a1n h\u00e0ng theo ID.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order\/delete\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order\/delete\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "vero",
+                                    "description": "The ID of the delete."
+                                }
+                            ]
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y s\u1eed d\u1ee5ng `orderService` \u0111\u1ec3 x\u00f3a \u0111\u01a1n h\u00e0ng d\u1ef1a tr\u00ean ID \u0111\u01b0\u1ee3c truy\u1ec1n v\u00e0o.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "Thanh to\u00e1n \u0111\u01a1n h\u00e0ng b\u1eb1ng VNPay.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/order\/vnpay_payment",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/order\/vnpay_payment"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": {
+                            "mode": "raw",
+                            "raw": "{\"order_id\":\"a\",\"amount\":1,\"url_return\":\"https:\\\/\\\/nikolaus.net\\\/laudantium-corrupti-ea-voluptates-omnis-debitis.html\"}"
+                        },
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y x\u1eed l\u00fd thanh to\u00e1n b\u1eb1ng VNPay, t\u1ea1o URL thanh to\u00e1n d\u1ef1a tr\u00ean d\u1eef li\u1ec7u \u0111\u01a1n h\u00e0ng\nv\u00e0 c\u00e1c th\u00f4ng tin b\u1ea3o m\u1eadt t\u1eeb m\u00f4i tr\u01b0\u1eddng (env).",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                },
+                {
+                    "name": "L\u1ea5y danh s\u00e1ch t\u1ea5t c\u1ea3 c\u00e1c h\u00e3ng (categories).",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/category",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/category"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y s\u1eed d\u1ee5ng `categoryService` \u0111\u1ec3 l\u1ea5y to\u00e0n b\u1ed9 danh s\u00e1ch c\u00e1c h\u00e3ng t\u1eeb c\u01a1 s\u1edf d\u1eef li\u1ec7u.\nN\u1ebfu danh s\u00e1ch c\u00e1c h\u00e3ng t\u1ed3n t\u1ea1i, ph\u01b0\u01a1ng th\u1ee9c s\u1ebd tr\u1ea3 v\u1ec1 ph\u1ea3n h\u1ed3i d\u1ea1ng JSON v\u1edbi tr\u1ea1ng th\u00e1i th\u00e0nh c\u00f4ng,\nn\u1ebfu kh\u00f4ng s\u1ebd tr\u1ea3 v\u1ec1 th\u00f4ng b\u00e1o l\u1ed7i.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "59"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"name\":\"Apple\",\"created_at\":\"2024-10-04T12:17:52.000000Z\",\"updated_at\":\"2024-10-04T12:17:52.000000Z\"},{\"id\":2,\"name\":\"XiaoMi\",\"created_at\":\"2024-10-04T12:18:01.000000Z\",\"updated_at\":\"2024-10-04T12:18:01.000000Z\"},{\"id\":3,\"name\":\"Huawei\",\"created_at\":\"2024-10-04T12:18:07.000000Z\",\"updated_at\":\"2024-10-04T12:18:07.000000Z\"},{\"id\":4,\"name\":\"Nokia\",\"created_at\":\"2024-10-04T12:18:18.000000Z\",\"updated_at\":\"2024-10-04T12:18:18.000000Z\"},{\"id\":5,\"name\":\"Samsung\",\"created_at\":\"2024-10-04T12:18:23.000000Z\",\"updated_at\":\"2024-10-04T12:18:23.000000Z\"},{\"id\":6,\"name\":\"Pixel\",\"created_at\":\"2024-10-04T12:18:39.000000Z\",\"updated_at\":\"2024-10-04T12:18:39.000000Z\"}],\"status\":\"success\",\"message\":\"Danh s\\u00e1ch h\\u00e3ng\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "L\u1ea5y danh s\u00e1ch t\u1ea5t c\u1ea3 s\u1ea3n ph\u1ea9m.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/product-list",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/product-list"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "58"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":2,\"category_id\":1,\"category_name\":\"Apple\",\"title\":\"iPhone 11 64GB Ch\\u00ednh h\\u00e3ng\",\"description\":null,\"discount\":\"10.00\",\"info\":null,\"specifications\":{\"id\":2,\"product_id\":2,\"screen_size\":\"6.1 inches\",\"screen_type\":\"IPS LCD\",\"screen_resolution\":\"1792 x 828 pixel\",\"ram\":null,\"memory_card_slot\":null,\"battery\":null,\"sim\":null,\"camera_front\":null,\"camera_rear\":null,\"operating_system\":null,\"chip\":null,\"pin\":null,\"connectivity\":null,\"bluetooth\":null,\"dimensions\":null,\"weight\":null},\"variants\":[{\"id\":1,\"product_id\":2,\"rom_id\":2,\"color\":\"Tr\\u1eafng\",\"price\":\"7490000.00\",\"availability\":0,\"stock\":0,\"rom\":{\"id\":2,\"capacity\":\"64 GB\"},\"images\":[{\"id\":1,\"product_variant_id\":1,\"image_url\":\"assets\\\/img\\\/products\\\/fM0FKmGS3a_1728045310.webp\"}]},{\"id\":2,\"product_id\":2,\"rom_id\":2,\"color\":\"\\u0110\\u1ecf\",\"price\":\"7490000.00\",\"availability\":1,\"stock\":7,\"rom\":{\"id\":2,\"capacity\":\"64 GB\"},\"images\":[{\"id\":2,\"product_variant_id\":2,\"image_url\":\"assets\\\/img\\\/products\\\/tjhjgEcsO0_1728046277.webp\"}]},{\"id\":7,\"product_id\":2,\"rom_id\":2,\"color\":\"T\\u00edm\",\"price\":\"7490000.00\",\"availability\":1,\"stock\":6,\"rom\":{\"id\":2,\"capacity\":\"64 GB\"},\"images\":[{\"id\":7,\"product_variant_id\":7,\"image_url\":\"assets\\\/img\\\/products\\\/TTdau3yC2S_1728046798.webp\"}]}]},{\"id\":8,\"category_id\":1,\"category_name\":\"Apple\",\"title\":\"iPhone 13 128GB\",\"description\":null,\"discount\":\"10.00\",\"info\":\"<p>M&aacute;y m\\u1edbi 100% , ch&iacute;nh h&atilde;ng Apple Vi\\u1ec7t Nam.<br \\\/>\\r\\nCellphoneS hi\\u1ec7n l&agrave; \\u0111\\u1ea1i l&yacute; b&aacute;n l\\u1ebb u\\u1ef7 quy\\u1ec1n iPhone ch&iacute;nh h&atilde;ng VN\\\/A c\\u1ee7a Apple Vi\\u1ec7t Nam<\\\/p>\\r\\n\\r\\n<p>H\\u1ed9p, S&aacute;ch h\\u01b0\\u1edbng d\\u1eabn, C&acirc;y l\\u1ea5y sim, C&aacute;p Lightning - Type C<\\\/p>\\r\\n\\r\\n<p>1 \\u0110\\u1ed4I 1 trong 30 ng&agrave;y n\\u1ebfu c&oacute; l\\u1ed7i ph\\u1ea7n c\\u1ee9ng nh&agrave; s\\u1ea3n xu\\u1ea5t. B\\u1ea3o h&agrave;nh 12 th&aacute;ng t\\u1ea1i trung t&acirc;m b\\u1ea3o h&agrave;nh ch&iacute;nh h&atilde;ng Apple:<\\\/p>\",\"specifications\":{\"id\":8,\"product_id\":8,\"screen_size\":null,\"screen_type\":null,\"screen_resolution\":null,\"ram\":null,\"memory_card_slot\":null,\"battery\":null,\"sim\":null,\"camera_front\":null,\"camera_rear\":null,\"operating_system\":null,\"chip\":null,\"pin\":null,\"connectivity\":null,\"bluetooth\":null,\"dimensions\":null,\"weight\":null},\"variants\":[{\"id\":13,\"product_id\":8,\"rom_id\":3,\"color\":\"Tr\\u1eafng\",\"price\":\"13790000.00\",\"availability\":0,\"stock\":0,\"rom\":{\"id\":3,\"capacity\":\"128 GB\"},\"images\":[{\"id\":13,\"product_variant_id\":13,\"image_url\":\"assets\\\/img\\\/products\\\/ZAIeDakxCr_1728047099.webp\"}]},{\"id\":14,\"product_id\":8,\"rom_id\":3,\"color\":\"\\u0110\\u1ecf\",\"price\":\"13790000.00\",\"availability\":1,\"stock\":6,\"rom\":{\"id\":3,\"capacity\":\"128 GB\"},\"images\":[{\"id\":14,\"product_variant_id\":14,\"image_url\":\"assets\\\/img\\\/products\\\/hAy7x5hf9Z_1728047175.webp\"}]}]},{\"id\":9,\"category_id\":5,\"category_name\":\"Samsung\",\"title\":\"Samsung Galaxy S24 Ultra 12GB 256GB\",\"description\":null,\"discount\":\"10.00\",\"info\":null,\"specifications\":{\"id\":9,\"product_id\":9,\"screen_size\":null,\"screen_type\":null,\"screen_resolution\":null,\"ram\":null,\"memory_card_slot\":null,\"battery\":null,\"sim\":null,\"camera_front\":null,\"camera_rear\":null,\"operating_system\":null,\"chip\":null,\"pin\":null,\"connectivity\":null,\"bluetooth\":null,\"dimensions\":null,\"weight\":null},\"variants\":[{\"id\":15,\"product_id\":9,\"rom_id\":4,\"color\":\"\\u0110en\",\"price\":\"27990000.00\",\"availability\":1,\"stock\":3,\"rom\":{\"id\":4,\"capacity\":\"256 GB\"},\"images\":[{\"id\":15,\"product_variant_id\":15,\"image_url\":\"assets\\\/img\\\/products\\\/IxYSeC6SA8_1728047292.webp\"}]}]}],\"status\":\"success\",\"message\":\"Danh s\\u00e1ch s\\u1ea3n ph\\u1ea9m\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "Hi\u1ec3n th\u1ecb th\u00f4ng tin s\u1ea3n ph\u1ea9m theo ID.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/product-detail\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/product-detail\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "minus",
+                                    "description": "The ID of the product detail."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "57"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 404,
+                            "body": "{\n    \"message\": \"No query results for model [App\\\\Models\\\\Product].\"\n}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "L\u1ea5y danh s\u00e1ch c\u00e1c \u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reviews",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/reviews"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn y\u00eau c\u1ea7u v\u00e0 chuy\u1ec3n n\u00f3 \u0111\u1ebfn `ProductService` \u0111\u1ec3 l\u1ea5y danh s\u00e1ch\n\u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m t\u1eeb c\u01a1 s\u1edf d\u1eef li\u1ec7u.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "56"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":1,\"product_id\":2,\"user_id\":4,\"rating\":5,\"comment\":\"S\\u1ea3n ph\\u1ea9m r\\u1ea5t tuy\\u1ec7t v\\u1eddi, m\\u00ecnh r\\u1ea5t h\\u00e0i l\\u00f2ng!\",\"created_at\":\"2024-10-11T08:39:03.000000Z\",\"updated_at\":\"2024-10-11T08:39:03.000000Z\",\"product\":{\"id\":2,\"title\":\"iPhone 11 64GB Ch\\u00ednh h\\u00e3ng\"},\"user\":{\"id\":4,\"name\":\"Sep21th03\",\"avt_url\":\"https:\\\/\\\/ui-avatars.com\\\/api\\\/?name=Admin&background=random\"}},{\"id\":2,\"product_id\":2,\"user_id\":4,\"rating\":5,\"comment\":\"S\\u1ea3n ph\\u1ea9m r\\u1ea5t tuy\\u1ec7t v\\u1eddi, m\\u00ecnh r\\u1ea5t h\\u00e0i l\\u00f2ng!\",\"created_at\":\"2024-10-11T08:49:20.000000Z\",\"updated_at\":\"2024-10-11T08:49:20.000000Z\",\"product\":{\"id\":2,\"title\":\"iPhone 11 64GB Ch\\u00ednh h\\u00e3ng\"},\"user\":{\"id\":4,\"name\":\"Sep21th03\",\"avt_url\":\"https:\\\/\\\/ui-avatars.com\\\/api\\\/?name=Admin&background=random\"}}],\"status\":\"success\",\"message\":\"L\\u1ea5y \\u0111\\u00e1nh gi\\u00e1 th\\u00e0nh c\\u00f4ng!\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "L\u1ea5y danh s\u00e1ch \u0111\u00e1nh gi\u00e1 theo ID s\u1ea3n ph\u1ea9m.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/review\/:id",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/review\/:id",
+                            "variable": [
+                                {
+                                    "id": "id",
+                                    "key": "id",
+                                    "value": "maxime",
+                                    "description": "The ID of the review."
+                                }
+                            ]
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y nh\u1eadn ID s\u1ea3n ph\u1ea9m v\u00e0 l\u1ea5y c\u00e1c \u0111\u00e1nh gi\u00e1 li\u00ean quan \u0111\u1ebfn s\u1ea3n ph\u1ea9m \u0111\u00f3\nth\u00f4ng qua `ProductService`.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "55"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"data\":[],\"status\":\"success\",\"message\":\"L\\u1ea5y \\u0111\\u00e1nh gi\\u00e1 th\\u00e0nh c\\u00f4ng!\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "L\u1ea5y to\u00e0n b\u1ed9 \u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m.",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/reviewsall",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/reviewsall"
+                        },
+                        "method": "GET",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "Ph\u01b0\u01a1ng th\u1ee9c n\u00e0y tr\u1ea3 v\u1ec1 to\u00e0n b\u1ed9 c\u00e1c \u0111\u00e1nh gi\u00e1 s\u1ea3n ph\u1ea9m hi\u1ec7n c\u00f3 th\u00f4ng qua `ProductService`.",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": [
+                        {
+                            "header": [
+                                {
+                                    "key": "cache-control",
+                                    "value": "no-cache, private"
+                                },
+                                {
+                                    "key": "content-type",
+                                    "value": "application\/json"
+                                },
+                                {
+                                    "key": "x-ratelimit-limit",
+                                    "value": "60"
+                                },
+                                {
+                                    "key": "x-ratelimit-remaining",
+                                    "value": "54"
+                                },
+                                {
+                                    "key": "access-control-allow-origin",
+                                    "value": "*"
+                                }
+                            ],
+                            "code": 200,
+                            "body": "{\"data\":[{\"id\":2,\"product_id\":2,\"user_id\":4,\"rating\":5,\"comment\":\"S\\u1ea3n ph\\u1ea9m r\\u1ea5t tuy\\u1ec7t v\\u1eddi, m\\u00ecnh r\\u1ea5t h\\u00e0i l\\u00f2ng!\",\"created_at\":\"2024-10-11T08:49:20.000000Z\",\"updated_at\":\"2024-10-11T08:49:20.000000Z\",\"product\":{\"id\":2,\"title\":\"iPhone 11 64GB Ch\\u00ednh h\\u00e3ng\",\"variants\":[{\"id\":1,\"product_id\":2,\"rom_id\":2,\"color\":\"Tr\\u1eafng\",\"color_code\":\"#FAF9F2\",\"stock\":0,\"availability\":0,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[{\"id\":1,\"product_variant_id\":1,\"image_url\":\"assets\\\/img\\\/products\\\/fM0FKmGS3a_1728045310.webp\",\"created_at\":null,\"updated_at\":null}]},{\"id\":2,\"product_id\":2,\"rom_id\":2,\"color\":\"\\u0110\\u1ecf\",\"color_code\":\"#b4052a\",\"stock\":7,\"availability\":1,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[]},{\"id\":7,\"product_id\":2,\"rom_id\":2,\"color\":\"T\\u00edm\",\"color_code\":\"#000000\",\"stock\":6,\"availability\":1,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[]}]},\"user\":{\"id\":4,\"name\":\"Sep21th03\",\"avt_url\":\"https:\\\/\\\/ui-avatars.com\\\/api\\\/?name=Admin&background=random\"}},{\"id\":1,\"product_id\":2,\"user_id\":4,\"rating\":5,\"comment\":\"S\\u1ea3n ph\\u1ea9m r\\u1ea5t tuy\\u1ec7t v\\u1eddi, m\\u00ecnh r\\u1ea5t h\\u00e0i l\\u00f2ng!\",\"created_at\":\"2024-10-11T08:39:03.000000Z\",\"updated_at\":\"2024-10-11T08:39:03.000000Z\",\"product\":{\"id\":2,\"title\":\"iPhone 11 64GB Ch\\u00ednh h\\u00e3ng\",\"variants\":[{\"id\":1,\"product_id\":2,\"rom_id\":2,\"color\":\"Tr\\u1eafng\",\"color_code\":\"#FAF9F2\",\"stock\":0,\"availability\":0,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[{\"id\":1,\"product_variant_id\":1,\"image_url\":\"assets\\\/img\\\/products\\\/fM0FKmGS3a_1728045310.webp\",\"created_at\":null,\"updated_at\":null}]},{\"id\":2,\"product_id\":2,\"rom_id\":2,\"color\":\"\\u0110\\u1ecf\",\"color_code\":\"#b4052a\",\"stock\":7,\"availability\":1,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[]},{\"id\":7,\"product_id\":2,\"rom_id\":2,\"color\":\"T\\u00edm\",\"color_code\":\"#000000\",\"stock\":6,\"availability\":1,\"price\":\"7490000.00\",\"created_at\":null,\"updated_at\":null,\"images\":[]}]},\"user\":{\"id\":4,\"name\":\"Sep21th03\",\"avt_url\":\"https:\\\/\\\/ui-avatars.com\\\/api\\\/?name=Admin&background=random\"}}],\"status\":\"success\",\"message\":\"L\\u1ea5y \\u0111\\u00e1nh gi\\u00e1 th\\u00e0nh c\\u00f4ng!\"}",
+                            "name": ""
+                        }
+                    ]
+                },
+                {
+                    "name": "POST api\/some-endpoint",
+                    "request": {
+                        "url": {
+                            "host": "{{baseUrl}}",
+                            "path": "api\/some-endpoint",
+                            "query": [],
+                            "raw": "{{baseUrl}}\/api\/some-endpoint"
+                        },
+                        "method": "POST",
+                        "header": [
+                            {
+                                "key": "Content-Type",
+                                "value": "application\/json"
+                            },
+                            {
+                                "key": "Accept",
+                                "value": "application\/json"
+                            }
+                        ],
+                        "body": null,
+                        "description": "",
+                        "auth": {
+                            "type": "noauth"
+                        }
+                    },
+                    "response": []
+                }
+            ]
+        }
+    ],
+    "auth": {
+        "type": "noauth"
+    }
+}

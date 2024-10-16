@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
@@ -24,19 +23,26 @@ Route::post('/user/register', [AuthController::class, 'register']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    Route::get('user/info', [UserController::class, 'index']);
-
     Route::get('cart', [CartController::class, 'getMyCart']);
     Route::post('cart/update', [CartController::class, 'updateMyCart']);
+
+    Route::post('product-detail/review', [ProductController::class, 'storeProductReview']);
 
     Route::get('order', [OrderController::class, 'getListByUser']);
     Route::get('order/detail/{id}', [OrderController::class,'getDetailOrder']);
     Route::post('order/store', [OrderController::class,'store']);
+    Route::post('order/update/{id}', [OrderController::class,'update']);
+    Route::post('order/delete/{id}', [OrderController::class,'delete']);
+    Route::post('order/vnpay_payment', [OrderController::class,'vnpayPayment']);
 });
 
 
 Route::get('category', [CategoryController::class, 'index']);
 Route::get('product-list', [ProductController::class, 'index']);
 Route::get('product-detail/{id}', [ProductController::class, 'show']);
+
+Route::get('reviews', [ProductController::class, 'getReviews']);
+Route::get('review/{id}', [ProductController::class, 'getReviewByProduct']);
+Route::get('reviewsall', [ProductController::class, 'getReviewsAll']);
 
 Route::post('/some-endpoint', [Controller::class, 'someFunction']);

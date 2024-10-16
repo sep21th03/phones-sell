@@ -5,11 +5,9 @@ namespace App\Services;
 use App\Jobs\UpdateOrderStatusJob;
 use App\Models\Cart;
 use App\Models\Order;
-use App\Models\ProductOption;
 use App\Models\ProductVariant;
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class OrderService extends BaseService
 {
@@ -119,35 +117,43 @@ class OrderService extends BaseService
     public function update($id, $data)
     {
         $order = $this->model->find($id);
-        if($order->status != $data['status']) {
-            switch($data['status']) {
+
+        if (!$order) {
+            return false;
+        }
+
+        if ($order->status != $data['status']) {
+            $content = '';
+            switch ($data['status']) {
                 case $this->model::STATUS_CANCEL:
-                    $content = "Đơn hàng #$order->code của bạn đã bị hủy bỏ";
+                    $content = "Đơn hàng #{$order->code} của bạn đã bị hủy bỏ";
                     break;
                 case $this->model::STATUS_WAITING:
-                    $content = "Đơn hàng #$order->code của bạn đang chờ xác nhận";
+                    $content = "Đơn hàng #{$order->code} của bạn đang chờ xác nhận";
                     break;
                 case $this->model::STATUS_SUCCESS:
-                    $content = "Đơn hàng #$order->code của bạn đã được giao thành công";
+                    $content = "Đơn hàng #{$order->code} của bạn đã được giao thành công";
                     break;
                 case $this->model::STATUS_CONFIRM:
-                    $content = "Đơn hàng #$order->code đã được xác nhận và sẽ sớm được giao tới bạn";
+                    $content = "Đơn hàng #{$order->code} đã được xác nhận và sẽ sớm được giao tới bạn";
                     break;
                 case $this->model::STATUS_SHIPPING:
-                    $content = "Đơn hàng #$order->code đang trên đường giao tới bạn";
+                    $content = "Đơn hàng #{$order->code} đang trên đường giao tới bạn";
                     break;
                 case $this->model::STATUS_WAITING_PAYMENT:
-                    $content = "Đơn hàng #$order->code đang đang chờ thanh toán, hãy thanh toán đơn hàng ngay";
+                    $content = "Đơn hàng #{$order->code} đang đang chờ thanh toán, hãy thanh toán đơn hàng ngay";
                     break;
             }
-            dispatch(new UpdateOrderStatusJob($order->user->email, $order->user_name, $content));
+            if ($content) {
+                dispatch(new UpdateOrderStatusJob($order->user->email, $order->user_name, $content));
+            }
         }
         return $order->update($data);
     }
     public function userUpdate($id, $data)
     {
         $order = $this->model->find($id);
-        if($order->status !== $this->model::STATUS_WAITING){
+        if ($order->status !== $this->model::STATUS_WAITING) {
             return false;
         }
         return parent::update($id, $data);
@@ -155,10 +161,87 @@ class OrderService extends BaseService
     public function delete($id)
     {
         $order = $this->model->find($id);
-        if($order->status!== $this->model::STATUS_WAITING){
+        if ($order->status !== $this->model::STATUS_WAITING) {
             return false;
         }
         $order->orderDetails()->delete();
-        return $order->delete();    
+        return $order->delete();
+    }
+
+    public function getOrderStatusSuccess()
+    {
+        return Order::where('status', 1)->count();
+    }
+    public function getOrderStatusWaiting()
+    {
+        return Order::where('status', 0)->count();
+    }
+    public function getOrderLast()
+    {
+        $sevenDaysAgo = now()->subDays(7);
+
+        $totalOrders = Order::where('created_at', '>=', $sevenDaysAgo)->count();
+
+        $completedOrders = Order::where('created_at', '>=', $sevenDaysAgo)
+            ->where('status', Order::STATUS_SUCCESS)
+            ->count();
+
+        $pendingOrders = Order::where('created_at', '>=', $sevenDaysAgo)
+            ->whereNotIn('status', [Order::STATUS_SUCCESS, Order::STATUS_CANCEL])
+            ->count();
+
+        $completedPercentage = $totalOrders ? round(($completedOrders / $totalOrders) * 100) : 0;
+        $pendingPercentage = $totalOrders ? round(($pendingOrders / $totalOrders) * 100) : 0;
+
+        $startOfLastWeek = now()->subWeek()->startOfWeek();
+        $endOfLastWeek = now()->subWeek()->endOfWeek();
+        $ordersLastWeek = Order::whereBetween('created_at', [$startOfLastWeek, $endOfLastWeek])->count();
+
+        $startOfThisWeek = now()->startOfWeek();
+        $endOfThisWeek = now()->endOfWeek();
+        $ordersThisWeek = Order::whereBetween('created_at', [$startOfThisWeek, $endOfThisWeek])->count();
+
+        $orderChangePercentage = $ordersLastWeek ? (($ordersThisWeek - $ordersLastWeek) / $ordersLastWeek) * 100 : 0;
+        return [
+            'totalOrders' => $totalOrders,
+            'completedOrders' => $completedOrders,
+            'pendingOrders' => $pendingOrders,
+            'completedPercentage' => $completedPercentage,
+            'pendingPercentage' => $pendingPercentage,
+            'ordersLastWeek' => $ordersLastWeek,
+            'ordersThisWeek' => $ordersThisWeek,
+            'orderChangePercentage' => round($orderChangePercentage, 2)
+        ];
+    }
+
+    public function getCompletedOrdersComparison()
+    {
+        $currentMonth = Carbon::now()->month;
+        $previousMonth = Carbon::now()->subMonth()->month;
+        $currentYear = Carbon::now()->year;
+
+        $currentMonthOrders = [];
+        $previousMonthOrders = [];
+
+        $daysInCurrentMonth = Carbon::now()->daysInMonth;
+        for ($day = 1; $day <= $daysInCurrentMonth; $day++) {
+            $date = Carbon::create($currentYear, $currentMonth, $day);
+            $currentMonthOrders[$day] = Order::where('status', Order::STATUS_SUCCESS)
+                ->whereDate('created_at', $date)
+                ->count();
+        }
+
+        $daysInPreviousMonth = Carbon::now()->subMonth()->daysInMonth;
+        for ($day = 1; $day <= $daysInPreviousMonth; $day++) {
+            $date = Carbon::create($currentYear, $previousMonth, $day);
+            $previousMonthOrders[$day] = Order::where('status', Order::STATUS_SUCCESS)
+                ->whereDate('created_at', $date)
+                ->count();
+        }
+
+        return [
+            'currentMonthOrders' => $currentMonthOrders,
+            'previousMonthOrders' => $previousMonthOrders,
+        ];
     }
 }

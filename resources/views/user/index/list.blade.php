@@ -83,8 +83,8 @@ Danh sách người dùng
                         <thead>
                             <tr>
                                 <th class="fs-8 align-middle text-center ps-0" style="width: 15%;">Tên người dùng</th>
-                                <th class="fs-8 align-middle text-center" style="width: 15%;">Email</th>
-                                <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Số điện thoại</th>
+                                <th class="fs-8 align-middle text-start" style="width: 15%;">Email</th>
+                                <th class="fs-8 align-middle text-start pe-0" style="width: 15%;">Số điện thoại</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 10%;">Role</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Created_at</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Updated_at</th>

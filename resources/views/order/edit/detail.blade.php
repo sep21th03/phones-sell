@@ -8,14 +8,7 @@ Chi tiết đơn hàng
         <h2 class="mb-0">Chi tiết đơn hàng<span> #{{ $order['code'] }}</span></h2>
         <div class="d-sm-flex flex-between-center mb-3">
             <p class="text-body-secondary lh-sm mb-0 mt-2 mt-sm-0">ID Khách hàng : <a class="fw-bold" href="#!"> {{ $order['user_id'] }}</a></p>
-            <div class="d-flex"><button class="btn btn-link pe-3 ps-0 text-body"><span class="fas fa-print me-2"></span>Print</button><button class="btn btn-link px-3 text-body"><span class="fas fa-undo me-2"></span>Refund</button>
-                <div class="dropdown"><button class="btn text-body dropdown-toggle dropdown-caret-none ps-3 pe-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">More action<span class="fas fa-chevron-down ms-2"></span></button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </div>
+            <div class="d-flex"><a href="{{ route('order.history', ['id'=> $order->user->id]) }}"><button class="btn btn-link pe-3 ps-0 text-body">Lịch sử đơn hàng</button></a>
             </div>
         </div>
         <div class="row g-5 gy-7">
@@ -248,16 +241,6 @@ Chi tiết đơn hàng
             </div>
         </div>
     </div>
-    <footer class="footer position-absolute">
-        <div class="row g-0 justify-content-between align-items-center h-100">
-            <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 mt-2 mt-sm-0 text-body">Thank you for creating with Phoenix<span class="d-none d-sm-inline-block"></span><span class="d-none d-sm-inline-block mx-1">|</span><br class="d-sm-none" />2024 &copy;<a class="mx-1" href="../../../../../../themewagon.com/index.html">Themewagon</a></p>
-            </div>
-            <div class="col-12 col-sm-auto text-center">
-                <p class="mb-0 text-body-tertiary text-opacity-85">v1.19.0</p>
-            </div>
-        </div>
-    </footer>
 </div>
 @endsection
 

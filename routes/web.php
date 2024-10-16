@@ -21,7 +21,7 @@ use App\Http\Controllers\OrderController;
 |
 */
 
-Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login');
+Route::get('/admin/login', [AdminController::class, 'login'])->name('auth.login')->middleware('guest');
 Route::post('/admin/login', [AdminController::class, 'postlogin'])->name('auth.login.post');
 
 // Route::middleware(['auth:sanctum'])->group(function () {
@@ -64,6 +64,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/', [DashboardController::class, 'manager_order'])->name('order.list');
         Route::get('/{id}', [DashboardController::class, 'detail_order'])->name('order.detail');
         Route::post('update', [OrderController::class, 'updateStatus'])->name('order.update');
+        Route::get('user/{id}', [DashboardController::class, 'history_order'])->name('order.history');
     });
     //User
     Route::prefix('user')->group(function () {
@@ -72,6 +73,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::post('/edit', [UserController::class, 'update'])->name('user.update');
         Route::post('/delete', [UserController::class, 'destroy'])->name('user.destroy');
     });
+});
+
+Route::prefix('order')->namespace('App\Http\Controllers')->group(function () {
+    Route::get('vnpay_payment_complete/{id}', [OrderController::class, 'vnpayPaymentComplete'])->name('order.vnpay_payment_complete');
 });
 
 Route::middleware('auth:sanctum')->get('/check-session', [Controller::class, 'checkSession']);

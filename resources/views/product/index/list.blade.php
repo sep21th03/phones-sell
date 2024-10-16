@@ -91,8 +91,8 @@ Danh sách sản phẩm
                 <th class="white-space-nowrap fs-9 align-middle ps-0" data-orderable="false" style="width: 5%;">
                   <div class="form-check mb-0 fs-8"><input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' /></div>
                 </th>
-                <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width: 20%;">ẢNH</th>
-                <th class="sort white-space-nowrap align-middle text-center ps-4" scope="col" style="width:350px;" data-sort="product">TÊN SẢN PHẨM</th>
+                <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width: 20%;"></th>
+                <th class="sort white-space-nowrap align-middle text-start ps-4" scope="col" style="width:350px;" data-sort="product">TÊN SẢN PHẨM</th>
                 <th class="sort align-middle  text-center ps-4" scope="col" data-sort="category" style="width:150px;">HÃNG</th>
                 <th class="sort align-middle  text-center ps-4" scope="col" data-sort="category" style="width:150px;">DUNG LƯỢNG</th>
                 <th class="sort  text-center align-middle pe-0 ps-4" scope="col" style="width: 7%;">
