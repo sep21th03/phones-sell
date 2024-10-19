@@ -384,8 +384,27 @@
     document.getElementById('logoutButton').addEventListener('click', function() {
       logout();
     })
+
     async function logout() {
-      await localStorage.removeItem('token');
-      window.location.href = "/admin/login";
+      try {
+        const response = await fetch('/api/logout', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          },
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          await localStorage.removeItem('token');
+          window.location.href = data.redirect; 
+        } else {
+          console.error('Logout failed:', data.error);
+        }
+      } catch (error) {
+        console.error('Error during logout:', error);
+      }
     }
   </script>

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use App\Models\User;
+use Laravel\Sanctum\PersonalAccessToken;
+use Laravel\Sanctum\TransientToken;
 
 class AuthController extends Controller
 {
@@ -132,15 +134,30 @@ class AuthController extends Controller
         try {
             $user = $request->user();
 
-            $user->remember_token = null;
-            $user->save();
+            if ($user) {
+                if (Auth::guard('sanctum')->check()) {
+                    $accessToken = $user->currentAccessToken();
 
-            Auth::logout();
+                    if (!($accessToken instanceof TransientToken)) {
+                        $accessToken->delete();
+                    }
+                } else {
+                    Auth::logout();
+                }
 
-            $request->session()->invalidate();
-            $request->session()->regenerateToken();
+                $user->remember_token = null;
+                $user->save();
+            }
 
-            return response()->json(['message' => 'Đã đăng xuất thành công']);
+            if ($request->hasSession()) {
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+            }
+
+            return response()->json([
+                'message' => 'Đã đăng xuất thành công',
+                'redirect' => route('auth.login')
+            ]);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Có lỗi xảy ra khi đăng xuất', 'message' => $e->getMessage()], 500);
         }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class UserService extends BaseService
 {
@@ -123,7 +124,14 @@ class UserService extends BaseService
             'usersPerDay' => array_values($dates),
             'currentWeekUsers' => $currentWeekUsers,
             'previousWeekUsers' => $previousWeekUsers,
-            'percentageChange' => $percentageChange,
+            'percentageChange' =>  round($percentageChange, 2),
         ];
     }
+
+
+    public function getCurrentUser()
+    {
+        return Auth::user();
+    }
+
 }

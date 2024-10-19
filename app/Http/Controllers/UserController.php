@@ -45,4 +45,14 @@ class UserController extends Controller
     {
         return app(RoleService::class);
     }
+
+
+    //Api
+    public function getUsers()
+    {
+        $result = $this->userService->getCurrentUser();
+        return $result 
+            ? jsonResponse('success', 'Thông tin người dùng', ['user' => $result] )
+            : jsonResponse('error', 'Không tìm thấy người dùng!');
+    }
 }
