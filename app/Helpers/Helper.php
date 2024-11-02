@@ -12,3 +12,13 @@ function jsonResponse($status, $message = '', $data = [])
         200
     );
 }
+
+
+if (!function_exists('getPublicPath')) {
+    function getPublicPath($path = '') {
+        if (file_exists(base_path('public_html'))) {
+            return base_path('public_html/' . $path);
+        }
+        return public_path($path);
+    }
+}

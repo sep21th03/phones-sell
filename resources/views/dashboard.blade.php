@@ -125,7 +125,7 @@ Dashboard
               <th class="white-space-nowrap fs-9 ps-0 align-middle">
                 <div class="form-check mb-0 fs-8"><input class="form-check-input" id="checkbox-bulk-reviews-select" type="checkbox" data-bulk-select='{"body":"table-latest-review-body"}' /></div>
               </th>
-              <th class="white-space-nowrap align-middle" scope="col"></th>
+              <!-- <th class="white-space-nowrap align-middle" scope="col"></th> -->
               <th class="white-space-nowrap align-middle" scope="col" style="width: 30%" data-sort="product">Sản phẩm</th>
               <th class="align-middle" scope="col" data-sort="customer" style="width: 20%">Khách hàng</th>
               <th class="align-middle" scope="col" data-sort="rating" style="width: 10%">Đánh giá</th>
@@ -151,14 +151,14 @@ Dashboard
                 </div>
               </td>
 
-              <td class="align-middle product white-space-nowrap py-0">
-                <a class="d-block rounded-2 border border-translucent" href="apps/e-commerce/landing/product-details.html">
+              <!-- <td class="align-middle product white-space-nowrap py-0">
+                <a class="d-block rounded-2 border border-translucent" href="/product-detail.html?id={{ $index->product->id }}">
                   <img src="{{ url($index->product->variants[0]->images[0]->image_url ?? 'assets/img/default-product.png') }}" alt="" width="53" />
                 </a>
-              </td>
+              </td> -->
 
               <td class="align-middle product white-space-nowrap">
-                <a class="fw-semibold" href="apps/e-commerce/landing/product-details.html">{{ Str::limit($index->product->title, 40) }}</a>
+                <a class="fw-semibold" href="/product-detail.html?id={{ $index->product->id }}">{{ Str::limit($index->product->title, 40) }}</a>
               </td>
 
               <td class="align-middle customer white-space-nowrap">
@@ -218,7 +218,7 @@ Dashboard
       <div class="row align-items-center py-1">
         <div class="pagination d-none"></div>
         <div class="col d-flex fs-9">
-          <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">Xem tất cả<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less</a>
+          <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="{{ route("review.list") }}" data-list-view="*">Xem tất cả<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less</a>
         </div>
       </div>
     </div>

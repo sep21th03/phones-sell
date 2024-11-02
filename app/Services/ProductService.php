@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 
 class ProductService
 {
-
     public function getAllProducts()
     {
         return Product::with('specifications', 'variants.rom', 'variants.images')->get();
@@ -100,7 +99,7 @@ class ProductService
         $randomName = Str::random(10);
         $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
 
-        $image->move(public_path('assets/img/products'), $imageName);
+        $image->move(getPublicPath('assets/img/products'), $imageName);
 
         $imageAdd = new ProductImage();
         $imageAdd->product_variant_id = $variantId;
@@ -110,7 +109,7 @@ class ProductService
 
     public function show(String $id)
     {
-        $product = Product::with('specifications', 'variants.rom', 'variants.images')
+        $product = Product::with('specifications', 'variants.rom', 'variants.images', 'reviews')
             ->where('id', $id)
             ->firstOrFail();
         return $product;
@@ -193,7 +192,8 @@ class ProductService
                     $image = $data['image'];
                     $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
 
-                    $image->move(public_path('assets/img/products'), $imageName);
+                    $image->move(getPublicPath('assets/img/products'), $imageName);
+
 
                     $product_image->image_url = 'assets/img/products/' . $imageName;
                     $product_image->save();
@@ -202,7 +202,8 @@ class ProductService
                     $image = $data['image'];
                     $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
 
-                    $image->move(public_path('assets/img/products'), $imageName);
+                    $image->move(getPublicPath('assets/img/products'), $imageName);
+
 
                     ProductImage::create([
                         'product_variant_id' => $data['variant_id'],
@@ -263,7 +264,8 @@ class ProductService
                 $image = $data['image'];
                 $imageName = $randomName . '_' . time() . '.' . $image->getClientOriginalExtension();
 
-                $image->move(public_path('assets/img/products'), $imageName);
+                $image->move(getPublicPath('assets/img/products'), $imageName);
+
 
                 $imageAdd = new ProductImage();
                 $imageAdd->product_variant_id = $variant->id;
@@ -360,12 +362,16 @@ class ProductService
             'product:id,title',
             'product.variants' => function ($query) {
                 $query->with(['images' => function ($query) {
-                    $query->limit(1); 
+                    $query->limit(1);
                 }]);
             },
             'user:id,name,avt_url'
         ])->limit($limit)->orderBy('created_at', 'desc')->get();
 
         return $reviews;
+    }
+    public function removeReview($id)
+    {
+        return DB::table('reviews')->whereIn('id', $id)->delete();
     }
 }

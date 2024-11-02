@@ -6,6 +6,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +35,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('order/update/{id}', [OrderController::class,'update']);
     Route::post('order/delete/{id}', [OrderController::class,'delete']);
     Route::post('order/vnpay_payment', [OrderController::class,'vnpayPayment']);
+
+    Route::get('/user-id', [UserController::class, 'getUserId']);
+    Route::get('/user', [UserController::class, 'getUsers']);
 });
 
 
 Route::get('category', [CategoryController::class, 'index']);
 Route::get('product-list', [ProductController::class, 'index']);
 Route::get('product-detail/{id}', [ProductController::class, 'show']);
+
 
 Route::get('reviews', [ProductController::class, 'getReviews']);
 Route::get('review/{id}', [ProductController::class, 'getReviewByProduct']);

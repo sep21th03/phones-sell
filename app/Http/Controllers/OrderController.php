@@ -106,8 +106,8 @@ class OrderController extends Controller
     public function vnpayPaymentComplete(Request $request, $order_id)
     {
         $url_return = $request->url_return;
-        $this->orderService()->updateByCode($order_id, [
-            'status' => Order::STATUS_WAITING,
+        $this->orderService->updateByCode($order_id, [
+            'status' => Order::STATUS_SUCCESS,
         ]);
 
         return redirect($url_return);
@@ -126,8 +126,8 @@ class OrderController extends Controller
 
         $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
         $vnp_Returnurl = route('order.vnpay_payment_complete', ['id' => $request->order_id]) . '?url_return=' . $request->url_return; // đường dẫn khi thành công
-        $vnp_TmnCode = env('VNPAY_TMMCODE'); //Mã website tại VNPAY
-        $vnp_HashSecret = env('VNPAY_HASH_SECRET'); //Chuỗi bí mật
+        $vnp_TmnCode = env('VNP_TMN_CODE'); 
+        $vnp_HashSecret = env('VNP_HASH_SECRET'); 
 
         $vnp_TxnRef = $request->order_id; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = "Thanh toán đơn hàng tại MobileSell";

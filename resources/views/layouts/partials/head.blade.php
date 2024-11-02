@@ -26,6 +26,10 @@
                   <div class="d-flex align-items-center"><span class="nav-link-text">Đơn hàng</span></div>
                 </a><!-- more inner pages-->
               </li>
+              <li class="nav-item"><a class="nav-link" href="{{ route("review.list") }}">
+                  <div class="d-flex align-items-center"><span class="nav-link-text">Phản hồi</span></div>
+                </a><!-- more inner pages-->
+              </li>
             </ul>
           </div>
         </ul>

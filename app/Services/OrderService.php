@@ -213,7 +213,11 @@ class OrderService extends BaseService
             'orderChangePercentage' => round($orderChangePercentage, 2)
         ];
     }
-
+    public function updateByCode($code, $data)
+    {
+        $order = $this->model->where('code', $code)->first();
+        return $order->update($data);
+    }
     public function getCompletedOrdersComparison()
     {
         $currentMonth = Carbon::now()->month;

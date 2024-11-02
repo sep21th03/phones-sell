@@ -65,6 +65,13 @@ class DashboardController extends Controller
         }
         return redirect()->route('auth.login');
     }
+    public function manager_review()
+    {
+        if (Auth::user()) {
+            return view('review.index.list');
+        }
+        return redirect()->route('auth.login');
+    }
     public function detai_product($id)
     {
         if (Auth::user()) {

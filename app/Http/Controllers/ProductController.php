@@ -130,11 +130,16 @@ class ProductController extends Controller
      */
     public function show(string $id)
     {
-        $result = $this->productService->show($id);
+        $product = $this->productService->show($id);
 
-        return $result
-            ? jsonResponse('success', 'Thông tin sản phẩm', $result)
-            : jsonResponse('error', 'Không tìm thấy sản phẩm!', []);
+        if ($product) {
+            $result = $product->toArray();
+            $result['category_name'] = $product->category_id ? $product->category->name : null;
+
+            return jsonResponse('success', 'Thông tin sản phẩm', $result);
+        }
+
+        return jsonResponse('error', 'Không tìm thấy sản phẩm!', []);
     }
 
 
@@ -223,7 +228,7 @@ class ProductController extends Controller
     {
         $data = $request->validated();
         $result = $this->productService->storeReview($data);
-        return jsonResponse($result ? 'success' : 'error');
+        return jsonResponse($result ? 'success' : 'error',  $result ? 'Đánh giá thành công!' : 'Đánh giá thất bại!', $result);
     }
     /**
      * Lấy danh sách các đánh giá sản phẩm.

@@ -47,12 +47,19 @@ class UserController extends Controller
     }
 
 
-    //Api
     public function getUsers()
     {
         $result = $this->userService->getCurrentUser();
         return $result 
             ? jsonResponse('success', 'Thông tin người dùng', ['user' => $result] )
+            : jsonResponse('error', 'Không tìm thấy người dùng!');
+    }
+
+    public function getUserId()
+    {
+        $result = $this->userService->getUserId();
+        return $result 
+            ? jsonResponse('success', 'id người dùng', ['id' => $result] )
             : jsonResponse('error', 'Không tìm thấy người dùng!');
     }
 }

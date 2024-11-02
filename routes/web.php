@@ -33,9 +33,9 @@ Route::post('/admin/login', [AdminController::class, 'postlogin'])->name('auth.l
 Route::get('/', function () {
     return redirect('/admin');
 });
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::prefix('/admin')->middleware(['auth', 'role:admin'])->group(function () {
     //Dashboard
-    Route::prefix('/admin')->get('/', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
     //Category
     Route::prefix('category')->group(function () {
         Route::get('/', [DashboardController::class, 'manager_category'])->name('category.list');
@@ -72,6 +72,11 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         Route::get('/get', [UserController::class, 'index'])->name('user.index');
         Route::post('/edit', [UserController::class, 'update'])->name('user.update');
         Route::post('/delete', [UserController::class, 'destroy'])->name('user.destroy');
+    });
+    //Review
+    Route::prefix('review')->group(function () {
+        Route::get('/', [DashboardController::class, 'manager_review'])->name('review.list');
+        Route::get('/get', [ProductController::class, 'getReviewsAll'])->name('review.index');
     });
 });
 
