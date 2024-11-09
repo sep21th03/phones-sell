@@ -67,7 +67,7 @@ Chi tiết sản phẩm
                 <h4 class="mb-3">Tên sản phẩm</h4><input class="form-control mb-5" type="text" value="{{ $product->title }}" name="edit_title" />
                 <div class="mb-6">
                     <h4 class="mb-3">Giới thiệu sản phẩm</h4>
-                    <textarea id="editor2" class="tinymce" name="edit_info">{{ $product->info }}</textarea>
+                    <div id="editor2" class="tinymce" name="edit_info">{{ $product->info }}</div>
                 </div>
                 <h4 class="mb-3">Thông số</h4>
                 <div class="row g-0 border-top border-bottom mb-5">
@@ -193,9 +193,7 @@ Chi tiết sản phẩm
                     </div>
                 </div>
                 <h4 class="mb-3">Mô tả sản phẩm</h4>
-                <div class="row g-0 border-top border-bottom">
-                    <textarea id="editor1" name="edit_description">{{ $product->description }}</textarea>
-                </div>
+                    <div id="editor1" name="edit_description">{{ $product->description }}</div>
             </div>
             <div class="col-12 col-xl-4">
                 <div class="row g-2">

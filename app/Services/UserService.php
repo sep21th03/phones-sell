@@ -135,6 +135,6 @@ class UserService extends BaseService
     }
     public function getUserId()
     {
-        return response()->json(['user_id' => auth()->id()]);
+        return response()->json(['user_id' => Auth::user()->id]);
     }
 }

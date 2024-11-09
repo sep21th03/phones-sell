@@ -16,6 +16,7 @@ class CartService extends BaseService
         return $cart->map(function ($cart) {
             return [
                 'id' => $cart->id,
+                'product_id' => $cart->productVariant->product_id,
                 'product_variant_id' => $cart->product_variant_id,
                 'product' => $cart->productVariant->product->title . ' Màu ' . $cart->productVariant->color,
                 'quantity' => $cart->quantity,

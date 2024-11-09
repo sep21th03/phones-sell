@@ -1,12 +1,37 @@
-<script>
+<script type="module">
+     import CustomEditor from '{{ asset("vendors/ckeditor5.js") }}';
     $(document).ready(function() {
+        let editor3Instance, editor4Instance;
+        const customEditor = new CustomEditor();
+
+        // Khởi tạo editor cho một form cụ thể
+        async function initializeEditors() {
+            const uploadUrl = '{{ route("upload.image") }}';
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Khởi tạo editor1 nếu element tồn tại
+            const editor3Element = document.querySelector('#editor3');
+            if (editor3Element) {
+                editor3Instance = await customEditor.initEditor('#editor3', uploadUrl, csrfToken);
+            }
+
+            // Khởi tạo editor2 nếu element tồn tại
+            const editor4Element = document.querySelector('#editor4');
+            if (editor4Element) {
+                editor4Instance = await customEditor.initEditor('#editor4', uploadUrl, csrfToken);
+            }
+        }
+
+        // Khởi tạo các editor
+        initializeEditors();
+
 
         $("#addProduct").click(function() {
             let formValues = {
                 id: $("input[name='add_id']").val(),
                 title: $("input[name='add_title']").val(),
-                info: CKEDITOR.instances.editor4.getData(),
-                description: CKEDITOR.instances.editor3.getData(),
+                info: editor4Instance.getData(),
+                description: editor3Instance.getData(),
                 category_id: $("select[name='add_category']").val(),
                 discount: $("input[name='add_discount']").val(),
                 specifications_id: $("input[name='add_specifications_id']").val(),
@@ -81,20 +106,6 @@
     })
 
 
-    CKEDITOR.replace('editor3', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 400
-    });
-    CKEDITOR.replace('editor4', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 200
-    });
     document.addEventListener('DOMContentLoaded', () => {
         const pickr = Pickr.create({
             el: '#colorPicker',

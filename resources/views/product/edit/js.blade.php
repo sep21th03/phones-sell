@@ -1,9 +1,36 @@
-<script>
+<script type="module">
+    import CustomEditor from '{{ asset("vendors/ckeditor5.js") }}';
     $(document).ready(function() {
+        let editor1Instance, editor2Instance;
+        const customEditor = new CustomEditor();
+
+        // Khởi tạo editor cho một form cụ thể
+        async function initializeEditors() {
+            const uploadUrl = '{{ route("upload.image") }}';
+            const csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Khởi tạo editor1 nếu element tồn tại
+            const editor1Element = document.querySelector('#editor1');
+            if (editor1Element) {
+                editor1Instance = await customEditor.initEditor('#editor1', uploadUrl, csrfToken);
+            }
+
+            // Khởi tạo editor2 nếu element tồn tại
+            const editor2Element = document.querySelector('#editor2');
+            if (editor2Element) {
+                editor2Instance = await customEditor.initEditor('#editor2', uploadUrl, csrfToken);
+            }
+        }
+
+        // Khởi tạo các editor
+        initializeEditors();
+
+
+
         $("#reloadDetalProduct").click(function() {
             location.reload();
         });
-        
+
         $("#addProduct").click(function() {
             window.location.href = "{{ route('product.add') }}"
         });
@@ -13,8 +40,8 @@
             let formValues = {
                 id: $("input[name='edit_id']").val(),
                 title: $("input[name='edit_title']").val(),
-                info: $("textarea[name='edit_info']").val(),
-                description: $("textarea[name='edit_description']").val(),
+                info: editor2Instance.getData(),
+                description: editor1Instance.getData(),
                 category_id: $("select[name='edit_category']").val(),
                 discount: $("input[name='edit_discount']").val(),
                 specifications_id: $("input[name='edit_specifications_id']").val(),
@@ -138,22 +165,6 @@
         });
     }
 
-
-    CKEDITOR.replace('editor1', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 400
-    });
-    CKEDITOR.replace('editor2', {
-        extraPlugins: 'uploadimage',
-        filebrowserUploadUrl: "{{ route('ckeditor.upload') }}",
-        filebrowserUploadMethod: 'form',
-        width: '100%',
-        height: 200
-    });
-
     document.addEventListener('DOMContentLoaded', () => {
         const pickr = Pickr.create({
             el: '#colorPicker',
@@ -162,7 +173,6 @@
                 '#FF0000',
                 '#00FF00',
                 '#0000FF',
-                // Bạn có thể thêm nhiều màu ở đây
             ],
             components: {
                 preview: true,
@@ -179,7 +189,6 @@
             }
         });
 
-        // Cập nhật giá trị input khi chọn màu
         pickr.on('change', (color, instance) => {
             const rgbaColor = color.toRGBA().toString();
             const hexColor = color.toHEXA().toString();

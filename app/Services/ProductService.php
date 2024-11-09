@@ -229,6 +229,7 @@ class ProductService
     {
         $product = Product::findOrFail($id);
         if ($product) {
+            ProductReview::where('product_id', $id)->delete();
             $product->delete();
             return true;
         }
@@ -323,7 +324,25 @@ class ProductService
 
     public function deleteProducts(array $ids)
     {
-        return DB::table('products')->whereIn('id', $ids)->delete();
+        try {
+            DB::beginTransaction();
+
+            $products = Product::whereIn('id', $ids)->get();
+
+            foreach ($products as $product) {
+                $product->reviews()->delete();
+                $product->delete();
+            }
+
+            DB::commit();
+            return true;
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            \Log::error('Error deleting products: ' . $e->getMessage());
+            return false;
+        }
+    
     }
 
     public function getProductsByCategory($categoryName)

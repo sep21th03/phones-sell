@@ -67,7 +67,7 @@ Thêm sản phẩm
                 <h4 class="mb-3">Tên sản phẩm</h4><input class="form-control mb-5" type="text" name="add_title" />
                 <div class="mb-6">
                     <h4 class="mb-3">Giới thiệu sản phẩm</h4>
-                    <textarea id="editor4" class="tinymce" name="add_info"></textarea>
+                    <div id="editor4" class="tinymce" name="add_info"></div>
                 </div>
                 <h4 class="mb-3">Thông số</h4>
                 <div class="row g-0 border-top border-bottom mb-5">
@@ -193,9 +193,7 @@ Thêm sản phẩm
                     </div>
                 </div>
                 <h4 class="mb-3">Mô tả sản phẩm</h4>
-                <div class="row g-0 border-top border-bottom">
-                    <textarea id="editor3" name="add_description"></textarea>
-                </div>
+                <div id="editor3" name="add_description"></div>
             </div>
             <div class="col-12 col-xl-4">
                 <div class="row g-2">
@@ -271,6 +269,6 @@ Thêm sản phẩm
 </div>
 @endsection
 @section('script')
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
-    @include('product.create.js')
+<script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr"></script>
+@include('product.create.js')
 @endsection

@@ -5,7 +5,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\CKEditorController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OrderController;
@@ -86,4 +86,4 @@ Route::prefix('order')->namespace('App\Http\Controllers')->group(function () {
 
 Route::middleware('auth:sanctum')->get('/check-session', [Controller::class, 'checkSession']);
 
-Route::get('/ckeditor/upload', [CKEditorController::class, 'upload'])->name('ckeditor.upload');
+Route::post('upload-image', [UploadController::class, 'uploadImage'])->name('upload.image');

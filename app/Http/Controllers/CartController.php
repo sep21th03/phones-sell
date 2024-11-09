@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Cart\UpdateCartRequest;
 use App\Services\CartService;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Cart;
 class CartController extends Controller
 {
     /**

@@ -21,6 +21,8 @@ use App\Http\Controllers\Controller;
 
 Route::post('/user/login', [AuthController::class, 'login']);
 Route::post('/user/register', [AuthController::class, 'register']);
+Route::get('login/google', [AuthController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 

@@ -140,7 +140,7 @@ Dashboard
               <td class="fs-9 align-middle ps-0">
                 <div class="form-check mb-0 fs-8">
                   <input class="form-check-input" type="checkbox" data-bulk-select-row='{
-                    "product":"{{ $index->product->title }}",
+                    "product":"{{ $index->product->title ?? '' }}",
                     "productImage":"{{ $index->product->variants[0]->images[0]->image_url ?? '' }}",
                     "customer":{"name":"{{ $index->user->name }}", "avatar":"{{ $index->user->avt_url ?? '' }}"},
                     "rating":{{ $index->rating }},
@@ -151,14 +151,10 @@ Dashboard
                 </div>
               </td>
 
-              <!-- <td class="align-middle product white-space-nowrap py-0">
-                <a class="d-block rounded-2 border border-translucent" href="/product-detail.html?id={{ $index->product->id }}">
-                  <img src="{{ url($index->product->variants[0]->images[0]->image_url ?? 'assets/img/default-product.png') }}" alt="" width="53" />
-                </a>
-              </td> -->
+
 
               <td class="align-middle product white-space-nowrap">
-                <a class="fw-semibold" href="/product-detail.html?id={{ $index->product->id }}">{{ Str::limit($index->product->title, 40) }}</a>
+                <a class="fw-semibold" href="/product-detail.html?id={{ $index->product->id ?? '' }}">{{ Str::limit($index->product->title ?? '', 40) }}</a>
               </td>
 
               <td class="align-middle customer white-space-nowrap">
@@ -359,7 +355,7 @@ Dashboard
         right: '0',
         bottom: '0',
         top: '0',
-        containLabel: false 
+        containLabel: false
       }
     };
 
@@ -370,7 +366,7 @@ Dashboard
 
 
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', function() {
     var chartDom = document.getElementById('echarts-orders');
     var myChart = echarts.init(chartDom);
 
@@ -382,88 +378,87 @@ Dashboard
     var currentMonthData = Object.values(currentMonthOrders);
     var previousMonthData = Object.values(previousMonthOrders);
 
-    while (previousMonthData.length < currentMonthData.length) {
-        previousMonthData.push(null);
+    while (previousMonthData.length <script currentMonthData.length) {
+      previousMonthData.push(null);
     }
 
     var option = {
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
-                }
-            }
+      tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+          type: 'cross',
+          label: {
+            backgroundColor: '#6a7985'
+          }
+        }
+      },
+      legend: {
+        data: ['Tháng này', 'Tháng trước']
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: {
+        type: 'category',
+        boundaryGap: false,
+        data: days,
+        name: 'Ngày trong tháng',
+        nameLocation: 'middle',
+        nameGap: 30,
+        show: false
+      },
+      yAxis: {
+        type: 'value',
+        name: 'Số đơn hàng',
+        nameLocation: 'middle',
+        nameGap: 40,
+        show: false
+      },
+      series: [{
+          name: 'Tháng này',
+          type: 'line',
+          data: currentMonthData,
+          smooth: true,
+          symbol: 'none',
+          itemStyle: {
+            color: 'blue'
+          },
+          lineStyle: {
+            width: 2
+          },
+          areaStyle: {
+            opacity: 0.1
+          }
         },
-        legend: {
-            data: ['Tháng này', 'Tháng trước']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: days,
-            name: 'Ngày trong tháng',
-            nameLocation: 'middle',
-            nameGap: 30,
-            show: false
-        },
-        yAxis: {
-            type: 'value',
-            name: 'Số đơn hàng',
-            nameLocation: 'middle',
-            nameGap: 40,
-            show: false
-        },
-        series: [
-            {
-                name: 'Tháng này',
-                type: 'line',
-                data: currentMonthData,
-                smooth: true,
-                symbol: 'none',
-                itemStyle: {
-                    color: 'blue'
-                },
-                lineStyle: {
-                    width: 2
-                },
-                areaStyle: {
-                    opacity: 0.1
-                }
-            },
-            {
-                name: 'Tháng trước',
-                type: 'line',
-                data: previousMonthData,
-                smooth: true,
-                symbol: 'none',
-                itemStyle: {
-                    color: 'lightblue'
-                },
-                lineStyle: {
-                    width: 2,
-                    type: 'dashed'
-                },
-                areaStyle: {
-                    opacity: 0.1
-                }
-            }
-        ]
+        {
+          name: 'Tháng trước',
+          type: 'line',
+          data: previousMonthData,
+          smooth: true,
+          symbol: 'none',
+          itemStyle: {
+            color: 'lightblue'
+          },
+          lineStyle: {
+            width: 2,
+            type: 'dashed'
+          },
+          areaStyle: {
+            opacity: 0.1
+          }
+        }
+      ]
     };
 
     myChart.setOption(option);
 
     // Optional: Make the chart responsive
     window.addEventListener('resize', function() {
-        myChart.resize();
+      myChart.resize();
     });
-});
+  });
 </script>
 @endsection
