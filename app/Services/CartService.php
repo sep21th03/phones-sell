@@ -22,6 +22,7 @@ class CartService extends BaseService
                 'quantity' => $cart->quantity,
                 'current_price' => $cart->productVariant->price,
                 'price' => $cart->productVariant->price * (1 - $cart->productVariant->product->discount / 100),
+                'discount' => $cart->productVariant->product->discount,
                 'variant_images' => $cart->productVariant->images->first()->image_url,
                 'totalAmount' => $cart->productVariant->price * (1 - $cart->productVariant->product->discount / 100) * $cart->quantity
             ];

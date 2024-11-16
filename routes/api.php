@@ -19,10 +19,11 @@ use App\Http\Controllers\Controller;
 |
 */
 
-Route::post('/user/login', [AuthController::class, 'login']);
-Route::post('/user/register', [AuthController::class, 'register']);
-Route::get('login/google', [AuthController::class, 'redirectToGoogle']);
-Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
+
+Route::get('login/google', [AuthController::class, 'redirectToGoogle'])
+    ->name('login.google');
+Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback'])
+    ->name('login.google.callback');
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 
@@ -42,6 +43,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user', [UserController::class, 'getUsers']);
 });
 
+Route::post('send-reset-link', [AuthController::class, 'sendResetLinkEmail']);
+Route::post('reset-password', [AuthController::class, 'resetPassword']);
 
 Route::get('category', [CategoryController::class, 'index']);
 Route::get('product-list', [ProductController::class, 'index']);

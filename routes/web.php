@@ -87,3 +87,9 @@ Route::prefix('order')->namespace('App\Http\Controllers')->group(function () {
 Route::middleware('auth:sanctum')->get('/check-session', [Controller::class, 'checkSession']);
 
 Route::post('upload-image', [UploadController::class, 'uploadImage'])->name('upload.image');
+
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+include 'auth.php';

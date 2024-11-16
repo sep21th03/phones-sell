@@ -10,6 +10,10 @@ use App\Models\User;
 use Laravel\Sanctum\PersonalAccessToken;
 use Laravel\Sanctum\TransientToken;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use App\Http\Requests\Api\Auth\ChangePasswordRequest;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -166,26 +170,102 @@ class AuthController extends Controller
 
     public function redirectToGoogle()
     {
-        return Socialite::driver('google')->redirect();
+        try {
+            return Socialite::driver('google')
+                ->redirect();
+        } catch (\Exception $e) {
+            return redirect()->route('login')
+                ->with('error', 'Không thể kết nối với Google. Vui lòng thử lại sau.');
+        }
     }
+
+
 
     public function handleGoogleCallback()
     {
-        $googleUser = Socialite::driver('google')->user();
+        try {
+            $googleUser = Socialite::driver('google')->user();
 
-        $user = User::where('email', $googleUser->getEmail())->first();
+            $user = User::updateOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
+                    'name' => $googleUser->getName(),
+                    'google_id' => $googleUser->getId(),
+                    'avatar' => $googleUser->getAvatar(),
+                ]
+            );
 
-        if (!$user) {
-            $user = User::create([
-                'name' => $googleUser->getName(),
-                'email' => $googleUser->getEmail(),
-                'google_id' => $googleUser->getId(),
-                'avatar' => $googleUser->getAvatar(),
-            ]);
+            if (!$user->google_id) {
+                $user->google_id = $googleUser->getId();
+                $user->save();
+            }
+
+            // Đăng nhập user
+            Auth::login($user, true);
+
+            return redirect()->intended('/dashboard')
+                ->with('success', 'Đăng nhập thành công!');
+        } catch (\Exception $e) {
+            return redirect()->route('login')
+                ->with('error', 'Đã có lỗi xảy ra trong quá trình đăng nhập. Vui lòng thử lại.');
         }
+    }
 
-        Auth::login($user, true);
 
-        return redirect()->to('/');
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $data = $request->validated();
+        $user = Auth::user();
+        if (!Hash::check($data['current_password'], $user->password)) {
+            return jsonResponse(2, message: "Mật khẩu cũ không chính xác.");
+        }
+        $user->update(['password' => Hash::make($data['password'])]);
+        if ($user) {
+            $user->tokens()->delete();
+            return jsonResponse(0, message: "Thay đổi mật khẩu thành công.");
+        } else {
+            return jsonResponse(2, message: "Có lỗi xảy ra, vui lòng thử lại sau.");
+        }
+    }
+    function sendResetLinkEmail(Request $request)
+    {
+        $data = $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $user = User::where('email', $data['email'])->first();
+        if (!$user) {
+            return jsonResponse(1, message: "Không tìm thấy người dùng");
+        }
+        $status = Password::sendResetLink([
+            'email' => $user->email,
+        ]);
+        \Log::info($status);
+
+        if ($status == Password::RESET_LINK_SENT) {
+            return jsonResponse(0, message: "Yêu cầu đã được gửi");
+        }
+    }
+    function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required|min:6',
+            'token' => 'required',
+            "password_confirmation" => 'required|min:6',
+        ]);
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password)
+                ])->setRememberToken(Str::random(60));
+
+                $user->save();
+
+                event(new PasswordReset($user));
+            }
+        );
+        return jsonResponse($status === Password::PASSWORD_RESET ? 0 : 1, $status);
     }
 }
