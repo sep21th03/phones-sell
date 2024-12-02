@@ -44,7 +44,7 @@
   <script src="{{ url('assets/js/config.js') }}"></script>
   <link href="{{ url('vendors/simplebar/simplebar.min.css') }}" rel="stylesheet">
   <link href="{{ url('assets/css/theme-rtl.css') }}" type="text/css" rel="stylesheet" id="style-rtl">
-  <link href="{{ url('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
+  <link href="{{ url('assets/css/theme.css') }}" type="text/css" rel="stylesheet" id="style-default">
   <link href="{{ url('assets/css/user-rtl.min.css') }}" type="text/css" rel="stylesheet" id="user-style-rtl">
   <link href="{{ url('assets/css/user.min.css') }}" type="text/css" rel="stylesheet" id="user-style-default">
   <script>

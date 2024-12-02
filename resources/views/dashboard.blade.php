@@ -3,15 +3,22 @@
 Dashboard
 @endsection
 @section('content')
+<style>
+    @media (max-width: 767px) {
+        .mbs-title-statistic {
+            text-align: center;
+        }
+    }
+</style>
 <div class="content">
   <div class="pb-5">
     <div class="row g-4">
       <div class="col-12 col-xxl-12">
         <div class="mb-8">
-          <h2 class="mb-2">Dashboard</h2>
+          <h3 class="mb-2 mbs-title-statistic" class="font-size: 1.5625rem;">Thống kê nhanh</h3>
         </div>
         <div class="row align-items-center g-4">
-          <div class="col-12 col-md-auto">
+          <div class="col-12 col-md-4">
             <div class="d-flex align-items-center"><span class="fa-stack" style="min-height: 46px;min-width: 46px;"><span class="fa-solid fa-square fa-stack-2x dark__text-opacity-50 text-success-light" data-fa-transform="down-4 rotate--10 left-4"></span><span class="fa-solid fa-circle fa-stack-2x stack-circle text-stats-circle-success" data-fa-transform="up-4 right-3 grow-2"></span><span class="fa-stack-1x fa-solid fa-star text-success " data-fa-transform="shrink-2 up-8 right-6"></span></span>
               <div class="ms-3">
                 <h4 class="mb-0">{{ $successOrder }} Đơn hàng</h4>
@@ -19,7 +26,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-auto">
+          <div class="col-12 col-md-4">
             <div class="d-flex align-items-center"><span class="fa-stack" style="min-height: 46px;min-width: 46px;"><span class="fa-solid fa-square fa-stack-2x dark__text-opacity-50 text-warning-light" data-fa-transform="down-4 rotate--10 left-4"></span><span class="fa-solid fa-circle fa-stack-2x stack-circle text-stats-circle-warning" data-fa-transform="up-4 right-3 grow-2"></span><span class="fa-stack-1x fa-solid fa-pause text-warning " data-fa-transform="shrink-2 up-8 right-6"></span></span>
               <div class="ms-3">
                 <h4 class="mb-0">{{ $waitingOrder }} Đơn hàng</h4>
@@ -27,7 +34,7 @@ Dashboard
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-auto">
+          <div class="col-12 col-md-4">
             <div class="d-flex align-items-center"><span class="fa-stack" style="min-height: 46px;min-width: 46px;"><span class="fa-solid fa-square fa-stack-2x dark__text-opacity-50 text-danger-light" data-fa-transform="down-4 rotate--10 left-4"></span><span class="fa-solid fa-circle fa-stack-2x stack-circle text-stats-circle-danger" data-fa-transform="up-4 right-3 grow-2"></span><span class="fa-stack-1x fa-solid fa-xmark text-danger " data-fa-transform="shrink-2 up-8 right-6"></span></span>
               <div class="ms-3">
                 <h4 class="mb-0">{{ $outOfStockProducts }} Sản phẩm</h4>
@@ -39,7 +46,7 @@ Dashboard
         <hr class="bg-body-secondary mb-6 mt-4" />
         <div class="row flex-between-center mb-4 g-3">
           <div class="col-auto">
-            <h3>Tông số sản phẩm đã bán</h3>
+            <h3>Tổng số sản phẩm đã bán</h3>
           </div>
         </div>
         <div id="echarts-orders" style="min-height:320px;width:100%"></div>

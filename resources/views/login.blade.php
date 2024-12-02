@@ -3,6 +3,15 @@
 Đăng nhập
 @endsection
 @section('content')
+\
+<style>
+    @media (max-width: 767px) {
+    .mbs-banner {
+        opacity: 0;
+        display: none;
+    }
+}
+</style>
 <main class="main" id="top">
       <div class="container-fluid bg-body-tertiary dark__bg-gray-1200">
           <div class="bg-holder bg-auth-card-overlay" style="background-image:url(../../../assets/img/bg/37.png);"></div>
@@ -12,12 +21,10 @@
                   <div class="card border border-translucent auth-card">
                       <div class="card-body pe-md-0">
                           <div class="row align-items-center gx-0 gy-7">
-                              <div class="col-auto bg-body-highlight dark__bg-gray-1100 rounded-3 position-relative overflow-hidden auth-title-box">
+                              <div class="mbs-banner col-auto bg-body-highlight dark__bg-gray-1100 rounded-3 position-relative overflow-hidden auth-title-box">
                                   <div class="bg-holder" style="background-image:url(../../../assets/img/bg/38.png);"></div>
                                   <!--/.bg-holder-->
                                   <div class="position-relative px-4 px-lg-7 pt-7 pb-7 pb-sm-5 text-center text-md-start pb-lg-7 pb-md-7">
-                                      <h3 class="mb-3 text-body-emphasis fs-7">Phoenix Authentication</h3>
-                                      <p class="text-body-tertiary">Give yourself some hassle-free development process with the uniqueness of Phoenix!</p>
                                       <ul class="list-unstyled mb-0 w-max-content w-md-auto">
                                           <li class="d-flex align-items-center"><span class="uil uil-check-circle text-success me-2"></span><span class="text-body-tertiary fw-semibold">Fast</span></li>
                                           <li class="d-flex align-items-center"><span class="uil uil-check-circle text-success me-2"></span><span class="text-body-tertiary fw-semibold">Simple</span></li>
@@ -29,7 +36,7 @@
                               <div class="col mx-auto">
                                   <div class="auth-form-box">
                                       <div class="text-center mb-7"><a class="d-flex flex-center text-decoration-none mb-4" href="{{ route('auth.login') }}">
-                                              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="{{ url('assets/img/icons/logo.png') }}" alt="phoenix" width="58" /></div>
+                                              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="{{ url('assets/img/icons/logo.jpg') }}" alt="phoenix" width="250" /></div>
                                           </a>
                                           <h3 class="text-body-highlight">Đăng nhập</h3>
                                       </div>

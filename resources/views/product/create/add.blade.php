@@ -43,13 +43,7 @@ Thêm sản phẩm
     }
 </style>
 <div class="content">
-    <nav class="mb-3" aria-label="breadcrumb">
-        <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><a href="#!">Page 1</a></li>
-            <li class="breadcrumb-item"><a href="#!">Page 2</a></li>
-            <li class="breadcrumb-item active">Default</li>
-        </ol>
-    </nav>
+   
     <form class="mb-9">
         <input class="form-control mb-5" type="text" name="add_id" hidden />
         <div class="row g-3 flex-between-end mb-5">
