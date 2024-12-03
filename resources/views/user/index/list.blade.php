@@ -4,7 +4,7 @@ Danh sách người dùng
 @endsection
 @section('content')
 <style>
-    
+
   #list_user th,
   #list_user td {
     font-size: 1rem;
@@ -59,11 +59,11 @@ Danh sách người dùng
     <div class="mb-9">
         <div class="row g-2 mb-4">
             <div class="col-auto">
-                <h2 class="mb-0">Người dùng</h2>
+                <h2 class="mb-0">Users</h2>
             </div>
         </div>
         <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>Tất cả</span><span class="text-body-tertiary fw-semibold">({{ $total_users }})</span></a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>All</span><span class="text-body-tertiary fw-semibold">({{ $total_users }})</span></a></li>
         </ul>
         <div id="users" data-list='{"valueNames":["customer","email","total-orders","total-spent","city","last-seen","last-order"],"page":10,"pagination":true}'>
             <div class="mb-4">
@@ -84,7 +84,7 @@ Danh sách người dùng
                             <tr>
                                 <th class="fs-8 align-middle text-center ps-0" style="width: 15%;">Tên người dùng</th>
                                 <th class="fs-8 align-middle text-start" style="width: 15%;">Email</th>
-                                <th class="fs-8 align-middle text-start pe-0" style="width: 15%;">Số điện thoại</th>
+                                <th class="fs-8 align-middle text-start pe-0" style="width: 15%;">Phone number</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 10%;">Role</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Created_at</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Updated_at</th>

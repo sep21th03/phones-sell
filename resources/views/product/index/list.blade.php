@@ -4,7 +4,7 @@ Danh sách sản phẩm
 @endsection
 @section('content')
 <style>
-    
+
     #list_product th,
   #list_product td {
     font-size: 1rem;
@@ -63,14 +63,11 @@ Danh sách sản phẩm
   <div class="mb-9">
     <div class="row g-3 mb-4">
       <div class="col-auto">
-        <h2 class="mb-0">Sản phẩm</h2>
+        <h2 class="mb-0">Products</h2>
       </div>
     </div>
     <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
-      <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>Tất cả</span><span class="text-body-tertiary fw-semibold">({{ $total_products }})</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#"><span>Published </span><span class="text-body-tertiary fw-semibold">(70348)</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#"><span>Drafts </span><span class="text-body-tertiary fw-semibold">(17)</span></a></li>
-      <li class="nav-item"><a class="nav-link" href="#"><span>On discount </span><span class="text-body-tertiary fw-semibold">(810)</span></a></li>
+      <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>All</span><span class="text-body-tertiary fw-semibold">({{ $total_products }})</span></a></li>
     </ul>
     <div id="products">
       <div class="mb-4">
