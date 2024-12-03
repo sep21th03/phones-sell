@@ -18,9 +18,10 @@
         gap: 10px;
     }
 
-    .nav-link-text::hover * {
+    .nav-item:hover * {
         color: red;
     }
+
 
     @media (min-width: 992px) {
         .navbar-logo {
@@ -28,6 +29,8 @@
         }
     }
 </style>
+
+
 <main class="main" id="top">
     <nav class="navbar navbar-vertical navbar-expand-lg" style="display:none;">
         <div class="collapse navbar-collapse" id="navbarVerticalCollapse">

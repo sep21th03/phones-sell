@@ -63,7 +63,7 @@ Danh sách người dùng
             </div>
         </div>
         <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
-            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>All</span><span class="text-body-tertiary fw-semibold">({{ $total_users }})</span></a></li>
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>Number of users: </span><span class="text-body-tertiary fw-semibold">{{ $total_users }}</span></a></li>
         </ul>
         <div id="users" data-list='{"valueNames":["customer","email","total-orders","total-spent","city","last-seen","last-order"],"page":10,"pagination":true}'>
             <div class="mb-4">
@@ -79,15 +79,15 @@ Danh sách người dùng
             </div>
             <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
                 <div class="table-responsive scrollbar-overlay mx-n1 px-1">
-                    <table id="list_user" class="table table-sm fs-9 mb-0">
+                    <table id="list_user" class="table fs-9 mb-0">
                         <thead>
                             <tr>
-                                <th class="fs-8 align-middle text-center ps-0" style="width: 15%;">Tên người dùng</th>
+                                <th class="fs-8 align-middle text-start ps-0" style="width: 15%;">User name</th>
                                 <th class="fs-8 align-middle text-start" style="width: 15%;">Email</th>
                                 <th class="fs-8 align-middle text-start pe-0" style="width: 15%;">Phone number</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 10%;">Role</th>
-                                <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Created_at</th>
-                                <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Updated_at</th>
+                                <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Created at</th>
+                                <th class="fs-8 align-middle text-center pe-0" style="width: 15%;">Updated at</th>
                                 <th class="fs-8 align-middle text-center pe-0" style="width: 5%;"></th>
                             </tr>
                         </thead>
