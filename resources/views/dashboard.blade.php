@@ -445,7 +445,7 @@ Dashboard
         var currentMonthData = Object.values(currentMonthOrders);
         var previousMonthData = Object.values(previousMonthOrders);
 
-        while (previousMonthData.length < script currentMonthData.length) {
+        while (previousMonthData.length < currentMonthData.length) {
         previousMonthData.push(null);
     }
 
