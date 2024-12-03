@@ -17,6 +17,11 @@ Dashboard
         padding: 8px;
         border-radius: 3px;
         margin: 20px 0px;
+        display: flex;
+        align-items: center;
+    }
+    .mbs-view-all:hover {
+        text-decoration: none;
     }
 </style>
 <div class="content">
@@ -274,7 +279,7 @@ Dashboard
             <div class="d-flex justify-content-end fs-9">
                 <a class="mbs-view-all fw-semibold d-block" href="{{ route("review.list") }}" data-list-view="*">
                     Xem tất cả
-                    <span class="fas fa-angle-right ms-1" data-fa-transform="down-1">
+                    <span class="fas fa-angle-right" data-fa-transform="down-1">
                     </span>
                 </a>
 

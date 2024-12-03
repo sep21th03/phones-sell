@@ -21,6 +21,7 @@
     .nav-link-text::hover * {
         color: red;
     }
+
     @media (min-width: 992px) {
         .navbar-logo {
             padding-left: 50px;
@@ -35,6 +36,22 @@
                 <ul class="navbar-nav flex-column" id="navbarVerticalNav">
                     <div class="parent-wrapper">
                         <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-admin">
+
+                            <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
+                                    <div class="d-flex align-items-center"><span class="nav-link-text">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                fill="currentColor" class="bi bi-house" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293zM13 7.207V13.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V7.207l5-5z" />
+                                            </svg>
+                                            <span>
+                                                Home
+                                            </span>
+                                        </span>
+                                    </div>
+                                </a><!-- more inner pages-->
+                            </li>
+
                             <li class="nav-item"><a class="nav-link" href="{{ route("product.add") }}">
                                     <div class="d-flex align-items-center"><span class="nav-link-text">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -139,7 +156,7 @@
                         class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
                 <a class="navbar-brand me-1 me-sm-3" href="{{ route('dashboard') }}">
                     <div class="d-flex align-items-center">
-                        <h5 style="margin-top: .25rem;">Admin</h5>
+                        <h3 style="margin-top: .25rem;">Admin</h3>
                     </div>
             </div>
             </a>
@@ -365,7 +382,7 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end navbar-dropdown-caret py-0 dropdown-profile shadow border"
-                    aria-labelledby="navbarDropdownUser" style="left: auto; top: 4rem; height: 210px;">
+                    aria-labelledby="navbarDropdownUser" style="left: auto; top: 4rem; height: 190px;">
                     <div class="card position-relative border-0">
                         <div class="card-body p-0">
                             <div class="text-center pt-4 pb-3">

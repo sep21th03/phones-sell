@@ -34,7 +34,7 @@ Chi tiết đơn hàng
                                 <tr class="hover-actions-trigger btn-reveal-trigger position-static">
                                     <td class="align-middle text-center white-space-nowrap py-2">
                                         <a class="d-block border border-translucent rounded-2" href="{{ route('product.detail', ['id' => $item->productVariant->product->id]) }}">
-                                            <img src="{{ asset($item->productVariant->images->first()->image_url) }}" alt="{{ $item->productVariant->name }}" width="53" />
+                                        Product details
                                         </a>
                                     </td>
 

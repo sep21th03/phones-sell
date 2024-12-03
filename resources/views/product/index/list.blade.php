@@ -97,7 +97,7 @@ Danh sách sản phẩm
                 </th>
               </tr>
             </thead>
-            <tbody class="list text-center fs-8" id="products-table-body">
+            <tbody class="list text-start fs-8" id="products-table-body">
               <!-- Products -->
             </tbody>
           </table>
