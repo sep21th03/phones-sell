@@ -75,7 +75,7 @@ class GoogleController extends Controller
 
 
 
-                return redirect()->intended('admin');
+                return redirect()->intended('admin'); // here
             } else {
 
                 $newUser = User::create([
@@ -87,7 +87,7 @@ class GoogleController extends Controller
                     'google_id' => $user->id,
 
                     'avt_url' => $user->avatar,
-                    
+
                     'password' => encrypt('123456dummy')
 
                 ]);
@@ -98,7 +98,7 @@ class GoogleController extends Controller
 
 
 
-                return redirect()->intended('admin');
+                return redirect()->intended('admin');  // here
             }
         } catch (Exception $e) {
 
