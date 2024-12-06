@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\Controller;
 /*
 |--------------------------------------------------------------------------
@@ -20,10 +21,10 @@ use App\Http\Controllers\Controller;
 */
 
 
-Route::get('login/google', [AuthController::class, 'redirectToGoogle'])
-    ->name('login.google');
-Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback'])
-    ->name('login.google.callback');
+Route::middleware(['web'])->group(function () {
+    Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
+    Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+});
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout']);
 

@@ -39,7 +39,7 @@
                                         </a>
                                         <h3 class="text-body-highlight">Đăng nhập</h3>
                                     </div>
-                                    <a href="{{ route('login.google') }}" class="btn btn-phoenix-secondary w-100 mb-3">
+                                    <a href="{{ url('api/auth/google') }}" class="btn btn-phoenix-secondary w-100 mb-3">
                                         <span class="fab fa-google text-danger me-2 fs-9"></span>
                                         Đăng nhập bằng Google
                                     </a>

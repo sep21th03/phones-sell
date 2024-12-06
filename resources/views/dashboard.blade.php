@@ -20,6 +20,7 @@ Dashboard
         display: flex;
         align-items: center;
     }
+
     .mbs-view-all:hover {
         text-decoration: none;
     }
@@ -97,14 +98,14 @@ Dashboard
                                                 class="badge badge-phoenix badge-phoenix-warning rounded-pill fs-9 ms-2"><span
                                                     class="badge-label">
                                                     @if ($getOrderLast['orderChangePercentage'] > 0)
-                                                        +{{ $getOrderLast['orderChangePercentage'] }}%
+                                                    +{{ $getOrderLast['orderChangePercentage'] }}%
                                                     @elseif ($getOrderLast['orderChangePercentage'] < 0)
                                                         {{ $getOrderLast['orderChangePercentage'] }}%
-                                                    @else
+                                                        @else
                                                         0%
-                                                    @endif
-                                                </span>
-                                            </span></h5>
+                                                        @endif
+                                                        </span>
+                                                </span></h5>
                                         <h6 class="text-body-tertiary">Last 7 days</h6>
                                     </div>
                                     <h4>{{ $getOrderLast['totalOrders'] }}</h4>
@@ -139,13 +140,13 @@ Dashboard
                                                 class="badge badge-phoenix badge-phoenix-warning rounded-pill fs-9 ms-2">
                                                 <span class="badge-label">
                                                     @if ($getNewUsersComparison['percentageChange'] > 0)
-                                                        +{{ $getNewUsersComparison['percentageChange'] }}%
+                                                    +{{ $getNewUsersComparison['percentageChange'] }}%
                                                     @elseif ($getNewUsersComparison['percentageChange'] < 0)
                                                         {{ $getNewUsersComparison['percentageChange'] }}%
-                                                    @else
+                                                        @else
                                                         0%
-                                                    @endif
-                                                </span></span></h5>
+                                                        @endif
+                                                        </span></span></h5>
                                         <h6 class="text-body-tertiary">Last 7 days</h6>
                                     </div>
                                     <h4>{{ $getNewUsersComparison['currentWeekUsers'] }}</h4>
@@ -189,86 +190,93 @@ Dashboard
                     </thead>
                     <tbody class="list" id="table-latest-review-body">
                         @foreach ($getReviewsAll as $index)
-                            <tr class="hover-actions-trigger btn-reveal-trigger position-static">
-                                <td class="fs-9 align-middle ps-0">
-                                    <div class="form-check mb-0 fs-8">
-                                        <input class="form-check-input" type="checkbox" data-bulk-select-row='{
+                        <tr class="hover-actions-trigger btn-reveal-trigger position-static">
+                            <td class="fs-9 align-middle ps-0">
+                                <div class="form-check mb-0 fs-8">
+                                    <input class="form-check-input" type="checkbox" data-bulk-select-row='{
                                             "product":"{{ $index->product->title ?? '' }}",
                                             "productImage":"{{ $index->product->variants[0]->images[0]->image_url ?? '' }}",
-                                            "customer":{"name":"{{ $index->user->name }}", "avatar":"{{ $index->user->avt_url ?? '' }}"},
+                                            "customer":{"name":"{{ $index->user->name  ?? "Guest"}}", "avatar":"{{ $index->user->avt_url ?? '' }}"},
                                             "rating":{{ $index->rating }},
                                             "review":"{{ $index->comment }}",
                                             "status":{"title":"Approved","badge":"success","icon":"check"},
                                             "time":"{{ $index->created_at->diffForHumans() }}"
                                         }' />
-                                    </div>
-                                </td>
+                                </div>
+                            </td>
 
 
 
-                                <td class="align-middle product white-space-nowrap">
-                                    <a class="fw-semibold"
-                                        href="/product-detail.html?id={{ $index->product->id ?? '' }}">{{ Str::limit($index->product->title ?? '', 40) }}</a>
-                                </td>
+                            <td class="align-middle product white-space-nowrap">
+                                <a class="fw-semibold"
+                                    href="/product-detail.html?id={{ $index->product->id ?? '' }}">{{ Str::limit($index->product->title ?? '', 40) }}</a>
+                            </td>
 
-                                <td class="align-middle customer white-space-nowrap">
-                                    <a class="d-flex align-items-center text-body"
-                                        href="apps/e-commerce/landing/profile.html">
-                                        <div class="avatar avatar-l">
-                                            @if ($index->user->avt_url)
-                                                <img class="rounded-circle" src="{{ url($index->user->avt_url) }}"
-                                                    alt="User Avatar">
-                                            @else
-                                                <div class="avatar-name rounded-circle">
-                                                    <span>{{ strtoupper(substr($index->user->name, 0, 1)) }}</span>
-                                                </div>
-                                            @endif
+                            <td class="align-middle customer white-space-nowrap">
+                                <a class="d-flex align-items-center text-body"
+                                    href="apps/e-commerce/landing/profile.html">
+                                    <div class="avatar avatar-l">
+                                        @if ($index->user)
+                                        @if ($index->user->avt_url)
+                                        <img class="rounded-circle" src="{{ url($index->user->avt_url) }}" alt="User Avatar">
+                                        @else
+                                        <div class="avatar-name rounded-circle">
+                                            <span>{{ strtoupper(substr($index->user->name, 0, 1)) }}</span>
                                         </div>
-                                        <h6 class="mb-0 ms-3 text-body">{{ $index->user->name }}</h6>
-                                    </a>
-                                </td>
+                                        @endif
+                                        @else
+                                        <div class="avatar-name rounded-circle">
+                                            <span>?</span>
+                                        </div>
+                                        @endif
 
-                                <td class="align-middle rating white-space-nowrap fs-10">
-                                    @for ($i = 1; $i <= 5; $i++)
-                                        <span class="fa fa-star {{ $i <= $index->rating ? 'text-warning' : '' }}"></span>
+
+                                    </div>
+                                    <h6 class="mb-0 ms-3 text-body">{{ $index->user->name ?? '' }}</h6>
+                                </a>
+                            </td>
+
+                            <td class="align-middle rating white-space-nowrap fs-10">
+                                @for ($i = 1; $i <= 5; $i++)
+                                    <span class="fa fa-star {{ $i <= $index->rating ? 'text-warning' : '' }}"></span>
                                     @endfor
-                                </td>
+                            </td>
 
-                                <td class="align-middle review" style="min-width:350px;">
-                                    <p class="fs-9 fw-semibold text-body-highlight mb-0">{{ $index->comment }}</p>
-                                </td>
+                            <td class="align-middle review" style="min-width:350px;">
+                                <p class="fs-9 fw-semibold text-body-highlight mb-0">{{ $index->comment }}</p>
+                            </td>
 
-                                <td class="align-middle text-end time white-space-nowrap">
-                                    <div class="hover-hide">
-                                        <h6 class="text-body-highlight mb-0">{{ $index->created_at->diffForHumans() }}</h6>
-                                    </div>
-                                </td>
+                            <td class="align-middle text-end time white-space-nowrap">
+                                <div class="hover-hide">
+                                    <h6 class="text-body-highlight mb-0">{{ $index->created_at->diffForHumans() }}</h6>
+                                </div>
+                            </td>
 
-                                <td class="align-middle white-space-nowrap text-end pe-0">
-                                    <div class="position-relative">
-                                        <div class="hover-actions">
-                                            <button class="btn btn-sm btn-phoenix-secondary me-1 fs-10"><span
-                                                    class="fas fa-check"></span></button>
-                                            <button class="btn btn-sm btn-phoenix-secondary fs-10"><span
-                                                    class="fas fa-trash"></span></button>
-                                        </div>
+                            <td class="align-middle white-space-nowrap text-end pe-0">
+                                <div class="position-relative">
+                                    <div class="hover-actions">
+                                        <button class="btn btn-sm btn-phoenix-secondary me-1 fs-10"><span
+                                                class="fas fa-check"></span></button>
+                                        <button class="btn btn-sm btn-phoenix-secondary fs-10"><span
+                                                class="fas fa-trash"></span></button>
                                     </div>
-                                    <div class="btn-reveal-trigger position-static">
-                                        <button
-                                            class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10"
-                                            type="button" data-bs-toggle="dropdown" data-boundary="window"
-                                            aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
-                                            <span class="fas fa-ellipsis-h fs-10"></span>
-                                        </button>
-                                        <div class="dropdown-menu dropdown-menu-end py-2">
-                                            <a class="dropdown-item" href="#!">View</a>
-                                            <a class="dropdown-item" href="#!">Export</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item text-danger" href="#!">Remove</a>
-                                        </div>
+                                </div>
+                                <div class="btn-reveal-trigger position-static">
+                                    <button
+                                        class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10"
+                                        type="button" data-bs-toggle="dropdown" data-boundary="window"
+                                        aria-haspopup="true" aria-expanded="false" data-bs-reference="parent">
+                                        <span class="fas fa-ellipsis-h fs-10"></span>
+                                    </button>
+                                    <div class="dropdown-menu dropdown-menu-end py-2">
+                                        <a class="dropdown-item" href="#!">View</a>
+                                        <a class="dropdown-item" href="#!">Export</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item text-danger" href="#!">Remove</a>
                                     </div>
-                                </td>
-                            </tr>
+                                </div>
+                            </td>
+                        </tr>
                         @endforeach
 
                     </tbody>
@@ -371,7 +379,7 @@ Dashboard
 
     myChart.setOption(option);
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var chartDom = document.getElementById('echarts-new-customers');
         const userData = @json($getNewUsersComparison);
         var myChart = echarts.init(chartDom);
@@ -433,7 +441,7 @@ Dashboard
 
 
 
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         var chartDom = document.getElementById('echarts-orders');
         var myChart = echarts.init(chartDom);
 
@@ -446,86 +454,86 @@ Dashboard
         var previousMonthData = Object.values(previousMonthOrders);
 
         while (previousMonthData.length < currentMonthData.length) {
-        previousMonthData.push(null);
-    }
-
-    var option = {
-        tooltip: {
-            trigger: 'axis',
-            axisPointer: {
-                type: 'cross',
-                label: {
-                    backgroundColor: '#6a7985'
-                }
-            }
-        },
-        legend: {
-            data: ['Tháng này', 'Tháng trước']
-        },
-        grid: {
-            left: '3%',
-            right: '4%',
-            bottom: '3%',
-            containLabel: true
-        },
-        xAxis: {
-            type: 'category',
-            boundaryGap: false,
-            data: days,
-            name: 'Ngày trong tháng',
-            nameLocation: 'middle',
-            nameGap: 30,
-            show: false
-        },
-        yAxis: {
-            type: 'value',
-            name: 'Số đơn hàng',
-            nameLocation: 'middle',
-            nameGap: 40,
-            show: false
-        },
-        series: [{
-            name: 'Tháng này',
-            type: 'line',
-            data: currentMonthData,
-            smooth: true,
-            symbol: 'none',
-            itemStyle: {
-                color: 'blue'
-            },
-            lineStyle: {
-                width: 2
-            },
-            areaStyle: {
-                opacity: 0.1
-            }
-        },
-        {
-            name: 'Tháng trước',
-            type: 'line',
-            data: previousMonthData,
-            smooth: true,
-            symbol: 'none',
-            itemStyle: {
-                color: 'lightblue'
-            },
-            lineStyle: {
-                width: 2,
-                type: 'dashed'
-            },
-            areaStyle: {
-                opacity: 0.1
-            }
+            previousMonthData.push(null);
         }
-        ]
-    };
 
-    myChart.setOption(option);
+        var option = {
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'cross',
+                    label: {
+                        backgroundColor: '#6a7985'
+                    }
+                }
+            },
+            legend: {
+                data: ['Tháng này', 'Tháng trước']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: days,
+                name: 'Ngày trong tháng',
+                nameLocation: 'middle',
+                nameGap: 30,
+                show: false
+            },
+            yAxis: {
+                type: 'value',
+                name: 'Số đơn hàng',
+                nameLocation: 'middle',
+                nameGap: 40,
+                show: false
+            },
+            series: [{
+                    name: 'Tháng này',
+                    type: 'line',
+                    data: currentMonthData,
+                    smooth: true,
+                    symbol: 'none',
+                    itemStyle: {
+                        color: 'blue'
+                    },
+                    lineStyle: {
+                        width: 2
+                    },
+                    areaStyle: {
+                        opacity: 0.1
+                    }
+                },
+                {
+                    name: 'Tháng trước',
+                    type: 'line',
+                    data: previousMonthData,
+                    smooth: true,
+                    symbol: 'none',
+                    itemStyle: {
+                        color: 'lightblue'
+                    },
+                    lineStyle: {
+                        width: 2,
+                        type: 'dashed'
+                    },
+                    areaStyle: {
+                        opacity: 0.1
+                    }
+                }
+            ]
+        };
 
-    // Optional: Make the chart responsive
-    window.addEventListener('resize', function () {
-        myChart.resize();
+        myChart.setOption(option);
+
+        // Optional: Make the chart responsive
+        window.addEventListener('resize', function() {
+            myChart.resize();
+        });
     });
-  });
 </script>
 @endsection
