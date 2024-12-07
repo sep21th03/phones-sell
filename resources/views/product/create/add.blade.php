@@ -43,7 +43,7 @@ Thêm sản phẩm
     }
 </style>
 <div class="content">
-   
+
     <form class="mb-9">
         <input class="form-control mb-5" type="text" name="add_id" hidden />
         <div class="row g-3 flex-between-end mb-5">
@@ -246,7 +246,7 @@ Thêm sản phẩm
                                 <div class="mt-3 mb-3">
                                     <label for="price" class="mb-2 text-body-highlight">Giá:</label>
                                     <input id="price" class="form-control mb-xl-3" name="add_price" type="text" />
-                                    <h4 class="mb-3">Ảnh sản phẩm</h4>
+                                    <h4 class="my-3">Ảnh sản phẩm</h4>
                                     <img id="product-image" src="" alt="" class="img-fluid mt-3" />
                                     <div id="drop-zone">
                                         <p>Kéo và thả nhiều ảnh vào đây hoặc click để chọn files</p>

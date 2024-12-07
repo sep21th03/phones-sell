@@ -9,17 +9,6 @@
                     $('#searchInput').on('input', function() {
                         api.search(this.value).draw();
                     });
-                    var lengthDiv = $('#list_product_length');
-                    lengthDiv.html(`
-                <label>Hiển thị
-                    <select name="list_product_length" aria-controls="list_product" class="form-select form-select-sm w-25">
-                        <option value="10">10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
-                    </select> 
-                sản phẩm / trang</label>
-            `);
                 },
                 ajax: {
                     url: " {{ route('product.index') }}",
@@ -79,7 +68,7 @@
                     {
                             data: "title",
                             render: function(data, type, row) {
-                                const productId = row.id; 
+                                const productId = row.id;
                                 return `<a class="float-start fw-semibold line-clamp-3 mb-0" href="{{ route('product.detail', '') }}/${productId}">${data}</a>`;
                             },
                     },
